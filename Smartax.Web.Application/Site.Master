@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Smartax.Web.Application.Site" %>
+
+<%@ Register Src="Controles/General/CtrlPie.ascx" TagName="CtrlPie" TagPrefix="uc1" %>
+<%@ Register Src="Controles/General/CtrlMenu.ascx" TagName="CtrlMenu" TagPrefix="uc2" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= Smartax.Web.Application.Clases.Seguridad.FixedData.PlatformName + " " + Smartax.Web.Application.Clases.Seguridad.FixedData.PlatformVersion %></title>
+    <link rel="stylesheet" href="~/style/masterpage.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="style/menu.css" media="screen" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Imagenes/Iconos/16/favicon.png">
+    <script language="JavaScript">
+        var msg = "¡El botón derecho está desactivado para este sitio !";
+        function disableIE() {
+            if (document.all) {
+                //alert(msg);
+                return false;
+            }
+        }
+
+        function disableNS(e) {
+            if (navigator.appName == 'Netscape' && (e.which == 3 || e.which == 2)) {
+                //alert(msg);
+                return false;
+            } else if (navigator.appName == 'Microsoft Internet Explorer' && (event.button == 2)) {
+                //alert(msg);
+                return false;
+            }
+
+            //alert('El Navegador es: ' + navigator.appName);
+        }
+
+        if (document.layers) {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown = disableNS;
+        } else {
+            document.onmouseup = disableNS;
+            document.oncontextmenu = disableIE;
+        }
+        document.oncontextmenu = new Function("return false")
+        //document.oncontextmenu = new Function("alert(msg);return false")
+    </script>
+    <%--<asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>--%>
+</head>
+<body>
+    <%--<div class="login">--%>
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <div>
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td colspan="2" align="center" class="tdContenido">
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td colspan="2">
+                                        <uc2:CtrlMenu ID="CtrlMenu1" runat="server" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td width="100%" align="center">
+                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" align="center">
+                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" align="center">
+                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="0" cellspacing="0" style="width: 100%">
+                    <tr>
+                        <td>
+                            <asp:Panel ID="Panel1" runat="server" Width="100%" Height="20px">
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="100%" colspan="2">
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td class="tdPie">
+                                        <%--<uc1:CtrlPie runat="server" ID="CtrlPie" />--%>
+                                        <uc1:CtrlPie ID="CtrlPie1" runat="server" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    <%--</div>--%>
+    <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
+</body>
+</html>

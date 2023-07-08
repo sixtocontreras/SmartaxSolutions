@@ -1,0 +1,883 @@
+﻿using System;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Collections;
+using System.Data;
+using System.Web.Caching;
+using Telerik.Web.UI;
+using log4net;
+using Smartax.Web.Application.Clases.Parametros.Divipola;
+using Smartax.Web.Application.Clases.Parametros.Tipos;
+using Smartax.Web.Application.Clases.Seguridad;
+using Smartax.Web.Application.Clases.Parametros;
+using System.Web.Script.Serialization;
+
+namespace Smartax.Web.Application.Controles.Parametros.Tipos
+{
+    public partial class FrmAddFormConfiguracion : System.Web.UI.Page
+    {
+        private static readonly ILog _log = LogManager.GetLogger(FixedData.LOG_AUDITORIA_NAME);
+        RadWindow Ventana = new RadWindow();
+
+        FormConfiguracion ObjFormConfig = new FormConfiguracion();
+        Estado ObjEstado = new Estado();
+        Utilidades ObjUtils = new Utilidades();
+        LogsAuditoria ObjAuditoria = new LogsAuditoria();
+
+        public DataSet GetDatosGrilla()
+        {
+            DataSet ObjetoDataSet = new DataSet();
+            DataTable ObjetoDataTable = new DataTable();
+            try
+            {
+                ObjFormConfig.TipoConsulta = 1;
+                ObjFormConfig.IdFormularioImpuesto = this.ViewState["IdFormularioImpuesto"].ToString().Trim();
+                ObjFormConfig.IdEstado = null;
+                ObjFormConfig.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+
+                //Mostrar los impuestos por municipio
+                ObjetoDataTable = ObjFormConfig.GetAllFormConfiguracion();
+                ObjetoDataTable.PrimaryKey = new DataColumn[] { ObjetoDataTable.Columns["idformulario_configuracion"] };
+                ObjetoDataSet.Tables.Add(ObjetoDataTable);
+
+                //Mostrar los Estados
+                ObjetoDataTable = new DataTable();
+                ObjEstado.TipoConsulta = 2;
+                ObjEstado.TipoEstado = "INTERFAZ";
+                ObjEstado.MostrarSeleccione = "NO";
+                ObjEstado.IdEmpresa = Convert.ToInt32(Session["IdEmpresa"].ToString().Trim());
+                ObjEstado.MotorBaseDatos = Session["MotorBaseDatos"].ToString().Trim();
+                ObjetoDataTable = ObjEstado.GetEstados();
+                ObjetoDataSet.Tables.Add(ObjetoDataTable);
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error al listar configuracion del formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                #endregion
+            }
+
+            return ObjetoDataSet;
+        }
+
+        private DataSet FuenteDatos
+        {
+            get
+            {
+                object obj = this.ViewState["_FuenteDatos"];
+                if (((obj != null)))
+                {
+                    return (DataSet)obj;
+                }
+                else
+                {
+                    DataSet ConjuntoDatos = new DataSet();
+                    ConjuntoDatos = GetDatosGrilla();
+                    this.ViewState["_FuenteDatos"] = ConjuntoDatos;
+                    return (DataSet)this.ViewState["_FuenteDatos"];
+                }
+            }
+            set { this.ViewState["_FuenteDatos"] = value; }
+        }
+
+        private void AplicarPermisos()
+        {
+            SistemaPermiso objPermiso = new SistemaPermiso();
+            SistemaNavegacion objNavegacion = new SistemaNavegacion();
+
+            objNavegacion.MotorBaseDatos = Session["MotorBaseDatos"].ToString().Trim();
+            objNavegacion.IdUsuario = Int32.Parse(Session["IdUsuario"].ToString().Trim());
+            objPermiso.IdUsuario = Int32.Parse(Session["IdUsuario"].ToString().Trim());
+            objPermiso.PathUrl = Request.QueryString["PathUrl"].ToString().Trim();
+            objPermiso.MotorBaseDatos = Session["MotorBaseDatos"].ToString().Trim();
+
+            objPermiso.RefrescarPermisos();
+            if (!objPermiso.PuedeLeer)
+            {
+                this.RadGrid1.Visible = false;
+            }
+            if (!objPermiso.PuedeRegistrar)
+            {
+                this.RadGrid1.MasterTableView.CommandItemDisplay = 0;
+            }
+            if (!objPermiso.PuedeModificar)
+            {
+                this.RadGrid1.Columns[RadGrid1.Columns.Count - 2].Visible = false;
+            }
+            if (!objPermiso.PuedeEliminar)
+            {
+                this.RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+            }
+
+            //Ocultar la columna de empresa siempre y cuando el Rol sea diferente al de Soporte
+            if (Int32.Parse(Session["IdRol"].ToString().Trim()) != 1)
+            {
+                this.RadGrid1.Columns[RadGrid1.Columns.Count - 6].Visible = false;
+                this.RadGrid1.Columns[RadGrid1.Columns.Count - 7].Visible = false;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!(this.Page.IsPostBack))
+            {
+                //this.AplicarPermisos();
+                this.ViewState["IdFormularioImpuesto"] = Request.QueryString["IdFormularioImpuesto"].ToString().Trim();
+                ObjUtils.CambiarGrillaAEspanol(RadGrid1);
+            }
+            else
+            {
+                ObjUtils.CambiarGrillaAEspanol(RadGrid1);
+            }
+        }
+
+        protected override void SavePageStateToPersistenceMedium(object state)
+        {
+            string str = string.Format("VS_{0}_{1}", Request.UserHostAddress, DateTime.Now.Ticks);
+            Cache.Add(str, state, null, DateTime.Now.AddMinutes(Session.Timeout), TimeSpan.Zero, CacheItemPriority.Default, null);
+            ClientScript.RegisterHiddenField("__VIEWSTATE_KEY", str);
+        }
+
+        protected override object LoadPageStateFromPersistenceMedium()
+        {
+            string str = Request.Form["__VIEWSTATE_KEY"];
+            if (!str.StartsWith("VS_"))
+            {
+                throw new Exception("Invalid ViewState");
+            }
+            return Cache[str];
+        }
+
+        #region DEFINICION DE METODOS DEL GRID
+        protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            try
+            {
+                this.RadGrid1.DataSource = this.FuenteDatos;
+                this.RadGrid1.DataMember = "DtFormConfiguracion";
+
+                GridDropDownColumn columna = new GridDropDownColumn();
+                //--Lista de Estados
+                columna = (GridDropDownColumn)this.RadGrid1.Columns[7];
+                columna.DataSourceID = this.RadGrid1.DataSourceID;
+                columna.HeaderText = "Estado";
+                columna.DataField = "id_estado";
+                columna.ListTextField = "codigo_estado";
+                columna.ListValueField = "id_estado";
+                columna.ListDataMember = "DtEstados";
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error con el evento RadGrid1_NeedDataSource del valor de la unidad. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                #endregion
+            }
+        }
+
+        protected void RadGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "BtnLogsAuditoria")
+                {
+                    #region DEFINICION DEL EVENTO CLICK PARA EDITAR IMPUESTO
+                    //--MANDAMOS ABRIR EL FORM COMO POPUP
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+                    Ventana.Modal = true;
+
+                    string _ModuloApp = "FORM_CONF_IMPUESTO";
+                    string _PathUrl = HttpContext.Current.Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                    Ventana.NavigateUrl = "/Controles/Seguridad/FrmLogsAuditoria.aspx?ModuloApp=" + _ModuloApp + "&PathUrl=" + _PathUrl;
+                    Ventana.ID = "RadWindow12";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(550);
+                    Ventana.Width = Unit.Pixel(1100);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Detalle Logs de Auditoria. Modulo: " + _ModuloApp;
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    #endregion
+                }
+                else
+                {
+                    //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
+                    this.RadWindowManager1.Enabled = false;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = false;
+                    this.RadWindowManager1.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error con el evento ItemCommand de la grilla. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgMensaje.Trim());
+                #endregion
+            }
+        }
+
+        protected void RadGrid1_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if ((e.Item is GridEditableItem && e.Item.IsInEditMode))
+            {
+                try
+                {
+                    GridEditableItem item = (GridEditableItem)e.Item;
+                    //--Validar campo valor tarifa
+                    GridNumericColumnEditor editor4 = (GridNumericColumnEditor)item.EditManager.GetColumnEditor("numero_renglon");
+                    TableCell cell4 = (TableCell)editor4.NumericTextBox.Parent;
+                    RequiredFieldValidator validator4 = new RequiredFieldValidator();
+                    validator4.ControlToValidate = editor4.NumericTextBox.ID;
+                    validator4.ErrorMessage = "Campo Requerido";
+                    validator4.Display = ValidatorDisplay.Dynamic;
+                    cell4.Controls.Add(validator4);
+                    editor4.Visible = true;
+
+                    //--Descripcion de la configuracion
+                    GridTextBoxColumnEditor editor2 = (GridTextBoxColumnEditor)item.EditManager.GetColumnEditor("descripcion_renglon");
+                    TableCell cell2 = (TableCell)editor2.TextBoxControl.Parent;
+                    RequiredFieldValidator validator2 = new RequiredFieldValidator();
+                    validator2.ControlToValidate = editor2.TextBoxControl.ID;
+                    validator2.ErrorMessage = "Campo Requerido";
+                    validator2.Display = ValidatorDisplay.Dynamic;
+                    cell2.Controls.Add(validator2);
+                    editor2.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    #region MOSTRAR MENSAJE DE USUARIO
+                    //Mostramos el mensaje porque se produjo un error con la Trx.
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+
+                    RadWindow Ventana = new RadWindow();
+                    Ventana.Modal = true;
+                    string _MsgError = "Error con el evento RadGrid1_ItemCreated del valor de la unidad. Motivo: " + ex.ToString();
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                    Ventana.ID = "RadWindow2";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(300);
+                    Ventana.Width = Unit.Pixel(600);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Mensaje del Sistema";
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    _log.Error(_MsgError);
+                    #endregion
+                }
+            }
+        }
+
+        protected void RadGrid1_PageIndexChanged(object sender, GridPageChangedEventArgs e)
+        {
+            try
+            {
+                RadGrid1.Rebind();
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error con el evento RadGrid1_PageIndexChanged del valor de la unidad. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                #endregion
+            }
+        }
+        #endregion
+
+        #region DEFINICION DEL CRUD
+        protected void RadGrid1_InsertCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            GridEditableItem editedItem = (GridEditableItem)e.Item;
+            DataTable TablaDatos = this.FuenteDatos.Tables["DtFormConfiguracion"]; ;
+            DataRow NuevaFila = TablaDatos.NewRow();
+            TablaDatos.PrimaryKey = new DataColumn[] { TablaDatos.Columns["idformulario_configuracion"] };
+            DataRow[] TodosValores = TablaDatos.Select("", "idformulario_configuracion", DataViewRowState.CurrentRows); ;
+
+            Hashtable newValues = new Hashtable();
+            e.Item.OwnerTableView.ExtractValuesFromItem(newValues, editedItem);
+
+            try
+            {
+                foreach (DictionaryEntry entry in newValues)
+                {
+                    NuevaFila[(string)entry.Key] = entry.Value;
+                }
+
+                if ((NuevaFila != null))
+                {
+                    string CmbEstado = (editedItem["id_estado"].Controls[0] as RadComboBox).SelectedItem.Text;
+
+                    ObjFormConfig.IdFormConfiguracion = null;
+                    ObjFormConfig.IdFormularioImpuesto = this.ViewState["IdFormularioImpuesto"].ToString().Trim();
+                    ObjFormConfig.NumeroRenglon = Int32.Parse(NuevaFila["numero_renglon"].ToString().Trim());
+                    ObjFormConfig.DescripcionRenglon = NuevaFila["descripcion_renglon"].ToString().Trim();
+                    ObjFormConfig.NumeroOrden = Int32.Parse(NuevaFila["numero_orden"].ToString().Trim());
+                    ObjFormConfig.IdEstado = NuevaFila["id_estado"].ToString().Trim();
+                    ObjFormConfig.IdUsuario = Int32.Parse(this.Session["IdUsuario"].ToString().Trim());
+                    ObjFormConfig.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                    ObjFormConfig.TipoProceso = 1;
+
+                    //--AQUI SERIALIZAMOS EL OBJETO CLASE
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string jsonRequest = js.Serialize(ObjFormConfig);
+                    _log.Warn("REQUEST INSERT CONF. FORM. IMPUESTOS => " + jsonRequest);
+
+                    int _IdRegistro = 0;
+                    string _MsgError = "";
+                    if (ObjFormConfig.AddUpFormConfiguracion(NuevaFila, ref _IdRegistro, ref _MsgError))
+                    {
+                        NuevaFila["idformulario_configuracion"] = _IdRegistro;
+                        NuevaFila["numero_renglon"] = NuevaFila["numero_renglon"].ToString().Trim();
+                        NuevaFila["descripcion_renglon"] = NuevaFila["descripcion_renglon"].ToString().Trim();
+                        NuevaFila["numero_orden"] = NuevaFila["numero_orden"].ToString().Trim();
+                        NuevaFila["renglon_calculado"] = NuevaFila["renglon_calculado"].ToString().Trim();
+                        NuevaFila["renglon_contabilizar"] = NuevaFila["renglon_contabilizar"].ToString().Trim();
+                        NuevaFila["codigo_estado"] = CmbEstado.ToString().Trim();
+                        NuevaFila["fecha_registro"] = DateTime.Now;
+                        this.FuenteDatos.Tables["DtFormConfiguracion"].Rows.Add(NuevaFila);
+
+                        #region REGISTRO DE LOGS DE AUDITORIA
+                        //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
+                        ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                        ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
+                        ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
+                        ObjAuditoria.IdTipoEvento = 2;  //--INSERT
+                        ObjAuditoria.ModuloApp = "FORM_CONF_IMPUESTO";
+                        ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                        ObjAuditoria.DescripcionEvento = jsonRequest;
+                        ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
+                        ObjAuditoria.TipoProceso = 1;
+
+                        //'Agregar Auditoria del sistema
+                        string _MsgErrorLogs = "";
+                        if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                        {
+                            _log.Error(_MsgErrorLogs);
+                        }
+                        #endregion
+
+                        #region MOSTRAR MENSAJE DE USUARIO
+                        //Mostramos el mensaje porque se produjo un error con la Trx.
+                        this.RadWindowManager1.ReloadOnShow = true;
+                        this.RadWindowManager1.DestroyOnClose = true;
+                        this.RadWindowManager1.Windows.Clear();
+                        this.RadWindowManager1.Enabled = true;
+                        this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                        this.RadWindowManager1.Visible = true;
+
+                        RadWindow Ventana = new RadWindow();
+                        Ventana.Modal = true;
+                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                        Ventana.ID = "RadWindow2";
+                        Ventana.VisibleOnPageLoad = true;
+                        Ventana.Visible = true;
+                        Ventana.Height = Unit.Pixel(300);
+                        Ventana.Width = Unit.Pixel(600);
+                        Ventana.KeepInScreenBounds = true;
+                        Ventana.Title = "Mensaje del Sistema";
+                        Ventana.VisibleStatusbar = false;
+                        Ventana.Behaviors = WindowBehaviors.Close;
+                        this.RadWindowManager1.Windows.Add(Ventana);
+                        this.RadWindowManager1 = null;
+                        Ventana = null;
+                        _log.Info(_MsgError);
+                        #endregion
+                    }
+                    else
+                    {
+                        #region MOSTRAR MENSAJE DE USUARIO
+                        //Mostramos el mensaje porque se produjo un error con la Trx.
+                        this.RadWindowManager1.ReloadOnShow = true;
+                        this.RadWindowManager1.DestroyOnClose = true;
+                        this.RadWindowManager1.Windows.Clear();
+                        this.RadWindowManager1.Enabled = true;
+                        this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                        this.RadWindowManager1.Visible = true;
+
+                        RadWindow Ventana = new RadWindow();
+                        Ventana.Modal = true;
+                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                        Ventana.ID = "RadWindow2";
+                        Ventana.VisibleOnPageLoad = true;
+                        Ventana.Visible = true;
+                        Ventana.Height = Unit.Pixel(300);
+                        Ventana.Width = Unit.Pixel(600);
+                        Ventana.KeepInScreenBounds = true;
+                        Ventana.Title = "Mensaje del Sistema";
+                        Ventana.VisibleStatusbar = false;
+                        Ventana.Behaviors = WindowBehaviors.Close;
+                        this.RadWindowManager1.Windows.Add(Ventana);
+                        this.RadWindowManager1 = null;
+                        Ventana = null;
+                        _log.Error(_MsgError);
+                        #endregion
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error al registrar la configuracion del formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                e.Canceled = true;
+                #endregion
+            }
+        }
+
+        protected void RadGrid1_UpdateCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            GridEditableItem editedItem = (GridEditableItem)e.Item;
+            DataTable TablaDatos = new DataTable();
+            TablaDatos = this.FuenteDatos.Tables["DtFormConfiguracion"];
+            TablaDatos.PrimaryKey = new DataColumn[] { TablaDatos.Columns["idformulario_configuracion"] };
+            DataRow[] changedRows = TablaDatos.Select("idformulario_configuracion = " + Int32.Parse(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["idformulario_configuracion"].ToString()));
+            int _IdRegistro = Int32.Parse(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["idformulario_configuracion"].ToString().Trim());
+
+            if (changedRows.Length != 1)
+            {
+                e.Canceled = true;
+                return;
+            }
+
+            Hashtable newValues = new Hashtable();
+            e.Item.OwnerTableView.ExtractValuesFromItem(newValues, editedItem);
+            changedRows[0].BeginEdit();
+
+            try
+            {
+                foreach (DictionaryEntry entry in newValues)
+                {
+                    changedRows[0][(string)entry.Key] = entry.Value;
+                }
+
+                string CmbEstado = (editedItem["id_estado"].Controls[0] as RadComboBox).SelectedItem.Text;
+
+                ObjFormConfig.IdFormConfiguracion = _IdRegistro;
+                ObjFormConfig.IdFormularioImpuesto = this.ViewState["IdFormularioImpuesto"].ToString().Trim();
+                ObjFormConfig.NumeroRenglon = Int32.Parse(changedRows[0]["numero_renglon"].ToString().Trim());
+                ObjFormConfig.DescripcionRenglon = changedRows[0]["descripcion_renglon"].ToString().Trim();
+                ObjFormConfig.NumeroOrden = Int32.Parse(changedRows[0]["numero_orden"].ToString().Trim());
+                ObjFormConfig.IdEstado = changedRows[0]["id_estado"].ToString().Trim();
+                ObjFormConfig.IdUsuario = Int32.Parse(this.Session["IdUsuario"].ToString().Trim());
+                ObjFormConfig.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                ObjFormConfig.TipoProceso = 2;
+
+                //--AQUI SERIALIZAMOS EL OBJETO CLASE
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string jsonRequest = js.Serialize(ObjFormConfig);
+                _log.Warn("REQUEST UPDATE CONF. FORM. IMPUESTOS => " + jsonRequest);
+
+                string _MsgError = "";
+                if (ObjFormConfig.AddUpFormConfiguracion(changedRows[0], ref _IdRegistro, ref _MsgError))
+                {
+                    changedRows[0]["numero_renglon"] = changedRows[0]["numero_renglon"].ToString().Trim();
+                    changedRows[0]["descripcion_renglon"] = changedRows[0]["descripcion_renglon"].ToString().Trim();
+                    changedRows[0]["numero_orden"] = changedRows[0]["numero_orden"].ToString().Trim();
+                    changedRows[0]["renglon_calculado"] = changedRows[0]["renglon_calculado"].ToString().Trim();
+                    changedRows[0]["renglon_contabilizar"] = changedRows[0]["renglon_contabilizar"].ToString().Trim();
+                    changedRows[0]["codigo_estado"] = CmbEstado.ToString().Trim().ToUpper();
+                    this.FuenteDatos.Tables["DtFormConfiguracion"].Rows[0].AcceptChanges();
+                    this.FuenteDatos.Tables["DtFormConfiguracion"].Rows[0].EndEdit();
+
+                    #region REGISTRO DE LOGS DE AUDITORIA
+                    //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
+                    ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                    ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
+                    ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
+                    ObjAuditoria.IdTipoEvento = 3;  //--UPDATE
+                    ObjAuditoria.ModuloApp = "FORM_CONF_IMPUESTO";
+                    ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                    ObjAuditoria.DescripcionEvento = jsonRequest;
+                    ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
+                    ObjAuditoria.TipoProceso = 1;
+
+                    //'Agregar Auditoria del sistema
+                    string _MsgErrorLogs = "";
+                    if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                    {
+                        _log.Error(_MsgErrorLogs);
+                    }
+                    #endregion
+
+                    #region MOSTRAR MENSAJE DE USUARIO
+                    //Mostramos el mensaje porque se produjo un error con la Trx.
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+
+                    RadWindow Ventana = new RadWindow();
+                    Ventana.Modal = true;
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                    Ventana.ID = "RadWindow2";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(300);
+                    Ventana.Width = Unit.Pixel(600);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Mensaje del Sistema";
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    _log.Info(_MsgError);
+                    #endregion
+                }
+                else
+                {
+                    #region MOSTRAR MENSAJE DE USUARIO
+                    //Mostramos el mensaje porque se produjo un error con la Trx.
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+
+                    RadWindow Ventana = new RadWindow();
+                    Ventana.Modal = true;
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                    Ventana.ID = "RadWindow2";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(300);
+                    Ventana.Width = Unit.Pixel(600);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Mensaje del Sistema";
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    _log.Error(_MsgError);
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error al editar la configuracion del formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                e.Canceled = true;
+                #endregion
+            }
+        }
+
+        protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            GridEditableItem editedItem = (GridEditableItem)e.Item;
+            DataTable TablaDatos = new DataTable();
+            TablaDatos = this.FuenteDatos.Tables["DtFormConfiguracion"];
+            TablaDatos.PrimaryKey = new DataColumn[] { TablaDatos.Columns["idformulario_configuracion"] };
+            DataRow[] changedRows = TablaDatos.Select("idformulario_configuracion = " + Int32.Parse(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["idformulario_configuracion"].ToString()));
+            int _IdRegistro = Int32.Parse(e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["idformulario_configuracion"].ToString().Trim());
+
+            if (changedRows.Length != 1)
+            {
+                e.Canceled = true;
+                return;
+            }
+
+            Hashtable newValues = new Hashtable();
+            e.Item.OwnerTableView.ExtractValuesFromItem(newValues, editedItem);
+            changedRows[0].BeginEdit();
+
+            try
+            {
+                foreach (DictionaryEntry entry in newValues)
+                {
+                    changedRows[0][(string)entry.Key] = entry.Value;
+                }
+
+                string _MsgError = "";
+                ObjFormConfig.IdFormConfiguracion = _IdRegistro;
+                ObjFormConfig.IdFormularioImpuesto = this.ViewState["IdFormularioImpuesto"].ToString().Trim();
+                ObjFormConfig.NumeroRenglon = Int32.Parse(changedRows[0]["numero_renglon"].ToString().Trim());
+                ObjFormConfig.DescripcionRenglon = changedRows[0]["descripcion_renglon"].ToString().Trim();
+                ObjFormConfig.NumeroOrden = Int32.Parse(changedRows[0]["numero_orden"].ToString().Trim());
+                ObjFormConfig.IdEstado = changedRows[0]["id_estado"].ToString().Trim();
+                ObjFormConfig.IdUsuario = Int32.Parse(this.Session["IdUsuario"].ToString().Trim());
+                ObjFormConfig.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                ObjFormConfig.TipoProceso = 3;
+
+                //--AQUI SERIALIZAMOS EL OBJETO CLASE
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string jsonRequest = js.Serialize(ObjFormConfig);
+                _log.Warn("REQUEST DELETE CONF. FORM. IMPUESTOS => " + jsonRequest);
+
+                if (ObjFormConfig.AddUpFormConfiguracion(changedRows[0], ref _IdRegistro, ref _MsgError))
+                {
+                    this.FuenteDatos.Tables["DtFormConfiguracion"].Rows.Find(_IdRegistro).Delete();
+                    this.FuenteDatos.Tables["DtFormConfiguracion"].AcceptChanges();
+
+                    #region REGISTRO DE LOGS DE AUDITORIA
+                    //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
+                    ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                    ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
+                    ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
+                    ObjAuditoria.IdTipoEvento = 4;  //--DELETE
+                    ObjAuditoria.ModuloApp = "FORM_CONF_IMPUESTO";
+                    ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                    ObjAuditoria.DescripcionEvento = jsonRequest;
+                    ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
+                    ObjAuditoria.TipoProceso = 1;
+
+                    //'Agregar Auditoria del sistema
+                    string _MsgErrorLogs = "";
+                    if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                    {
+                        _log.Error(_MsgErrorLogs);
+                    }
+                    #endregion
+
+                    #region MOSTRAR MENSAJE DE USUARIO
+                    //Mostramos el mensaje porque se produjo un error con la Trx.
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+
+                    RadWindow Ventana = new RadWindow();
+                    Ventana.Modal = true;
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                    Ventana.ID = "RadWindow2";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(300);
+                    Ventana.Width = Unit.Pixel(600);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Mensaje del Sistema";
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    _log.Info(_MsgError);
+                    #endregion
+                }
+                else
+                {
+                    #region MOSTRAR MENSAJE DE USUARIO
+                    //Mostramos el mensaje porque se produjo un error con la Trx.
+                    this.RadWindowManager1.ReloadOnShow = true;
+                    this.RadWindowManager1.DestroyOnClose = true;
+                    this.RadWindowManager1.Windows.Clear();
+                    this.RadWindowManager1.Enabled = true;
+                    this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                    this.RadWindowManager1.Visible = true;
+
+                    RadWindow Ventana = new RadWindow();
+                    Ventana.Modal = true;
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                    Ventana.ID = "RadWindow2";
+                    Ventana.VisibleOnPageLoad = true;
+                    Ventana.Visible = true;
+                    Ventana.Height = Unit.Pixel(300);
+                    Ventana.Width = Unit.Pixel(600);
+                    Ventana.KeepInScreenBounds = true;
+                    Ventana.Title = "Mensaje del Sistema";
+                    Ventana.VisibleStatusbar = false;
+                    Ventana.Behaviors = WindowBehaviors.Close;
+                    this.RadWindowManager1.Windows.Add(Ventana);
+                    this.RadWindowManager1 = null;
+                    Ventana = null;
+                    _log.Error(_MsgError);
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgError = "Error al eliminar la configuracion del formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                Ventana.ID = "RadWindow2";
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                _log.Error(_MsgError);
+                e.Canceled = true;
+                #endregion
+            }
+        }
+        #endregion
+    }
+}

@@ -1,0 +1,139 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPageGeneral.master.cs" Inherits="Smartax.Web.Application.MasterPageGeneral" %>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Src="~/Controles/General/CtrlMenu.ascx" TagPrefix="uc1" TagName="CtrlMenu" %>
+<%@ Register Src="~/Controles/General/CtrlFichaUsuario.ascx" TagName="CtrlFichaUsuario" TagPrefix="uc2" %>
+<%@ Register Src="~/Controles/General/CtrlPie.ascx" TagPrefix="uc1" TagName="CtrlPie" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <head id="Head1" runat="server">
+        <title><%= Smartax.Web.Application.Clases.Seguridad.FixedData.PlatformName + " " + Smartax.Web.Application.Clases.Seguridad.FixedData.PlatformVersion %></title>
+        <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+        <link href="/Imagenes/Temas/Gris/Styles.css" rel="stylesheet" type="text/css" runat="server" id="LinkEstilos" />
+        <link rel="shortcut icon" type="image/x-icon" href="~/Imagenes/Iconos/16/favicon.png">
+        <%--<link rel="stylesheet" type="text/css" href="~/style/Styles3.css" />--%>
+        <link rel="stylesheet" type="text/css" href="~/style/Styles1.css" />
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+        </asp:ContentPlaceHolder>
+        <script language="JavaScript">
+            var msg = "¡El botón derecho está desactivado para este sitio !";
+            function disableIE() {
+                if (document.all) {
+                    //alert(msg);
+                    return false;
+                }
+            }
+
+            function disableNS(e) {
+                if (navigator.appName == 'Netscape' && (e.which == 3 || e.which == 2)) {
+                    //alert(msg);
+                    return false;
+                } else if (navigator.appName == 'Microsoft Internet Explorer' && (event.button == 2)) {
+                    //alert(msg);
+                    return false;
+                }
+
+                //alert('El Navegador es: ' + navigator.appName);
+            }
+
+            if (document.layers) {
+                document.captureEvents(Event.MOUSEDOWN);
+                document.onmousedown = disableNS;
+            } else {
+                document.onmouseup = disableNS;
+                document.oncontextmenu = disableIE;
+            }
+            document.oncontextmenu = new Function("return false")
+            //document.oncontextmenu = new Function("alert(msg);return false")
+        </script>
+    </head>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div>
+            <table cellpadding="0" cellspacing="0" width="100%" class="tdCabezote">
+                <tr>
+                    <td valign="miDdle" width="100%">
+                        <table cellpadding="4" cellspacing="0" align="right" style="margin-left: 43px">
+                            <tr>
+                                <td align="left" class="style4">
+                                    <uc2:CtrlFichaUsuario ID="CtrlFichaUsuario1" runat="server" />
+                                </td>
+                                <td>
+                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/Imagenes/General/img_smartax.png" Width="185px" Height="75px" />
+                                </td>
+                                <td>&nbsp;
+                                <asp:Image ID="Image5" runat="server" ImageUrl="~/Imagenes/General/espacio.gif" Width="30px" Height="90px" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="center" valign="miDdle" width="521px">&nbsp;</td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td colspan="2">
+                        <uc1:CtrlMenu runat="server" ID="CtrlMenu" />
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td bgcolor="#FFFFFF" colspan="2" align="center" class="tdContenido">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td width="100%" align="center">
+                                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Imagenes/General/espacio.gif" Width="30px" Height="10px" />
+                                </td>
+                                <td width="100%" align="center">
+                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/General/espacio.gif" Height="10px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%" align="center">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%" align="center">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%" align="center">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" style="width: 100%">
+                <tr>
+                    <td>
+                        <asp:Panel ID="Panel1" runat="server" Width="100%" Height="20px" BackColor="#FFFFFF">
+                        </asp:Panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="100%" colspan="2">
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td class="tdPie">
+                                    <uc1:CtrlPie runat="server" ID="CtrlPie" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

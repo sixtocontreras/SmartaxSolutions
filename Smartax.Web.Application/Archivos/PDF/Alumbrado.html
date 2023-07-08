@@ -1,0 +1,388 @@
+﻿<table style='width:100%'>
+    <tr>
+        <td style='background-color:black; color:white; font-size:17px;font-weight:bold; text-align:center; padding:10px 0'>FORMULARIO UNIVERSAL DEL IMPUESTO DE ALUMBRADO PÚBLICO</td>
+    </tr>
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td style='width:25%'>
+                        DISTRITO / MUNICIPIO
+                    </td>
+                    <td style='width:35%'>@municipio</td>
+                    <td style='width:15%'>
+                        Código Dane
+                    </td>
+                    <td style='width:20%; text-align:center'>@cod_dane</td>
+                </tr>
+                <tr>
+                    <td style='width:15%'>
+                        DEPARTAMENTO
+
+                    </td>
+                    <td style='width:50%'>@dpto</td>
+                </tr>
+                <tr>
+                    <td style='width:15%; text-align:center'>
+                        AÑO
+                    </td>
+                    <td style='width:50%'></td>
+                    <td style='width:15%'></td>
+                    <td style='width:20%; text-align:center; border:1px solid'>VR.UVT</td>
+                </tr>
+                <tr>
+                    <td style='width:15%; text-align:center'>
+                        @anio
+                    </td>
+                    <td style='width:50%'></td>
+                    <td style='width:15%'></td>
+                    <td style='width:20%; text-align:center; border:1px solid'>@uvt</td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding='1' cellspacing='1' style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='4' style='text-align:center; border:1px solid;padding:5px;'>
+                        Declaración
+                    </td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>DD</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>MM</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>AAAA</td>
+                </tr>
+                <tr>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>inicial</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>
+                        Declaración que corrige
+                    </td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>@declaracioncorrige</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>
+                        Fecha Máxima de Presentación
+                    </td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>@dd</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>@mm</td>
+                    <td style='text-align:center; border:1px solid;padding:5px;'>@aaaa</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <table cellpadding='1' cellspacing='1' style='width:100%; font-size:10px;'>
+                <tr>
+                    <td style='text-align:center; border:1px solid'>
+                        Periodicidad 
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding='1' cellspacing='1' style='width:100%; font-size:10px;'>
+                <tr>
+                    <td style='text-align:center; border:1px solid'>
+                        @periodicidad: @dataperiodicidad
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='3' style='text-align:center; font-weight:bold; font-size:14px'>A - INFORMACIÓN DEL CONTRIBUYENTE</td>
+                </tr>
+                <tr>
+                    <td colspan='3' style='border:1px solid'>
+                        Nombres y Apellidos ó Razón Social del Establecimiento:<br /> @nombre_cli
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        Tipo de documento: @tipodoc_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        N° @numdoc_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        DV @dv_cli
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        Dirección de Notificación <br />@dir_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        Departamento: <br />@dpto_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        Municipio: <br /> @muni_cli
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        Correo Electrónico de Notificación <br />@mail_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        Teléfono Fijo <br />@tel_cli
+                    </td>
+                    <td style='border:1px solid'>
+                        Teléfono Celular @cel_cli
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='3' style='font-weight:bold; text-align:center; border:1px solid'>
+                        Sector
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan='3' style='text-align:center; border:1px solid'>
+                        @sector
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='3' style='text-align:center; font-weight:bold; font-size:14px'>B - BASE GRAVABLE</td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; width:25px; text-align:center'>
+                        1
+                    </td>
+                    <td style='border:1px solid'>
+                        Clasificación según el Sector al que pertenece el Contribuyente
+                    </td>
+                    <td style='border:1px solid; width:200px; text-align:center'>
+                        @renglon_1
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        2
+                    </td>
+                    <td style='border:1px solid'>
+                        Kilovatios Consumidos Mes KW/HM según Rango del Sector (Kilovatios por Hora Mensual)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon2
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        3
+                    </td>
+                    <td style='border:1px solid'>
+                        Costo Kilovatio por Hora (KW/H) (Información suministrada por la empresa comercializadora de energía)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon3
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        4
+                    </td>
+                    <td style='border:1px solid'>
+                        Base Gravable Impuesto de Alumbrado Público (Multiplique Renglón 2 por Renglón 3)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon4
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        5
+                    </td>
+                    <td style='border:1px solid'>
+                        Base Gravable Impuesto de Alumbrado Público Sector Especial
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon5
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='3' style='text-align:center; font-weight:bold; font-size:14px'>C - LIQUIDACIÓN</td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; width:25px; text-align:center'>
+                        6
+                    </td>
+                    <td style='border:1px solid'>
+                        Tarifa del Impuesto de Alumbrado Público según Sector seleccionado (Renglón 1)
+
+                    </td>
+                    <td style='border:1px solid; width:200px; text-align:right'>
+                        @renglon6
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        7
+                    </td>
+                    <td style='border:1px solid'>
+                        Impuesto de Alumbrado Público (Renglón 4 por Renglón 6)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon7
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        8
+                    </td>
+                    <td style='border:1px solid'>
+                        Impuesto de Alumbrado Público Mínimo a Pagar según clasificación (Renglón 1) -      (@renglon8_1  UVT)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon8_2
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        9
+                    </td>
+                    <td style='border:1px solid'>
+                        Impuesto de Alumbrado Público Máximo a Pagar según clasificación (Renglón 1) -      (@renglon9_1  UVT)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon9_2
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        10
+                    </td>
+                    <td style='border:1px solid'>
+                        Impuesto de Alumbrado Público a Pagar según Grupo del Sector Especial (Multiplique Vr. UVT por Renglón 5)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon10
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='3' style='text-align:center; font-weight:bold; font-size:14px'>D - PAGOS</td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; width:25px; text-align:center'>
+                        11
+                    </td>
+                    <td style='border:1px solid'>
+                        Total Impuesto de Alumbrado Público a Cargo
+                    </td>
+                    <td style='border:1px solid; width:200px; text-align:right'>
+                        @renglon11
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        12
+                    </td>
+                    <td style='border:1px solid'>
+                        (-) Menos Descuento Por Pronto Pago
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon12
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        13
+                    </td>
+                    <td style='border:1px solid'>
+                        (+) Más Intereses de Mora
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon13
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        14
+                    </td>
+                    <td style='border:1px solid'>
+                        (+) Más Sanciones - (@renglon14_1)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon14_2
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        15
+                    </td>
+                    <td style='border:1px solid'>
+                        Total Impuesto de Alumbrado Público a Pagar (Renglón 11 - 12 + 13 + 14)
+                    </td>
+                    <td style='border:1px solid; text-align:right'>
+                        @renglon15
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style='width:100%; font-size:10px;'>
+                <tr>
+                    <td colspan='2' style='text-align:center; font-weight:bold; font-size:15px'>E - FIRMAS</td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        Firma del Declarante
+                    </td>
+                    <td style='border:1px solid'>
+                        Firma @contadorTitulo
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid; text-align:center'>
+                        @imgFirmante
+                    </td>
+                    <td style='border:1px solid; text-align:center'>
+                        @imgContador
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        Nombre: @nombreFirmante
+                    </td>
+                    <td style='border:1px solid'>
+                        Nombre: @nombreContador
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border:1px solid'>
+                        @tipodoc_firmante:  @doc_firmante
+                    </td>
+                    <td style='border:1px solid'>
+                        @tipodoc_contador:  @doc_contador  -  Tarjeta profesional: @tp_contador
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

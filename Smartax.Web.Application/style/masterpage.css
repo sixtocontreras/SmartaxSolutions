@@ -1,0 +1,22 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+body {
+    background-image: url("/Imagenes/General/img_fondo.png");
+    -o-webkit-background-size: cover;
+    -o-moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login {
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    height: 36px;
+    padding: 0 8px;
+    /* border-radius: 3px; */
+    /* -webkit-user-select: none;
+  user-select: none; */
+}

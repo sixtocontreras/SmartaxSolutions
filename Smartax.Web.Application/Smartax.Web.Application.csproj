@@ -1,0 +1,3252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C497AEED-D590-400B-843A-8C533ACD782E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smartax.Web.Application</RootNamespace>
+    <AssemblyName>Smartax.Web.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Devart.Data">
+      <HintPath>..\..\..\PlataformasTrx\PryTaxisLibres\PryTaxisLibres.WebApi.Services\bin\Devart.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.PostgreSql">
+      <HintPath>..\..\..\PlataformasTrx\PryTaxisLibres\PryTaxisLibres.WebApi.Services\bin\Devart.Data.PostgreSql.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.PostgreSql.Vs">
+      <HintPath>..\..\..\PlataformasTrx\PryTaxisLibres\PryTaxisLibres.WebApi.Services\bin\Devart.Data.PostgreSql.Vs.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.3\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\PlataformasTrx\PryTaxisLibres\PryTaxisLibres.WebApi.Services\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=1.8.3.15820, Culture=neutral, PublicKeyToken=0d013ddd5178a2ae, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Win32.TaskScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\PlataformasTrx\PryTaxisLibres\PryTaxisLibres.WebApi.Services\bin\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NativeExcel, Version=2.0.18.0, Culture=neutral, PublicKeyToken=8e39ab1f1c5149a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\NativeExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PlataformasTrx\PryPagoFacil\PagoFacil.Web.Application\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetLight, Version=3.4.11.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SpreadsheetLight.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Web.Design, Version=2022.2.622.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.Device.Detection, Version=2022.2.622.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.Device.Detection.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2022.2.622.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI.Skins, Version=2022.2.622.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.UI.Skins.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Archivos\Formatos\4\F321_DIC_2021.txt" />
+    <Content Include="Archivos\PDF\Alumbrado.css" />
+    <Content Include="Archivos\PDF\Alumbrado.html" />
+    <Content Include="Controles\Administracion\Alumbrado\FrmCargueMasivo.aspx" />
+    <Content Include="Controles\Administracion\Alumbrado\FrmConfiguracionTarifas.aspx" />
+    <Content Include="Controles\Administracion\Clientes\CtrlClienteImpuestos.ascx" />
+    <Content Include="Controles\Administracion\Clientes\CtrlClientes.ascx" />
+    <Content Include="Controles\Administracion\Clientes\CtrlEstadosFinancieros.ascx" />
+    <Content Include="Controles\Administracion\Clientes\CtrlFirmantes.ascx" />
+    <Content Include="Controles\Administracion\Clientes\FrmActividadEconomica.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmActividadEconomicaEstab.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddBaseGravable.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddCliente.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddConfigRenglonContabilizar.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddConfigurarRenglon.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddEstablecimiento.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmConfigContabilizacion.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmLoadActEconomicasOfic.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmVerMunicipiosPuntos.aspx" />
+    <Content Include="Controles\Administracion\ConciliacionHC\CtrlConciliacionHC.ascx" />
+    <Content Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx" />
+    <Content Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx" />
+    <Content Include="Controles\Administracion\FrmAddEstablecimientoHijo.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddFirma.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmAddPuc.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmConfiguracionImpuestos.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmConfImpuestoIca.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmLiquidacionOficina.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmLoadConfiguracionImp.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmLoadEstablecimientos.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmLoadEstadoFinanciero.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmVerBaseGravable.aspx" />
+    <Content Include="Controles\Administracion\Clientes\FrmVerInfoEstadoFinanciero.aspx" />
+    <Content Include="Controles\Administracion\Clientes\VerInfoCliente.aspx" />
+    <Content Include="Controles\Administracion\CtrlControlActividades.ascx" />
+    <Content Include="Controles\Administracion\CtrlControlActividadesAnalista.ascx" />
+    <Content Include="Controles\Administracion\CtrlLiquidacionImpuestos.ascx" />
+    <Content Include="Controles\Administracion\CtrlObligacionesPorMuncipio.ascx" />
+    <Content Include="Controles\Administracion\CtrlProximosVencimientos.ascx" />
+    <Content Include="Controles\Administracion\EjecucionLote\CtrlEjecucionXLote.ascx" />
+    <Content Include="Controles\Administracion\EjecucionLote\FrmAddFiltrosEjecucionXLote.aspx" />
+    <Content Include="Controles\Administracion\EjecucionLote\FrmAddUsersEjecucionXLote.aspx" />
+    <Content Include="Controles\Administracion\EjecucionLote\FrmAprobarRechazarDeclaracion.aspx" />
+    <Content Include="Controles\Administracion\FrmAddActividadAnalista.aspx" />
+    <Content Include="Controles\Administracion\FrmAddControlActividad.aspx" />
+    <Content Include="Controles\General\CtrlFichaUsuario.ascx" />
+    <Content Include="Controles\General\CtrlMenu.ascx" />
+    <Content Include="Controles\General\CtrlMenu2.ascx" />
+    <Content Include="Controles\General\CtrlModulos.ascx" />
+    <Content Include="Controles\General\CtrlPie.ascx" />
+    <Content Include="Controles\General\CtrlPie2.ascx" />
+    <Content Include="Controles\General\FrmMensaje.aspx" />
+    <Content Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionIca.ascx" />
+    <Content Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionImpuestos.ascx" />
+    <Content Include="Controles\Modulos\Consulta\CtrlFichaTecnicaMunicipio.ascx" />
+    <Content Include="Controles\Modulos\Consulta\FrmVerDetalleLiquidacion.aspx" />
+    <Content Include="Controles\Modulos\Consulta\FrmVerFichaTecnica.aspx" />
+    <Content Include="Controles\Modulos\ControlActividades\FrmEstadisticaActividades.aspx" />
+    <Content Include="Controles\Modulos\ControlActividades\FrmEstadisticaLiqImpuesto.aspx" />
+    <Content Include="Controles\Modulos\ControlActividades\FrmMisActividades.aspx" />
+    <Content Include="Controles\Modulos\ControlActividades\FrmMonitoreoActividades.aspx" />
+    <Content Include="Controles\Modulos\ControlActividades\WebUserControl1.ascx" />
+    <Content Include="Controles\Modulos\Formatos\frmDescargar321.aspx" />
+    <Content Include="Controles\Modulos\Formatos\frmDescargar525.aspx" />
+    <Content Include="Controles\Modulos\Formatos\frmDescargarPlano.aspx" />
+    <Content Include="Controles\Modulos\Formatos\FrmGeneracionFormatos.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmAprobarLiquidacionPorLote.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaInformacionContable.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingFinanciero.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingHabitacional.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaPagaduria.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaTarjetaCredito.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLote.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLoteIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLotes.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidacionAlumbrado.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorAutoIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIcaOld.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoAutoIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIcaOld.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmProcesoContabilizacion.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICA.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICADefinitivo.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmValidarLiquidacionesPorLote.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDesagregacion.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDetalleCuentas.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerImpuesto.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerInfoValidacion.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoAutoIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIca.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIcaOld.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\FrmVisualizadorPdf.aspx" />
+    <Content Include="Controles\Modulos\LiquidacionImpuestos\WebForm1.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioMeses.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario1.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario2.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerDetalleCalendarioMunicipio.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerFechaLimitePago.aspx" />
+    <Content Include="Controles\Modulos\PlaneacionFiscal\FrmVerTarifasExcesivas.aspx" />
+    <Content Include="Controles\Parametros\Alumbrado\CtrlRegistroConsumos.ascx" />
+    <Content Include="Controles\Parametros\Alumbrado\CtrlSectorMunicipio.ascx" />
+    <Content Include="Controles\Parametros\Divipola\CtrlDepartamentos.ascx" />
+    <Content Include="Controles\Parametros\Divipola\CtrlMunicipios.ascx" />
+    <Content Include="Controles\Parametros\Divipola\CtrlMunicipioTarifasExcesivas.ascx" />
+    <Content Include="Controles\Parametros\Divipola\CtrlPaises.ascx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAcuerdosMunicipales.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddCalendarioTributario.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddDescuentoProntoPago.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddMuncipioBanco.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddMunicipioImpuestos.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddOtrasConfiguraciones.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddTarifasExcesivas.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmAddTarifasMinima.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmConfCalculoRenglon.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadActEconomica.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadAutoretenciones.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadBancoCuentas.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadCalendario.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadImpMunicipio.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmLoadOtrasConfig.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmMunicipioActividadEcon.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmMunicipioAutoretenciones.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmMunicipioCalendarioTrib.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmMunicipioDescuentoProntoPago.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmMunicipioImpuestos.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmOtrasConfiguraciones.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmTarifasMinima.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmVerAcuerdosMunicipales.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmVerInfoActividadEconomica.aspx" />
+    <Content Include="Controles\Parametros\Divipola\FrmVerInfoMunicipio.aspx" />
+    <Content Include="Controles\Parametros\Empresa\CtrlEmpresa.ascx" />
+    <Content Include="Controles\Parametros\Empresa\CtrlParametroSistema.ascx" />
+    <Content Include="Controles\Parametros\Empresa\CtrlTipoLicencia.ascx" />
+    <Content Include="Controles\Parametros\Empresa\FrmVerInfoEntidad.aspx" />
+    <Content Include="Controles\Parametros\Formatos\CtrlInfoEntidad.ascx" />
+    <Content Include="Controles\Parametros\Formatos\CtrlParametrizacion_321_525.ascx" />
+    <Content Include="Controles\Parametros\Formatos\CtrlUnidadCaptura.ascx" />
+    <Content Include="Controles\Parametros\Provision\CtrlConceptosProv.ascx" />
+    <Content Include="Controles\Parametros\Provision\CtrlConfClienteProv.ascx" />
+    <Content Include="Controles\Parametros\Provision\CtrlConfConceptosProv.ascx" />
+    <Content Include="Controles\Parametros\Provision\FrmEjecProvision.aspx" />
+    <Content Include="Controles\Parametros\ReteICA\CtlConceptos.ascx" />
+    <Content Include="Controles\Parametros\ReteICA\CtrlRenglonConcepto.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlBanco.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlDiasFestivo.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlEstados.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlFormularioImpuestos.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlPeriodicidadPagos.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlPlanUnicoCuentas.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoActividadEconomica.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoCargo.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoClasificacion.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoCtrlActividades.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoFirma.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoMoneda.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoNaturaleza.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoNivel.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoNormatividad.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTiposIdentificacion.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlTipoTarifa.ascx" />
+    <Content Include="Controles\Parametros\Tipos\CtrlUnidadesMedida.ascx" />
+    <Content Include="Controles\Parametros\Tipos\FrmAddFormConfiguracion.aspx" />
+    <Content Include="Controles\Parametros\Tipos\FrmAddPucImpuesto.aspx" />
+    <Content Include="Controles\Parametros\Tipos\FrmAddValorUnidadMedida.aspx" />
+    <Content Include="Controles\Parametros\Tipos\FrmLoadPlanUnicoCuentas.aspx" />
+    <Content Include="Controles\Parametros\Tipos\FrmLoadPucImpuesto.aspx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptActEconomicas.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptAcuerdosMunicipales.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptBancoCuentas.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptCalendarioTribututario.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptCantidadEstablecimientos.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptConfiguracionImp.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptControlActividades.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptControlActividadesAnalista.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptEstablecimientos.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptImpMunicipios.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptMunicipioAutoretencion.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptMunicipios.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptOtrasConfig.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptPlanUnicoCuenta.ascx" />
+    <Content Include="Controles\Reportes\Anexos\CtrlRptAnexoAutoIca.ascx" />
+    <Content Include="Controles\Reportes\Anexos\CtrlRptAnexoIca.ascx" />
+    <Content Include="Controles\Reportes\Formatos\Ctrl321.ascx" />
+    <Content Include="Controles\Reportes\Formatos\Ctrl525.ascx" />
+    <Content Include="Controles\Reportes\Formatos\CtrlCruzado.ascx" />
+    <Content Include="Controles\Reportes\Formatos\CtrlEjecuciones.ascx" />
+    <Content Include="Controles\Reportes\Provision\CtrlRepAcumuladoProvICA.ascx" />
+    <Content Include="Controles\Reportes\Provision\CtrlRepCompProvICA.ascx" />
+    <Content Include="Controles\Reportes\Provision\CtrlRepMensualProvICA.ascx" />
+    <Content Include="Controles\Reportes\Provision\CtrlRepRegContableProvICA.ascx" />
+    <Content Include="Controles\Reportes\Seguridad\CtrlRptLogsAuditoria.ascx" />
+    <Content Include="Controles\Reportes\Seguridad\CtrlRptRolesOpcionesMenu.ascx" />
+    <Content Include="Controles\Reportes\Seguridad\CtrlRptUsuarios.ascx" />
+    <Content Include="Controles\Seguridad\CtrlCambioClave.ascx" />
+    <Content Include="Controles\Seguridad\CtrlConfiguracionAlertas.ascx" />
+    <Content Include="Controles\Seguridad\CtrlGenerarTablasDb.ascx" />
+    <Content Include="Controles\Seguridad\CtrlGestionUsuarios.ascx" />
+    <Content Include="Controles\Seguridad\CtrlLogsAuditoria.ascx" />
+    <Content Include="Controles\Seguridad\CtrlOpcionesMenu.ascx" />
+    <Content Include="Controles\Seguridad\CtrlResetearCache.ascx" />
+    <Content Include="Controles\Seguridad\CtrlRoles.ascx" />
+    <Content Include="Controles\Seguridad\CtrlUsuarios.ascx" />
+    <Content Include="Controles\Seguridad\FrmAddConfiguracionAlerta.aspx" />
+    <Content Include="Controles\Seguridad\FrmListarPermisos.aspx" />
+    <Content Include="Controles\Seguridad\FrmLogsAuditoria.aspx" />
+    <Content Include="Controles\Seguridad\FrmModulosRol.aspx" />
+    <Content Include="Controles\Seguridad\FrmPermisosRol.aspx" />
+    <Content Include="Controles\Seguridad\FrmRolActividades.aspx" />
+    <Content Include="Controles\Seguridad\FrmUsuariosRol.aspx" />
+    <Content Include="Controles\Seguridad\FrmVerDetalleAuditoria.aspx" />
+    <Content Include="Controles\Seguridad\FrmVerInfoUsuario.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="FrmCambiarPassword.aspx" />
+    <Content Include="FrmErrorPlataforma.aspx" />
+    <Content Include="FrmResetPassword.aspx" />
+    <Content Include="FrmValidarToken.aspx" />
+    <Content Include="Imagenes\General\espacio.gif" />
+    <Content Include="Imagenes\General\img_borrador.png" />
+    <Content Include="Imagenes\General\img_fondo.png" />
+    <Content Include="Imagenes\General\img_principal.jpg" />
+    <Content Include="Imagenes\General\img_smartax.png" />
+    <Content Include="Imagenes\General\loading.gif" />
+    <Content Include="Imagenes\General\powered-by.png" />
+    <Content Include="Imagenes\General\pow_by_aspnet.png" />
+    <Content Include="Imagenes\Iconos\16\add_cuenta.png" />
+    <Content Include="Imagenes\Iconos\16\add_functions.png" />
+    <Content Include="Imagenes\Iconos\16\add_products.png" />
+    <Content Include="Imagenes\Iconos\16\bell.png" />
+    <Content Include="Imagenes\Iconos\16\bookmark.png" />
+    <Content Include="Imagenes\Iconos\16\bug-mail.png" />
+    <Content Include="Imagenes\Iconos\16\bug_yellow.png" />
+    <Content Include="Imagenes\Iconos\16\businessman.png" />
+    <Content Include="Imagenes\Iconos\16\businessmen.png" />
+    <Content Include="Imagenes\Iconos\16\calendar.png" />
+    <Content Include="Imagenes\Iconos\16\chart_bar_error.png" />
+    <Content Include="Imagenes\Iconos\16\chart_curve.png" />
+    <Content Include="Imagenes\Iconos\16\chart_curve_delete.png" />
+    <Content Include="Imagenes\Iconos\16\chart_curve_edit.png" />
+    <Content Include="Imagenes\Iconos\16\check.png" />
+    <Content Include="Imagenes\Iconos\16\contract.png" />
+    <Content Include="Imagenes\Iconos\16\delete.png" />
+    <Content Include="Imagenes\Iconos\16\desktop.png" />
+    <Content Include="Imagenes\Iconos\16\earth.png" />
+    <Content Include="Imagenes\Iconos\16\edit.png" />
+    <Content Include="Imagenes\Iconos\16\error.png" />
+    <Content Include="Imagenes\Iconos\16\favicon.ico" />
+    <Content Include="Imagenes\Iconos\16\favicon.png" />
+    <Content Include="Imagenes\Iconos\16\help.png" />
+    <Content Include="Imagenes\Iconos\16\help2.png" />
+    <Content Include="Imagenes\Iconos\16\img_add.png" />
+    <Content Include="Imagenes\Iconos\16\img_arbol.png" />
+    <Content Include="Imagenes\Iconos\16\img_asociar.png" />
+    <Content Include="Imagenes\Iconos\16\img_block.png" />
+    <Content Include="Imagenes\Iconos\16\img_code_bar.png" />
+    <Content Include="Imagenes\Iconos\16\img_comportamiento.png" />
+    <Content Include="Imagenes\Iconos\16\img_delete_list.png" />
+    <Content Include="Imagenes\Iconos\16\img_delete_user.png" />
+    <Content Include="Imagenes\Iconos\16\img_download.png" />
+    <Content Include="Imagenes\Iconos\16\img_folder_add.png" />
+    <Content Include="Imagenes\Iconos\16\img_info.png" />
+    <Content Include="Imagenes\Iconos\16\img_keyboard.png" />
+    <Content Include="Imagenes\Iconos\16\img_load.png" />
+    <Content Include="Imagenes\Iconos\16\img_mobile1.png" />
+    <Content Include="Imagenes\Iconos\16\img_mobile2.png" />
+    <Content Include="Imagenes\Iconos\16\img_mobile3.png" />
+    <Content Include="Imagenes\Iconos\16\img_payment.png" />
+    <Content Include="Imagenes\Iconos\16\img_payment2.png" />
+    <Content Include="Imagenes\Iconos\16\img_picture.png" />
+    <Content Include="Imagenes\Iconos\16\img_rechazar.png" />
+    <Content Include="Imagenes\Iconos\16\img_refresh.png" />
+    <Content Include="Imagenes\Iconos\16\img_time.png" />
+    <Content Include="Imagenes\Iconos\16\img_trx.png" />
+    <Content Include="Imagenes\Iconos\16\img_user_add.png" />
+    <Content Include="Imagenes\Iconos\16\img_view.png" />
+    <Content Include="Imagenes\Iconos\16\index_add.png" />
+    <Content Include="Imagenes\Iconos\16\key.png" />
+    <Content Include="Imagenes\Iconos\16\key_add.png" />
+    <Content Include="Imagenes\Iconos\16\key_delete.png" />
+    <Content Include="Imagenes\Iconos\16\key_go.png" />
+    <Content Include="Imagenes\Iconos\16\lock.png" />
+    <Content Include="Imagenes\Iconos\16\media_play.png" />
+    <Content Include="Imagenes\Iconos\16\money.png" />
+    <Content Include="Imagenes\Iconos\16\money_add.png" />
+    <Content Include="Imagenes\Iconos\16\money_delete.png" />
+    <Content Include="Imagenes\Iconos\16\money_dollar.png" />
+    <Content Include="Imagenes\Iconos\16\office.png" />
+    <Content Include="Imagenes\Iconos\16\pin_blue.png" />
+    <Content Include="Imagenes\Iconos\16\pin_green.png" />
+    <Content Include="Imagenes\Iconos\16\pin_grey.png" />
+    <Content Include="Imagenes\Iconos\16\pin_red.png" />
+    <Content Include="Imagenes\Iconos\16\pin_yellow.png" />
+    <Content Include="Imagenes\Iconos\16\pos.png" />
+    <Content Include="Imagenes\Iconos\16\printer.png" />
+    <Content Include="Imagenes\Iconos\16\refresh.png" />
+    <Content Include="Imagenes\Iconos\16\script_edit.png" />
+    <Content Include="Imagenes\Iconos\16\script_error.png" />
+    <Content Include="Imagenes\Iconos\16\script_gear.png" />
+    <Content Include="Imagenes\Iconos\16\script_go.png" />
+    <Content Include="Imagenes\Iconos\16\style_edit.png" />
+    <Content Include="Imagenes\Iconos\16\table_edit.png" />
+    <Content Include="Imagenes\Iconos\16\transmit_edit.png" />
+    <Content Include="Imagenes\Iconos\16\user-message.png" />
+    <Content Include="Imagenes\Iconos\16\user1_add.png" />
+    <Content Include="Imagenes\Iconos\16\users2.png" />
+    <Content Include="Imagenes\Iconos\16\view.png" />
+    <Content Include="Imagenes\Iconos\16\window_edit.png" />
+    <Content Include="Imagenes\Iconos\16\wrench.png" />
+    <Content Include="Imagenes\Iconos\24\contract.png" />
+    <Content Include="Imagenes\Iconos\24\document_edit.png" />
+    <Content Include="Imagenes\Iconos\24\error.png" />
+    <Content Include="Imagenes\Iconos\24\flash.png" />
+    <Content Include="Imagenes\Iconos\24\img_add_user.png" />
+    <Content Include="Imagenes\Iconos\24\img_close.png" />
+    <Content Include="Imagenes\Iconos\24\img_datos.png" />
+    <Content Include="Imagenes\Iconos\24\img_documental.png" />
+    <Content Include="Imagenes\Iconos\24\img_download.png" />
+    <Content Include="Imagenes\Iconos\24\img_info.png" />
+    <Content Include="Imagenes\Iconos\24\img_payment.png" />
+    <Content Include="Imagenes\Iconos\24\img_print.png" />
+    <Content Include="Imagenes\Iconos\24\img_refresh.png" />
+    <Content Include="Imagenes\Iconos\24\img_view.png" />
+    <Content Include="Imagenes\Iconos\24\index.png" />
+    <Content Include="Imagenes\Iconos\24\message_edit.png" />
+    <Content Include="Imagenes\Iconos\24\pin_blue.png" />
+    <Content Include="Imagenes\Iconos\24\pin_green.png" />
+    <Content Include="Imagenes\Iconos\24\pin_grey.png" />
+    <Content Include="Imagenes\Iconos\24\pin_red.png" />
+    <Content Include="Imagenes\Iconos\24\pin_yellow.png" />
+    <Content Include="Imagenes\Iconos\24\Refresh.png" />
+    <Content Include="Imagenes\Iconos\24\text_rich_colored.png" />
+    <Content Include="Imagenes\Iconos\24\text_tree.png" />
+    <Content Include="Imagenes\Iconos\24\transmit_edit.png" />
+    <Content Include="Imagenes\Iconos\24\user1_lock.png" />
+    <Content Include="Imagenes\Iconos\24\users3.png" />
+    <Content Include="Imagenes\Iconos\24\users3_preferences.png" />
+    <Content Include="Imagenes\Iconos\24\warning.png" />
+    <Content Include="Imagenes\Iconos\32\blue-dot.png" />
+    <Content Include="Imagenes\Iconos\32\calendar_preferences.png" />
+    <Content Include="Imagenes\Iconos\32\close-icon.png" />
+    <Content Include="Imagenes\Iconos\32\column-chart.png" />
+    <Content Include="Imagenes\Iconos\32\contract.png" />
+    <Content Include="Imagenes\Iconos\32\currency_dollar.png" />
+    <Content Include="Imagenes\Iconos\32\disks.png" />
+    <Content Include="Imagenes\Iconos\32\disk_blue.png" />
+    <Content Include="Imagenes\Iconos\32\document_dirty.png" />
+    <Content Include="Imagenes\Iconos\32\earth.png" />
+    <Content Include="Imagenes\Iconos\32\house.png" />
+    <Content Include="Imagenes\Iconos\32\houses.png" />
+    <Content Include="Imagenes\Iconos\32\img_cancel.png" />
+    <Content Include="Imagenes\Iconos\32\img_check.png" />
+    <Content Include="Imagenes\Iconos\32\img_cierre_caja.png" />
+    <Content Include="Imagenes\Iconos\32\img_comercio2.png" />
+    <Content Include="Imagenes\Iconos\32\img_copy1.png" />
+    <Content Include="Imagenes\Iconos\32\img_copy2.png" />
+    <Content Include="Imagenes\Iconos\32\img_delete_list.png" />
+    <Content Include="Imagenes\Iconos\32\img_delete_user.png" />
+    <Content Include="Imagenes\Iconos\32\img_download.png" />
+    <Content Include="Imagenes\Iconos\32\img_download1.png" />
+    <Content Include="Imagenes\Iconos\32\img_download2.png" />
+    <Content Include="Imagenes\Iconos\32\img_download3.png" />
+    <Content Include="Imagenes\Iconos\32\img_excel.png" />
+    <Content Include="Imagenes\Iconos\32\img_folder_add.png" />
+    <Content Include="Imagenes\Iconos\32\img_info.png" />
+    <Content Include="Imagenes\Iconos\32\img_info1.png" />
+    <Content Include="Imagenes\Iconos\32\img_info2.png" />
+    <Content Include="Imagenes\Iconos\32\img_keyboard.png" />
+    <Content Include="Imagenes\Iconos\32\img_linechart.png" />
+    <Content Include="Imagenes\Iconos\32\img_payment.png" />
+    <Content Include="Imagenes\Iconos\32\img_pdf1.png" />
+    <Content Include="Imagenes\Iconos\32\img_pdf2.png" />
+    <Content Include="Imagenes\Iconos\32\img_pdf3.png" />
+    <Content Include="Imagenes\Iconos\32\img_picture.png" />
+    <Content Include="Imagenes\Iconos\32\img_piechart.png" />
+    <Content Include="Imagenes\Iconos\32\img_print.png" />
+    <Content Include="Imagenes\Iconos\32\img_refresh.png" />
+    <Content Include="Imagenes\Iconos\32\img_search.png" />
+    <Content Include="Imagenes\Iconos\32\img_tramitar.png" />
+    <Content Include="Imagenes\Iconos\32\img_user_add.png" />
+    <Content Include="Imagenes\Iconos\32\img_user_add1.png" />
+    <Content Include="Imagenes\Iconos\32\img_user_add2.png" />
+    <Content Include="Imagenes\Iconos\32\img_view.png" />
+    <Content Include="Imagenes\Iconos\32\line-chart.png" />
+    <Content Include="Imagenes\Iconos\32\magic-wand.png" />
+    <Content Include="Imagenes\Iconos\32\mail_attachment.png" />
+    <Content Include="Imagenes\Iconos\32\money2.png" />
+    <Content Include="Imagenes\Iconos\32\office-building.png" />
+    <Content Include="Imagenes\Iconos\32\red-dot.png" />
+    <Content Include="Imagenes\Iconos\32\text_rich_colored.png" />
+    <Content Include="Imagenes\Iconos\32\user1_information.png" />
+    <Content Include="Imagenes\Iconos\32\users1.png" />
+    <Content Include="Imagenes\Iconos\48\bug-mail.png" />
+    <Content Include="Imagenes\Iconos\48\bug_yellow.png" />
+    <Content Include="Imagenes\Iconos\48\calendar.png" />
+    <Content Include="Imagenes\Iconos\48\contract.png" />
+    <Content Include="Imagenes\Iconos\48\desktop.png" />
+    <Content Include="Imagenes\Iconos\48\dude3.png" />
+    <Content Include="Imagenes\Iconos\48\gears_preferences.png" />
+    <Content Include="Imagenes\Iconos\48\help.png" />
+    <Content Include="Imagenes\Iconos\48\help2.png" />
+    <Content Include="Imagenes\Iconos\48\home.png" />
+    <Content Include="Imagenes\Iconos\48\house.png" />
+    <Content Include="Imagenes\Iconos\48\img_cierre_caja.png" />
+    <Content Include="Imagenes\Iconos\48\img_comercio1.png" />
+    <Content Include="Imagenes\Iconos\48\img_comercio3.png" />
+    <Content Include="Imagenes\Iconos\48\img_info.png" />
+    <Content Include="Imagenes\Iconos\48\img_printer.png" />
+    <Content Include="Imagenes\Iconos\48\img_refresh.png" />
+    <Content Include="Imagenes\Iconos\48\img_search.png" />
+    <Content Include="Imagenes\Iconos\48\index.png" />
+    <Content Include="Imagenes\Iconos\48\index_add.png" />
+    <Content Include="Imagenes\Iconos\48\lock.png" />
+    <Content Include="Imagenes\Iconos\48\magic-wand.png" />
+    <Content Include="Imagenes\Iconos\48\mobilephone1.png" />
+    <Content Include="Imagenes\Iconos\48\money2.png" />
+    <Content Include="Imagenes\Iconos\48\office-building.png" />
+    <Content Include="Imagenes\Iconos\48\printer.png" />
+    <Content Include="Imagenes\Iconos\48\User1.png" />
+    <Content Include="Imagenes\Iconos\48\User2.png" />
+    <Content Include="Imagenes\Iconos\48\User3.png" />
+    <Content Include="Imagenes\Iconos\48\User4.png" />
+    <Content Include="Imagenes\Iconos\48\users3.png" />
+    <Content Include="Imagenes\Menu\16\10.png" />
+    <Content Include="Imagenes\Menu\16\11.png" />
+    <Content Include="Imagenes\Menu\16\118.png" />
+    <Content Include="Imagenes\Menu\16\12.png" />
+    <Content Include="Imagenes\Menu\16\13.png" />
+    <Content Include="Imagenes\Menu\16\141.png" />
+    <Content Include="Imagenes\Menu\16\1442120650_License-manager.png" />
+    <Content Include="Imagenes\Menu\16\1489096375_vector_66_13.png" />
+    <Content Include="Imagenes\Menu\16\1489096382_vector_66_10.png" />
+    <Content Include="Imagenes\Menu\16\1489096385_social-media_email.png" />
+    <Content Include="Imagenes\Menu\16\15-1.png" />
+    <Content Include="Imagenes\Menu\16\15.png" />
+    <Content Include="Imagenes\Menu\16\16.png" />
+    <Content Include="Imagenes\Menu\16\17-1.png" />
+    <Content Include="Imagenes\Menu\16\17.png" />
+    <Content Include="Imagenes\Menu\16\177.png" />
+    <Content Include="Imagenes\Menu\16\19.png" />
+    <Content Include="Imagenes\Menu\16\20.png" />
+    <Content Include="Imagenes\Menu\16\21.png" />
+    <Content Include="Imagenes\Menu\16\22-1.png" />
+    <Content Include="Imagenes\Menu\16\22.png" />
+    <Content Include="Imagenes\Menu\16\24.png" />
+    <Content Include="Imagenes\Menu\16\25-2.png" />
+    <Content Include="Imagenes\Menu\16\25.png" />
+    <Content Include="Imagenes\Menu\16\26-1.png" />
+    <Content Include="Imagenes\Menu\16\26.png" />
+    <Content Include="Imagenes\Menu\16\27.png" />
+    <Content Include="Imagenes\Menu\16\28.png" />
+    <Content Include="Imagenes\Menu\16\29-1.png" />
+    <Content Include="Imagenes\Menu\16\29-2.png" />
+    <Content Include="Imagenes\Menu\16\29.png" />
+    <Content Include="Imagenes\Menu\16\30-1.png" />
+    <Content Include="Imagenes\Menu\16\30.png" />
+    <Content Include="Imagenes\Menu\16\31.png" />
+    <Content Include="Imagenes\Menu\16\32.png" />
+    <Content Include="Imagenes\Menu\16\33-1.png" />
+    <Content Include="Imagenes\Menu\16\33.png" />
+    <Content Include="Imagenes\Menu\16\34.png" />
+    <Content Include="Imagenes\Menu\16\35.png" />
+    <Content Include="Imagenes\Menu\16\36.png" />
+    <Content Include="Imagenes\Menu\16\37-1.png" />
+    <Content Include="Imagenes\Menu\16\37.png" />
+    <Content Include="Imagenes\Menu\16\38-1.png" />
+    <Content Include="Imagenes\Menu\16\38.png" />
+    <Content Include="Imagenes\Menu\16\39.png" />
+    <Content Include="Imagenes\Menu\16\4.png" />
+    <Content Include="Imagenes\Menu\16\40.png" />
+    <Content Include="Imagenes\Menu\16\41-1.png" />
+    <Content Include="Imagenes\Menu\16\41.png" />
+    <Content Include="Imagenes\Menu\16\42.png" />
+    <Content Include="Imagenes\Menu\16\44.png" />
+    <Content Include="Imagenes\Menu\16\45-1.png" />
+    <Content Include="Imagenes\Menu\16\45.png" />
+    <Content Include="Imagenes\Menu\16\46.png" />
+    <Content Include="Imagenes\Menu\16\47.png" />
+    <Content Include="Imagenes\Menu\16\48.png" />
+    <Content Include="Imagenes\Menu\16\50.png" />
+    <Content Include="Imagenes\Menu\16\51-1.png" />
+    <Content Include="Imagenes\Menu\16\51.png" />
+    <Content Include="Imagenes\Menu\16\52-1.png" />
+    <Content Include="Imagenes\Menu\16\54.png" />
+    <Content Include="Imagenes\Menu\16\57.png" />
+    <Content Include="Imagenes\Menu\16\59.png" />
+    <Content Include="Imagenes\Menu\16\6.png" />
+    <Content Include="Imagenes\Menu\16\61.png" />
+    <Content Include="Imagenes\Menu\16\62.png" />
+    <Content Include="Imagenes\Menu\16\63.png" />
+    <Content Include="Imagenes\Menu\16\64.png" />
+    <Content Include="Imagenes\Menu\16\66.png" />
+    <Content Include="Imagenes\Menu\16\7.png" />
+    <Content Include="Imagenes\Menu\16\70.png" />
+    <Content Include="Imagenes\Menu\16\72.png" />
+    <Content Include="Imagenes\Menu\16\74.png" />
+    <Content Include="Imagenes\Menu\16\75.png" />
+    <Content Include="Imagenes\Menu\16\77.png" />
+    <Content Include="Imagenes\Menu\16\8.png" />
+    <Content Include="Imagenes\Menu\16\80.png" />
+    <Content Include="Imagenes\Menu\16\81.png" />
+    <Content Include="Imagenes\Menu\16\82.png" />
+    <Content Include="Imagenes\Menu\16\84.png" />
+    <Content Include="Imagenes\Menu\16\85.png" />
+    <Content Include="Imagenes\Menu\16\9.png" />
+    <Content Include="Imagenes\Menu\16\90.png" />
+    <Content Include="Imagenes\Menu\16\91.png" />
+    <Content Include="Imagenes\Menu\16\93.png" />
+    <Content Include="Imagenes\Menu\16\94.png" />
+    <Content Include="Imagenes\Menu\16\95.png" />
+    <Content Include="Imagenes\Menu\16\97.png" />
+    <Content Include="Imagenes\Menu\16\98.png" />
+    <Content Include="Imagenes\Menu\16\bar_code.png" />
+    <Content Include="Imagenes\Menu\16\img_block.png" />
+    <Content Include="Imagenes\Menu\16\img_pqr3.png" />
+    <Content Include="Imagenes\Menu\16\upload.png" />
+    <Content Include="Imagenes\Menu\24\1481161061_user-group-new.png" />
+    <Content Include="Imagenes\Menu\24\1489119084_vector_65_16.png" />
+    <Content Include="Imagenes\Menu\24\if_pencil_285638.png" />
+    <Content Include="Imagenes\Menu\24\img_add_user.png" />
+    <Content Include="Imagenes\Menu\24\img_adjuntar.png" />
+    <Content Include="Imagenes\Menu\24\img_bloqueo.png" />
+    <Content Include="Imagenes\Menu\24\img_datos.png" />
+    <Content Include="Imagenes\Menu\24\img_download.png" />
+    <Content Include="Imagenes\Menu\24\img_editar.png" />
+    <Content Include="Imagenes\Menu\24\img_guardar.png" />
+    <Content Include="Imagenes\Menu\32\1442120543_Save.png" />
+    <Content Include="Imagenes\Menu\32\1442120655_License-manager.png" />
+    <Content Include="Imagenes\Menu\32\1442120709_Extract-todays-changes.png" />
+    <Content Include="Imagenes\Menu\32\1481161038_user-group-new.png" />
+    <Content Include="Imagenes\Menu\32\1489119016_vector_65_16.png" />
+    <Content Include="Imagenes\Menu\32\if_pencil_285638.png" />
+    <Content Include="Imagenes\Menu\32\img_block.png" />
+    <Content Include="Imagenes\Menu\48\10.png" />
+    <Content Include="Imagenes\Menu\48\11.png" />
+    <Content Include="Imagenes\Menu\48\12.png" />
+    <Content Include="Imagenes\Menu\48\13.png" />
+    <Content Include="Imagenes\Menu\48\14.png" />
+    <Content Include="Imagenes\Menu\48\1489119101_vector_65_16.png" />
+    <Content Include="Imagenes\Menu\48\15.png" />
+    <Content Include="Imagenes\Menu\48\16.png" />
+    <Content Include="Imagenes\Menu\48\19.png" />
+    <Content Include="Imagenes\Menu\48\20.png" />
+    <Content Include="Imagenes\Menu\48\21.png" />
+    <Content Include="Imagenes\Menu\48\23.png" />
+    <Content Include="Imagenes\Menu\48\5.png" />
+    <Content Include="Imagenes\Menu\48\8.png" />
+    <Content Include="Imagenes\Menu\48\9.png" />
+    <Content Include="Imagenes\Menu\48\cancel.png" />
+    <Content Include="Imagenes\Menu\48\if_pencil_285638.png" />
+    <Content Include="Imagenes\Menu\48\imd_pdf.png" />
+    <Content Include="Imagenes\Menu\48\img_add.png" />
+    <Content Include="Imagenes\Menu\48\img_adjuntar.png" />
+    <Content Include="Imagenes\Menu\48\img_cancel.png" />
+    <Content Include="Imagenes\Menu\48\img_download.png" />
+    <Content Include="Imagenes\Menu\48\img_edit.png" />
+    <Content Include="Imagenes\Menu\48\img_edit2.png" />
+    <Content Include="Imagenes\Menu\48\img_new1.png" />
+    <Content Include="Imagenes\Menu\48\img_new2.png" />
+    <Content Include="Imagenes\Menu\48\img_save.png" />
+    <Content Include="Imagenes\Menu\48\img_save_cancel.png" />
+    <Content Include="Imagenes\Menu\48\img_save_download.png" />
+    <Content Include="Imagenes\Menu\48\img_scanner.png" />
+    <Content Include="Imagenes\Modulos\img_Administrar_Documentos.png" />
+    <Content Include="Imagenes\Modulos\img_AlumbradoPublico.png" />
+    <Content Include="Imagenes\Modulos\img_Anexos.png" />
+    <Content Include="Imagenes\Modulos\img_Autoretenciones.png" />
+    <Content Include="Imagenes\Modulos\img_calendarios_tributarios.png" />
+    <Content Include="Imagenes\Modulos\img_carga_masiva_documentos.png" />
+    <Content Include="Imagenes\Modulos\img_Cargue_anexo_rent_imp_predial.png" />
+    <Content Include="Imagenes\Modulos\img_Cargue_Manual.png" />
+    <Content Include="Imagenes\Modulos\img_Cargue_Masivo.png" />
+    <Content Include="Imagenes\Modulos\img_conciliacion_hc.png" />
+    <Content Include="Imagenes\Modulos\img_consulta.png" />
+    <Content Include="Imagenes\Modulos\img_Consulta_anexo_rent_imp_predial.png" />
+    <Content Include="Imagenes\Modulos\img_Consulta_autoretencion.png" />
+    <Content Include="Imagenes\Modulos\img_Consulta_Declaraciones.png" />
+    <Content Include="Imagenes\Modulos\img_Consulta_Requerimientos.png" />
+    <Content Include="Imagenes\Modulos\img_control_actividades.png" />
+    <Content Include="Imagenes\Modulos\img_Control_Requerimientos.png" />
+    <Content Include="Imagenes\Modulos\img_cuadro.png" />
+    <Content Include="Imagenes\Modulos\img_Custodia_Imagenes.png" />
+    <Content Include="Imagenes\Modulos\img_definitivo_autoretencionica.png" />
+    <Content Include="Imagenes\Modulos\img_definitivo_imp.png" />
+    <Content Include="Imagenes\Modulos\img_ejecucion_lotes.png" />
+    <Content Include="Imagenes\Modulos\img_estadistica_actividades.png" />
+    <Content Include="Imagenes\Modulos\img_estadistica_liquidaciones.png" />
+    <Content Include="Imagenes\Modulos\img_ficha_tecnica.png" />
+    <Content Include="Imagenes\Modulos\img_f_321.png" />
+    <Content Include="Imagenes\Modulos\img_f_525.png" />
+    <Content Include="Imagenes\Modulos\img_generacion_datos.png" />
+    <Content Include="Imagenes\Modulos\img_Generar_anexo_rent_imp_predial.png" />
+    <Content Include="Imagenes\Modulos\img_Generar_archivo_autoretencion.png" />
+    <Content Include="Imagenes\Modulos\img_Gráficas_Estadíticas.png" />
+    <Content Include="Imagenes\Modulos\img_info_tributaria.png" />
+    <Content Include="Imagenes\Modulos\img_liquidacion_obligacion.png" />
+    <Content Include="Imagenes\Modulos\img_mis_actividades.png" />
+    <Content Include="Imagenes\Modulos\img_modelo.png" />
+    <Content Include="Imagenes\Modulos\img_modulo_autoretencionica.png" />
+    <Content Include="Imagenes\Modulos\img_modulo_ica.png" />
+    <Content Include="Imagenes\Modulos\img_monitoreo_actividades.png" />
+    <Content Include="Imagenes\Modulos\img_normatividad.png" />
+    <Content Include="Imagenes\Modulos\img_normatividad_cargar.png" />
+    <Content Include="Imagenes\Modulos\img_normatividad_consulta.png" />
+    <Content Include="Imagenes\Modulos\img_planeacion_fiscal.png" />
+    <Content Include="Imagenes\Modulos\img_plano.png" />
+    <Content Include="Imagenes\Modulos\img_predial.png" />
+    <Content Include="Imagenes\Modulos\img_proceso_contabilizacion.png" />
+    <Content Include="Imagenes\Modulos\img_recaudo_movii_fdm.png" />
+    <Content Include="Imagenes\Modulos\img_regresar.png" />
+    <Content Include="Imagenes\Modulos\img_Renta.png" />
+    <Content Include="Imagenes\Modulos\img_reportes.png" />
+    <Content Include="Imagenes\Modulos\img_ReteIca.png" />
+    <Content Include="Imagenes\Modulos\img_sfc.png" />
+    <Content Include="Imagenes\Modulos\img_tarifas_excesivas.png" />
+    <Content Include="Imagenes\Modulos\img_validar_liq_lotes.png" />
+    <Content Include="Imagenes\Otros\img_act_gravadas.png" />
+    <Content Include="Imagenes\Otros\img_anticipos.png" />
+    <Content Include="Imagenes\Otros\img_autoretencion.png" />
+    <Content Include="Imagenes\Otros\img_base_gravable.png" />
+    <Content Include="Imagenes\Otros\img_firmas.png" />
+    <Content Include="Imagenes\Otros\img_info_contribuyente.png" />
+    <Content Include="Imagenes\Otros\img_liquidaciones.png" />
+    <Content Include="Imagenes\Otros\img_liq_privada.png" />
+    <Content Include="Imagenes\Otros\img_pago.png" />
+    <Content Include="Imagenes\Otros\img_subtotales.png" />
+    <Content Include="Imagenes\Otros\Sin título-1.png" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\anonimo.gif" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\fondo_cabezote.jpg" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\fondo_contenido.jpg" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\fondo_pie.png" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\fondo_ruta.png" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\fondo_textbox.gif" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\indicador_ajax.gif" />
+    <Content Include="Imagenes\Temas\Gris\Imagenes\marco-avatar.gif" />
+    <Content Include="Imagenes\Temas\Gris\Styles.css" />
+    <Content Include="Index.aspx" />
+    <Content Include="Modulos\Administracion\Clientes\FrmClienteImpuestos.aspx" />
+    <Content Include="Modulos\Administracion\Clientes\FrmClientes.aspx" />
+    <Content Include="Modulos\Administracion\Clientes\FrmFirmantes.aspx" />
+    <Content Include="Modulos\Administracion\ConciliacionHC\FrmConciliacionHC.aspx" />
+    <Content Include="Modulos\Administracion\EjecucionXLote\FrmConfEjecucionXLote.aspx" />
+    <Content Include="Modulos\Administracion\FrmConsultaLiquidacionIca.aspx" />
+    <Content Include="Modulos\Administracion\FrmControlActividades.aspx" />
+    <Content Include="Modulos\Administracion\FrmControlActividadesAnalista.aspx" />
+    <Content Include="Modulos\Administracion\FrmEstadosFinancieros.aspx" />
+    <Content Include="Modulos\Administracion\FrmFichaTecnica.aspx" />
+    <Content Include="Modulos\Administracion\FrmLiquidacionImpuestos.aspx" />
+    <Content Include="Modulos\Administracion\FrmObligacionesPorMuncipio.aspx" />
+    <Content Include="Modulos\Administracion\FrmProximosVencimientos.aspx" />
+    <Content Include="Modulos\Parametros\Alumbrado\FrmRegistroConsumos.aspx" />
+    <Content Include="Modulos\Parametros\Alumbrado\FrmSectorMunicipio.aspx" />
+    <Content Include="Modulos\Parametros\Formatos\FrmInfoEntidad.aspx" />
+    <Content Include="Modulos\Parametros\Formatos\FrmParam321525.aspx" />
+    <Content Include="Modulos\Parametros\Formatos\FrmUnidadCaptura.aspx" />
+    <Content Include="Modulos\Parametros\FrmBancos.aspx" />
+    <Content Include="Modulos\Parametros\FrmConceptosProv.aspx" />
+    <Content Include="Modulos\Parametros\FrmConfConceptosProv.aspx" />
+    <Content Include="Modulos\Parametros\FrmDepartamentos.aspx" />
+    <Content Include="Modulos\Parametros\FrmDesgloceICA.aspx" />
+    <Content Include="Modulos\Parametros\FrmDiasFestivo.aspx" />
+    <Content Include="Modulos\Parametros\FrmEmpresas.aspx" />
+    <Content Include="Modulos\Parametros\FrmEstados.aspx" />
+    <Content Include="Modulos\Parametros\FrmFormularioImpuestos.aspx" />
+    <Content Include="Modulos\Parametros\FrmMunicipios.aspx" />
+    <Content Include="Modulos\Parametros\FrmPaises.aspx" />
+    <Content Include="Modulos\Parametros\FrmParametrosLicencia.aspx" />
+    <Content Include="Modulos\Parametros\FrmPeriodicidadPagos.aspx" />
+    <Content Include="Modulos\Parametros\FrmPlanUnicoCuentas.aspx" />
+    <Content Include="Modulos\Parametros\FrmTarifasExcesivas.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoActividad.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoClasificacion.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoCtrlActividad.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoFirma.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoLicencia.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoMoneda.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoNaturaleza.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoNivel.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoNormatividad.aspx" />
+    <Content Include="Modulos\Parametros\FrmTiposCargo.aspx" />
+    <Content Include="Modulos\Parametros\FrmTiposIdentificacion.aspx" />
+    <Content Include="Modulos\Parametros\FrmTipoTarifa.aspx" />
+    <Content Include="Modulos\Parametros\FrmUnidadesMedida.aspx" />
+    <Content Include="Modulos\Parametros\ReteICA\FrmConceptos.aspx" />
+    <Content Include="Modulos\Parametros\ReteICA\FrmRenglonConcepto.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptActEconomicas.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptAcuerdosMunicipales.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptBancoCuentas.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptCalendarioTributario.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptCantidadEstablecimientos.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptConfiguracionImp.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptControlActividades.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptCtrlActividadesAnalista.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptEstablecimientos.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptImpMunicipios.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptMunicipios.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptMunicipiosAutoret.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptOtrasConfiguraciones.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptPlanUnicoCuenta.aspx" />
+    <Content Include="Modulos\Reportes\Anexos\FrmRptAnexoAutoIca.aspx" />
+    <Content Include="Modulos\Reportes\Anexos\FrmRptAnexoIca.aspx" />
+    <Content Include="Modulos\Reportes\Formatos\Frm321.aspx" />
+    <Content Include="Modulos\Reportes\Formatos\Frm525.aspx" />
+    <Content Include="Modulos\Reportes\Formatos\FrmCruzado.aspx" />
+    <Content Include="Modulos\Reportes\Formatos\FrmEjecuciones.aspx" />
+    <Content Include="Modulos\Reportes\FrmRepAcumuladoProvICA.aspx" />
+    <Content Include="Modulos\Reportes\FrmRepCompProvICA.aspx" />
+    <Content Include="Modulos\Reportes\FrmRepMensualProvICA.aspx" />
+    <Content Include="Modulos\Reportes\FrmRepRegContableProvICA.aspx" />
+    <Content Include="Modulos\Reportes\Seguridad\FrmRptLogsAuditoria.aspx" />
+    <Content Include="Modulos\Reportes\Seguridad\FrmRptPerfilesOpcionesMenu.aspx" />
+    <Content Include="Modulos\Reportes\Seguridad\FrmRptUsuarios.aspx" />
+    <Content Include="Modulos\Seguridad\FrmCambioClave.aspx" />
+    <Content Include="Modulos\Seguridad\FrmConfiguracionAlertas.aspx" />
+    <Content Include="Modulos\Seguridad\FrmGenerarTablas.aspx" />
+    <Content Include="Modulos\Seguridad\FrmGestionUsuarios.aspx" />
+    <Content Include="Modulos\Seguridad\FrmLogsAuditoria.aspx" />
+    <Content Include="Modulos\Seguridad\FrmOpcionesMenu.aspx" />
+    <Content Include="Modulos\Seguridad\FrmResetearCache.aspx" />
+    <Content Include="Modulos\Seguridad\FrmRoles.aspx" />
+    <Content Include="Modulos\Seguridad\FrmUsuarios.aspx" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Salir.aspx" />
+    <Content Include="Site.Master" />
+    <Content Include="MasterPageError.Master" />
+    <Content Include="MasterPageGeneral.Master" />
+    <Content Include="Archivos\Formatos\4\F321_DIC_2021.xlsx" />
+    <Content Include="Archivos\Formatos\4\F525_DIC_2021.xlsx" />
+    <Content Include="Archivos\Formatos\Plantillas\Template321.xlsx" />
+    <Content Include="Archivos\Formatos\Plantillas\Template525.xlsx" />
+    <None Include="Properties\PublishProfiles\Smartax.Web.Application.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\prefixfree.min.js" />
+    <Content Include="style\masterpage.css" />
+    <Content Include="style\menu.css" />
+    <Content Include="style\style.css" />
+    <Content Include="style\style1.css" />
+    <Content Include="style\Styles1.css" />
+    <Content Include="style\Styles3.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clases\Administracion\AdministracionPlanos.cs" />
+    <Compile Include="Clases\Administracion\AdministradorExcel.cs" />
+    <Compile Include="Clases\Administracion\Cliente.cs" />
+    <Compile Include="Clases\Administracion\ClienteActividadEconomica.cs" />
+    <Compile Include="Clases\Administracion\ClienteBaseGravable.cs" />
+    <Compile Include="Clases\Administracion\ClienteEstablecimiento.cs" />
+    <Compile Include="Clases\Administracion\ClienteEstadosFinanciero.cs" />
+    <Compile Include="Clases\Administracion\ClienteImpuesto.cs" />
+    <Compile Include="Clases\Administracion\ClientePuc.cs" />
+    <Compile Include="Clases\Administracion\ConciliacionesHerramientaCuadre.cs" />
+    <Compile Include="Clases\Administracion\ConfContabilizacion.cs" />
+    <Compile Include="Clases\Administracion\ControlActividades.cs" />
+    <Compile Include="Clases\Administracion\ControlActividadesAnalista.cs" />
+    <Compile Include="Clases\Administracion\EjecucionXLote.cs" />
+    <Compile Include="Clases\Administracion\EjecucionXLoteFiltros.cs" />
+    <Compile Include="Clases\Administracion\EjecucionXLoteUser.cs" />
+    <Compile Include="Clases\Administracion\Firmantes.cs" />
+    <Compile Include="Clases\Modulos\AdminAlumbrado.cs" />
+    <Compile Include="Clases\Modulos\AdminCargueInfoContable.cs" />
+    <Compile Include="Clases\Modulos\AdminCargueLeasingFinanciero.cs" />
+    <Compile Include="Clases\Modulos\AdminCargueLeasingHabitacional.cs" />
+    <Compile Include="Clases\Modulos\AdminCarguePagaduria.cs" />
+    <Compile Include="Clases\Modulos\AdminCargueTarjetaCredito.cs" />
+    <Compile Include="Clases\Modulos\AdministradorFormatos.cs" />
+    <Compile Include="Clases\Modulos\AdminRetencionICA.cs" />
+    <Compile Include="Clases\Modulos\CalcularValor.cs" />
+    <Compile Include="Clases\Modulos\Cargue\ColumnLength.cs" />
+    <Compile Include="Clases\Modulos\Cargue\Converters\ContainsConverter.cs" />
+    <Compile Include="Clases\Modulos\Cargue\Converters\DateTimeValueConverter.cs" />
+    <Compile Include="Clases\Modulos\Cargue\Converters\FloatValueConverter.cs" />
+    <Compile Include="Clases\Modulos\Cargue\Converters\IntegerValueConverter.cs" />
+    <Compile Include="Clases\Modulos\Cargue\Converters\IValueConverter.cs" />
+    <Compile Include="Clases\Modulos\Cargue\CsvColumnResolver.cs" />
+    <Compile Include="Clases\Modulos\Cargue\FixedWidthColumnResolver.cs" />
+    <Compile Include="Clases\Modulos\ConsultaLiqImpuesto.cs" />
+    <Compile Include="Clases\Modulos\ControlDeActividades.cs" />
+    <Compile Include="Clases\Modulos\LiquidarImpuestos.cs" />
+    <Compile Include="Clases\Modulos\ModulosApp.cs" />
+    <Compile Include="Clases\Parametros\Alumbrado\ConfAlumbrado.cs" />
+    <Compile Include="Clases\Parametros\Alumbrado\ConfConsumos.cs" />
+    <Compile Include="Clases\Parametros\Divipola\AcuerdosMunicipales.cs" />
+    <Compile Include="Clases\Parametros\Divipola\Departamento.cs" />
+    <Compile Include="Clases\Parametros\Divipola\Municipio.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioActividadEconomica.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioAutoretencion.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioBanco.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioCalendarioTributario.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioDescuento.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioImpuestos.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioTarifasExcesivas.cs" />
+    <Compile Include="Clases\Parametros\Divipola\MunicipioTarifasMinima.cs" />
+    <Compile Include="Clases\Parametros\Divipola\Pais.cs" />
+    <Compile Include="Clases\Parametros\Empresas.cs" />
+    <Compile Include="Clases\Parametros\Estado.cs" />
+    <Compile Include="Clases\Parametros\Formatos\ConfInfoEntidad.cs" />
+    <Compile Include="Clases\Parametros\Formatos\ConfParam321_525.cs" />
+    <Compile Include="Clases\Parametros\Formatos\UnidadesCaptura.cs" />
+    <Compile Include="Clases\Parametros\Lista.cs" />
+    <Compile Include="Clases\Parametros\ParametrosSistema.cs" />
+    <Compile Include="Clases\Parametros\PlanUnicoCuenta.cs" />
+    <Compile Include="Clases\Parametros\Provision\ConceptosProv.cs" />
+    <Compile Include="Clases\Parametros\Provision\ConfClienteProv.cs" />
+    <Compile Include="Clases\Parametros\Provision\ConfConceptosProv.cs" />
+    <Compile Include="Clases\Parametros\Provision\EjecutarProv.cs" />
+    <Compile Include="Clases\Parametros\Provision\NivelProv.cs" />
+    <Compile Include="Clases\Parametros\PucImpuesto.cs" />
+    <Compile Include="Clases\Parametros\ReteICA\ConfConceptos.cs" />
+    <Compile Include="Clases\Parametros\ReteICA\ConfRenglonConcepto.cs" />
+    <Compile Include="Clases\Parametros\TipoMenu.cs" />
+    <Compile Include="Clases\Parametros\Tipos\Banco.cs" />
+    <Compile Include="Clases\Parametros\Tipos\DiasFestivo.cs" />
+    <Compile Include="Clases\Parametros\Tipos\FormConfiguracion.cs" />
+    <Compile Include="Clases\Parametros\Tipos\FormularioImpuesto.cs" />
+    <Compile Include="Clases\Parametros\Tipos\MedioEnvioToken.cs" />
+    <Compile Include="Clases\Parametros\Tipos\MedioPago.cs" />
+    <Compile Include="Clases\Parametros\Tipos\PeriodicidadPagos.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoCtrlActividad.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoCuenta.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoEvento.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoLicencia.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoNivel.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoOperacion.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposClasificacion.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoSector.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposFirma.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposMoneda.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposNaturaleza.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposActividad.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TipoIdentificacion.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposCargo.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposNormatividad.cs" />
+    <Compile Include="Clases\Parametros\Tipos\TiposTarifa.cs" />
+    <Compile Include="Clases\Parametros\Tipos\UnidadesMedida.cs" />
+    <Compile Include="Clases\Parametros\Tipos\ValorUnidadMedida.cs" />
+    <Compile Include="Clases\ProcessAPIs\ModelApiSmartax.cs" />
+    <Compile Include="Clases\ProcessAPIs\ProcessAPI.cs" />
+    <Compile Include="Clases\Reportes\Formatos\Admin321.cs" />
+    <Compile Include="Clases\Reportes\Formatos\Admin525.cs" />
+    <Compile Include="Clases\Reportes\Formatos\AdminEjecuciones.cs" />
+    <Compile Include="Clases\Reportes\Formatos\Cruzado.cs" />
+    <Compile Include="Clases\Reportes\Provision\AcumuladoProv.cs" />
+    <Compile Include="Clases\Reportes\Provision\CompProv.cs" />
+    <Compile Include="Clases\Reportes\Provision\MensualProv.cs" />
+    <Compile Include="Clases\Reportes\Provision\RegistroContableProv.cs" />
+    <Compile Include="Clases\Reportes\ClaseReportes.cs" />
+    <Compile Include="Clases\Seguridad\Combox.cs" />
+    <Compile Include="Clases\Seguridad\ConfiguracionTareas.cs" />
+    <Compile Include="Clases\Seguridad\EnvioCorreo.cs" />
+    <Compile Include="Clases\Seguridad\FixedData.cs" />
+    <Compile Include="Clases\Seguridad\GenerarTablas.cs" />
+    <Compile Include="Clases\Seguridad\LogsAuditoria.cs" />
+    <Compile Include="Clases\Seguridad\ModuloSmartax.cs" />
+    <Compile Include="Clases\Seguridad\RecaptchaValidator.cs" />
+    <Compile Include="Clases\Seguridad\SistemaNavegacion.cs" />
+    <Compile Include="Clases\Seguridad\SistemaPermiso.cs" />
+    <Compile Include="Clases\Seguridad\SistemaRol.cs" />
+    <Compile Include="Clases\Seguridad\SistemaUsuarioRol.cs" />
+    <Compile Include="Clases\Seguridad\TipoEnvioTareas.cs" />
+    <Compile Include="Clases\Seguridad\TiposProceso.cs" />
+    <Compile Include="Clases\Seguridad\TokenSecurity.cs" />
+    <Compile Include="Clases\Seguridad\Usuario.cs" />
+    <Compile Include="Clases\Seguridad\Utilidades.cs" />
+    <Compile Include="Controles\Administracion\Alumbrado\FrmCargueMasivo.aspx.cs">
+      <DependentUpon>FrmCargueMasivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Alumbrado\FrmCargueMasivo.aspx.designer.cs">
+      <DependentUpon>FrmCargueMasivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Alumbrado\FrmConfiguracionTarifas.aspx.cs">
+      <DependentUpon>FrmConfiguracionTarifas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Alumbrado\FrmConfiguracionTarifas.aspx.designer.cs">
+      <DependentUpon>FrmConfiguracionTarifas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlClienteImpuestos.ascx.cs">
+      <DependentUpon>CtrlClienteImpuestos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlClienteImpuestos.ascx.designer.cs">
+      <DependentUpon>CtrlClienteImpuestos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlClientes.ascx.cs">
+      <DependentUpon>CtrlClientes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlClientes.ascx.designer.cs">
+      <DependentUpon>CtrlClientes.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlEstadosFinancieros.ascx.cs">
+      <DependentUpon>CtrlEstadosFinancieros.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlEstadosFinancieros.ascx.designer.cs">
+      <DependentUpon>CtrlEstadosFinancieros.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlFirmantes.ascx.cs">
+      <DependentUpon>CtrlFirmantes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\CtrlFirmantes.ascx.designer.cs">
+      <DependentUpon>CtrlFirmantes.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmActividadEconomica.aspx.cs">
+      <DependentUpon>FrmActividadEconomica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmActividadEconomica.aspx.designer.cs">
+      <DependentUpon>FrmActividadEconomica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmActividadEconomicaEstab.aspx.cs">
+      <DependentUpon>FrmActividadEconomicaEstab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmActividadEconomicaEstab.aspx.designer.cs">
+      <DependentUpon>FrmActividadEconomicaEstab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddBaseGravable.aspx.cs">
+      <DependentUpon>FrmAddBaseGravable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddBaseGravable.aspx.designer.cs">
+      <DependentUpon>FrmAddBaseGravable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddCliente.aspx.cs">
+      <DependentUpon>FrmAddCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddCliente.aspx.designer.cs">
+      <DependentUpon>FrmAddCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddConfigRenglonContabilizar.aspx.cs">
+      <DependentUpon>FrmAddConfigRenglonContabilizar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddConfigRenglonContabilizar.aspx.designer.cs">
+      <DependentUpon>FrmAddConfigRenglonContabilizar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddConfigurarRenglon.aspx.cs">
+      <DependentUpon>FrmAddConfigurarRenglon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddConfigurarRenglon.aspx.designer.cs">
+      <DependentUpon>FrmAddConfigurarRenglon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddEstablecimiento.aspx.cs">
+      <DependentUpon>FrmAddEstablecimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddEstablecimiento.aspx.designer.cs">
+      <DependentUpon>FrmAddEstablecimiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfigContabilizacion.aspx.cs">
+      <DependentUpon>FrmConfigContabilizacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfigContabilizacion.aspx.designer.cs">
+      <DependentUpon>FrmConfigContabilizacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadActEconomicasOfic.aspx.cs">
+      <DependentUpon>FrmLoadActEconomicasOfic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadActEconomicasOfic.aspx.designer.cs">
+      <DependentUpon>FrmLoadActEconomicasOfic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerMunicipiosPuntos.aspx.cs">
+      <DependentUpon>FrmVerMunicipiosPuntos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerMunicipiosPuntos.aspx.designer.cs">
+      <DependentUpon>FrmVerMunicipiosPuntos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\CtrlConciliacionHC.ascx.cs">
+      <DependentUpon>CtrlConciliacionHC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\CtrlConciliacionHC.ascx.designer.cs">
+      <DependentUpon>CtrlConciliacionHC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx.cs">
+      <DependentUpon>FrmAddConciliacionHC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx.designer.cs">
+      <DependentUpon>FrmAddConciliacionHC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx.cs">
+      <DependentUpon>FrmConfiguracionCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx.designer.cs">
+      <DependentUpon>FrmConfiguracionCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddEstablecimientoHijo.aspx.cs">
+      <DependentUpon>FrmAddEstablecimientoHijo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddEstablecimientoHijo.aspx.designer.cs">
+      <DependentUpon>FrmAddEstablecimientoHijo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddFirma.aspx.cs">
+      <DependentUpon>FrmAddFirma.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddFirma.aspx.designer.cs">
+      <DependentUpon>FrmAddFirma.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddPuc.aspx.cs">
+      <DependentUpon>FrmAddPuc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmAddPuc.aspx.designer.cs">
+      <DependentUpon>FrmAddPuc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfiguracionImpuestos.aspx.cs">
+      <DependentUpon>FrmConfiguracionImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfiguracionImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmConfiguracionImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfImpuestoIca.aspx.cs">
+      <DependentUpon>FrmConfImpuestoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmConfImpuestoIca.aspx.designer.cs">
+      <DependentUpon>FrmConfImpuestoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLiquidacionOficina.aspx.cs">
+      <DependentUpon>FrmLiquidacionOficina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLiquidacionOficina.aspx.designer.cs">
+      <DependentUpon>FrmLiquidacionOficina.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadConfiguracionImp.aspx.cs">
+      <DependentUpon>FrmLoadConfiguracionImp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadConfiguracionImp.aspx.designer.cs">
+      <DependentUpon>FrmLoadConfiguracionImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadEstablecimientos.aspx.cs">
+      <DependentUpon>FrmLoadEstablecimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadEstablecimientos.aspx.designer.cs">
+      <DependentUpon>FrmLoadEstablecimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadEstadoFinanciero.aspx.cs">
+      <DependentUpon>FrmLoadEstadoFinanciero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmLoadEstadoFinanciero.aspx.designer.cs">
+      <DependentUpon>FrmLoadEstadoFinanciero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerBaseGravable.aspx.cs">
+      <DependentUpon>FrmVerBaseGravable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerBaseGravable.aspx.designer.cs">
+      <DependentUpon>FrmVerBaseGravable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerInfoEstadoFinanciero.aspx.cs">
+      <DependentUpon>FrmVerInfoEstadoFinanciero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\FrmVerInfoEstadoFinanciero.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoEstadoFinanciero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\VerInfoCliente.aspx.cs">
+      <DependentUpon>VerInfoCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\Clientes\VerInfoCliente.aspx.designer.cs">
+      <DependentUpon>VerInfoCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlControlActividades.ascx.cs">
+      <DependentUpon>CtrlControlActividades.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlControlActividades.ascx.designer.cs">
+      <DependentUpon>CtrlControlActividades.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlControlActividadesAnalista.ascx.cs">
+      <DependentUpon>CtrlControlActividadesAnalista.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlControlActividadesAnalista.ascx.designer.cs">
+      <DependentUpon>CtrlControlActividadesAnalista.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlLiquidacionImpuestos.ascx.cs">
+      <DependentUpon>CtrlLiquidacionImpuestos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlLiquidacionImpuestos.ascx.designer.cs">
+      <DependentUpon>CtrlLiquidacionImpuestos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlObligacionesPorMuncipio.ascx.cs">
+      <DependentUpon>CtrlObligacionesPorMuncipio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlObligacionesPorMuncipio.ascx.designer.cs">
+      <DependentUpon>CtrlObligacionesPorMuncipio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlProximosVencimientos.ascx.cs">
+      <DependentUpon>CtrlProximosVencimientos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\CtrlProximosVencimientos.ascx.designer.cs">
+      <DependentUpon>CtrlProximosVencimientos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\CtrlEjecucionXLote.ascx.cs">
+      <DependentUpon>CtrlEjecucionXLote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\CtrlEjecucionXLote.ascx.designer.cs">
+      <DependentUpon>CtrlEjecucionXLote.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAddFiltrosEjecucionXLote.aspx.cs">
+      <DependentUpon>FrmAddFiltrosEjecucionXLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAddFiltrosEjecucionXLote.aspx.designer.cs">
+      <DependentUpon>FrmAddFiltrosEjecucionXLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAddUsersEjecucionXLote.aspx.cs">
+      <DependentUpon>FrmAddUsersEjecucionXLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAddUsersEjecucionXLote.aspx.designer.cs">
+      <DependentUpon>FrmAddUsersEjecucionXLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAprobarRechazarDeclaracion.aspx.cs">
+      <DependentUpon>FrmAprobarRechazarDeclaracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\EjecucionLote\FrmAprobarRechazarDeclaracion.aspx.designer.cs">
+      <DependentUpon>FrmAprobarRechazarDeclaracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddActividadAnalista.aspx.cs">
+      <DependentUpon>FrmAddActividadAnalista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddActividadAnalista.aspx.designer.cs">
+      <DependentUpon>FrmAddActividadAnalista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddControlActividad.aspx.cs">
+      <DependentUpon>FrmAddControlActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\FrmAddControlActividad.aspx.designer.cs">
+      <DependentUpon>FrmAddControlActividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlFichaUsuario.ascx.cs">
+      <DependentUpon>CtrlFichaUsuario.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlFichaUsuario.ascx.designer.cs">
+      <DependentUpon>CtrlFichaUsuario.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlMenu.ascx.cs">
+      <DependentUpon>CtrlMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlMenu.ascx.designer.cs">
+      <DependentUpon>CtrlMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlMenu2.ascx.cs">
+      <DependentUpon>CtrlMenu2.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlMenu2.ascx.designer.cs">
+      <DependentUpon>CtrlMenu2.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlModulos.ascx.cs">
+      <DependentUpon>CtrlModulos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlModulos.ascx.designer.cs">
+      <DependentUpon>CtrlModulos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlPie.ascx.cs">
+      <DependentUpon>CtrlPie.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlPie.ascx.designer.cs">
+      <DependentUpon>CtrlPie.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\CtrlPie2.ascx.cs">
+      <DependentUpon>CtrlPie2.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\CtrlPie2.ascx.designer.cs">
+      <DependentUpon>CtrlPie2.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\General\FrmMensaje.aspx.cs">
+      <DependentUpon>FrmMensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\General\FrmMensaje.aspx.designer.cs">
+      <DependentUpon>FrmMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionIca.ascx.cs">
+      <DependentUpon>CtrlConsultaLiquidacionIca.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionIca.ascx.designer.cs">
+      <DependentUpon>CtrlConsultaLiquidacionIca.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionImpuestos.ascx.cs">
+      <DependentUpon>CtrlConsultaLiquidacionImpuestos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlConsultaLiquidacionImpuestos.ascx.designer.cs">
+      <DependentUpon>CtrlConsultaLiquidacionImpuestos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlFichaTecnicaMunicipio.ascx.cs">
+      <DependentUpon>CtrlFichaTecnicaMunicipio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\CtrlFichaTecnicaMunicipio.ascx.designer.cs">
+      <DependentUpon>CtrlFichaTecnicaMunicipio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\FrmVerDetalleLiquidacion.aspx.cs">
+      <DependentUpon>FrmVerDetalleLiquidacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\FrmVerDetalleLiquidacion.aspx.designer.cs">
+      <DependentUpon>FrmVerDetalleLiquidacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\FrmVerFichaTecnica.aspx.cs">
+      <DependentUpon>FrmVerFichaTecnica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Consulta\FrmVerFichaTecnica.aspx.designer.cs">
+      <DependentUpon>FrmVerFichaTecnica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmEstadisticaActividades.aspx.cs">
+      <DependentUpon>FrmEstadisticaActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmEstadisticaActividades.aspx.designer.cs">
+      <DependentUpon>FrmEstadisticaActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmEstadisticaLiqImpuesto.aspx.cs">
+      <DependentUpon>FrmEstadisticaLiqImpuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmEstadisticaLiqImpuesto.aspx.designer.cs">
+      <DependentUpon>FrmEstadisticaLiqImpuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmMisActividades.aspx.cs">
+      <DependentUpon>FrmMisActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmMisActividades.aspx.designer.cs">
+      <DependentUpon>FrmMisActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmMonitoreoActividades.aspx.cs">
+      <DependentUpon>FrmMonitoreoActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\FrmMonitoreoActividades.aspx.designer.cs">
+      <DependentUpon>FrmMonitoreoActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\WebUserControl1.ascx.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\ControlActividades\WebUserControl1.ascx.designer.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargar321.aspx.cs">
+      <DependentUpon>frmDescargar321.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargar321.aspx.designer.cs">
+      <DependentUpon>frmDescargar321.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargar525.aspx.cs">
+      <DependentUpon>frmDescargar525.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargar525.aspx.designer.cs">
+      <DependentUpon>frmDescargar525.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargarPlano.aspx.cs">
+      <DependentUpon>frmDescargarPlano.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\frmDescargarPlano.aspx.designer.cs">
+      <DependentUpon>frmDescargarPlano.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\FrmGeneracionFormatos.aspx.cs">
+      <DependentUpon>FrmGeneracionFormatos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\Formatos\FrmGeneracionFormatos.aspx.designer.cs">
+      <DependentUpon>FrmGeneracionFormatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmAprobarLiquidacionPorLote.aspx.cs">
+      <DependentUpon>FrmAprobarLiquidacionPorLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmAprobarLiquidacionPorLote.aspx.designer.cs">
+      <DependentUpon>FrmAprobarLiquidacionPorLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaInformacionContable.aspx.cs">
+      <DependentUpon>FrmCargaInformacionContable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaInformacionContable.aspx.designer.cs">
+      <DependentUpon>FrmCargaInformacionContable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingFinanciero.aspx.cs">
+      <DependentUpon>FrmCargaLeasingFinanciero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingFinanciero.aspx.designer.cs">
+      <DependentUpon>FrmCargaLeasingFinanciero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingHabitacional.aspx.cs">
+      <DependentUpon>FrmCargaLeasingHabitacional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaLeasingHabitacional.aspx.designer.cs">
+      <DependentUpon>FrmCargaLeasingHabitacional.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaPagaduria.aspx.cs">
+      <DependentUpon>FrmCargaPagaduria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaPagaduria.aspx.designer.cs">
+      <DependentUpon>FrmCargaPagaduria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaTarjetaCredito.aspx.cs">
+      <DependentUpon>FrmCargaTarjetaCredito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmCargaTarjetaCredito.aspx.designer.cs">
+      <DependentUpon>FrmCargaTarjetaCredito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLote.aspx.cs">
+      <DependentUpon>FrmEjecucionPorLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLote.aspx.designer.cs">
+      <DependentUpon>FrmEjecucionPorLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLoteIca.aspx.cs">
+      <DependentUpon>FrmEjecucionPorLoteIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLoteIca.aspx.designer.cs">
+      <DependentUpon>FrmEjecucionPorLoteIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLotes.aspx.cs">
+      <DependentUpon>FrmEjecucionPorLotes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmEjecucionPorLotes.aspx.designer.cs">
+      <DependentUpon>FrmEjecucionPorLotes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidacionAlumbrado.aspx.cs">
+      <DependentUpon>FrmLiquidacionAlumbrado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidacionAlumbrado.aspx.designer.cs">
+      <DependentUpon>FrmLiquidacionAlumbrado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorAutoIca.aspx.cs">
+      <DependentUpon>FrmLiquidarBorradorAutoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorAutoIca.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarBorradorAutoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIca.aspx.cs">
+      <DependentUpon>FrmLiquidarBorradorIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIca.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarBorradorIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIcaOld.aspx.cs">
+      <DependentUpon>FrmLiquidarBorradorIcaOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarBorradorIcaOld.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarBorradorIcaOld.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoAutoIca.aspx.cs">
+      <DependentUpon>FrmLiquidarDefinitivoAutoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoAutoIca.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarDefinitivoAutoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIca.aspx.cs">
+      <DependentUpon>FrmLiquidarDefinitivoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIca.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarDefinitivoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIcaOld.aspx.cs">
+      <DependentUpon>FrmLiquidarDefinitivoIcaOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmLiquidarDefinitivoIcaOld.aspx.designer.cs">
+      <DependentUpon>FrmLiquidarDefinitivoIcaOld.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmProcesoContabilizacion.aspx.cs">
+      <DependentUpon>FrmProcesoContabilizacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmProcesoContabilizacion.aspx.designer.cs">
+      <DependentUpon>FrmProcesoContabilizacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICA.aspx.cs">
+      <DependentUpon>FrmRetencionICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICA.aspx.designer.cs">
+      <DependentUpon>FrmRetencionICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICADefinitivo.aspx.cs">
+      <DependentUpon>FrmRetencionICADefinitivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmRetencionICADefinitivo.aspx.designer.cs">
+      <DependentUpon>FrmRetencionICADefinitivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmValidarLiquidacionesPorLote.aspx.cs">
+      <DependentUpon>FrmValidarLiquidacionesPorLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmValidarLiquidacionesPorLote.aspx.designer.cs">
+      <DependentUpon>FrmValidarLiquidacionesPorLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDesagregacion.aspx.cs">
+      <DependentUpon>FrmVerDesagregacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDesagregacion.aspx.designer.cs">
+      <DependentUpon>FrmVerDesagregacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDetalleCuentas.aspx.cs">
+      <DependentUpon>FrmVerDetalleCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerDetalleCuentas.aspx.designer.cs">
+      <DependentUpon>FrmVerDetalleCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerImpuesto.aspx.cs">
+      <DependentUpon>FrmVerImpuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerImpuesto.aspx.designer.cs">
+      <DependentUpon>FrmVerImpuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerInfoValidacion.aspx.cs">
+      <DependentUpon>FrmVerInfoValidacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerInfoValidacion.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoValidacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoAutoIca.aspx.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoAutoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoAutoIca.aspx.designer.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoAutoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIca.aspx.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIca.aspx.designer.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIcaOld.aspx.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoIcaOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVerLiquidarDefinitivoIcaOld.aspx.designer.cs">
+      <DependentUpon>FrmVerLiquidarDefinitivoIcaOld.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVisualizadorPdf.aspx.cs">
+      <DependentUpon>FrmVisualizadorPdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\FrmVisualizadorPdf.aspx.designer.cs">
+      <DependentUpon>FrmVisualizadorPdf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\LiquidacionImpuestos\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioMeses.aspx.cs">
+      <DependentUpon>FrmVerCalendarioMeses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioMeses.aspx.designer.cs">
+      <DependentUpon>FrmVerCalendarioMeses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario.aspx.cs">
+      <DependentUpon>FrmVerCalendarioTributario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario.aspx.designer.cs">
+      <DependentUpon>FrmVerCalendarioTributario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario1.aspx.cs">
+      <DependentUpon>FrmVerCalendarioTributario1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario1.aspx.designer.cs">
+      <DependentUpon>FrmVerCalendarioTributario1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario2.aspx.cs">
+      <DependentUpon>FrmVerCalendarioTributario2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerCalendarioTributario2.aspx.designer.cs">
+      <DependentUpon>FrmVerCalendarioTributario2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerDetalleCalendarioMunicipio.aspx.cs">
+      <DependentUpon>FrmVerDetalleCalendarioMunicipio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerDetalleCalendarioMunicipio.aspx.designer.cs">
+      <DependentUpon>FrmVerDetalleCalendarioMunicipio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerFechaLimitePago.aspx.cs">
+      <DependentUpon>FrmVerFechaLimitePago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerFechaLimitePago.aspx.designer.cs">
+      <DependentUpon>FrmVerFechaLimitePago.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerTarifasExcesivas.aspx.cs">
+      <DependentUpon>FrmVerTarifasExcesivas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Modulos\PlaneacionFiscal\FrmVerTarifasExcesivas.aspx.designer.cs">
+      <DependentUpon>FrmVerTarifasExcesivas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Alumbrado\CtrlRegistroConsumos.ascx.cs">
+      <DependentUpon>CtrlRegistroConsumos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Alumbrado\CtrlRegistroConsumos.ascx.designer.cs">
+      <DependentUpon>CtrlRegistroConsumos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Alumbrado\CtrlSectorMunicipio.ascx.cs">
+      <DependentUpon>CtrlSectorMunicipio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Alumbrado\CtrlSectorMunicipio.ascx.designer.cs">
+      <DependentUpon>CtrlSectorMunicipio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlDepartamentos.ascx.cs">
+      <DependentUpon>CtrlDepartamentos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlDepartamentos.ascx.designer.cs">
+      <DependentUpon>CtrlDepartamentos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlMunicipios.ascx.cs">
+      <DependentUpon>CtrlMunicipios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlMunicipios.ascx.designer.cs">
+      <DependentUpon>CtrlMunicipios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlMunicipioTarifasExcesivas.ascx.cs">
+      <DependentUpon>CtrlMunicipioTarifasExcesivas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlMunicipioTarifasExcesivas.ascx.designer.cs">
+      <DependentUpon>CtrlMunicipioTarifasExcesivas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlPaises.ascx.cs">
+      <DependentUpon>CtrlPaises.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\CtrlPaises.ascx.designer.cs">
+      <DependentUpon>CtrlPaises.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAcuerdosMunicipales.aspx.cs">
+      <DependentUpon>FrmAcuerdosMunicipales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAcuerdosMunicipales.aspx.designer.cs">
+      <DependentUpon>FrmAcuerdosMunicipales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddCalendarioTributario.aspx.cs">
+      <DependentUpon>FrmAddCalendarioTributario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddCalendarioTributario.aspx.designer.cs">
+      <DependentUpon>FrmAddCalendarioTributario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddDescuentoProntoPago.aspx.cs">
+      <DependentUpon>FrmAddDescuentoProntoPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddDescuentoProntoPago.aspx.designer.cs">
+      <DependentUpon>FrmAddDescuentoProntoPago.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddMuncipioBanco.aspx.cs">
+      <DependentUpon>FrmAddMuncipioBanco.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddMuncipioBanco.aspx.designer.cs">
+      <DependentUpon>FrmAddMuncipioBanco.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddMunicipioImpuestos.aspx.cs">
+      <DependentUpon>FrmAddMunicipioImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddMunicipioImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmAddMunicipioImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddOtrasConfiguraciones.aspx.cs">
+      <DependentUpon>FrmAddOtrasConfiguraciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddOtrasConfiguraciones.aspx.designer.cs">
+      <DependentUpon>FrmAddOtrasConfiguraciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddTarifasExcesivas.aspx.cs">
+      <DependentUpon>FrmAddTarifasExcesivas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddTarifasExcesivas.aspx.designer.cs">
+      <DependentUpon>FrmAddTarifasExcesivas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddTarifasMinima.aspx.cs">
+      <DependentUpon>FrmAddTarifasMinima.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmAddTarifasMinima.aspx.designer.cs">
+      <DependentUpon>FrmAddTarifasMinima.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmConfCalculoRenglon.aspx.cs">
+      <DependentUpon>FrmConfCalculoRenglon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmConfCalculoRenglon.aspx.designer.cs">
+      <DependentUpon>FrmConfCalculoRenglon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadActEconomica.aspx.cs">
+      <DependentUpon>FrmLoadActEconomica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadActEconomica.aspx.designer.cs">
+      <DependentUpon>FrmLoadActEconomica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadAutoretenciones.aspx.cs">
+      <DependentUpon>FrmLoadAutoretenciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadAutoretenciones.aspx.designer.cs">
+      <DependentUpon>FrmLoadAutoretenciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadBancoCuentas.aspx.cs">
+      <DependentUpon>FrmLoadBancoCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadBancoCuentas.aspx.designer.cs">
+      <DependentUpon>FrmLoadBancoCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadCalendario.aspx.cs">
+      <DependentUpon>FrmLoadCalendario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadCalendario.aspx.designer.cs">
+      <DependentUpon>FrmLoadCalendario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadImpMunicipio.aspx.cs">
+      <DependentUpon>FrmLoadImpMunicipio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadImpMunicipio.aspx.designer.cs">
+      <DependentUpon>FrmLoadImpMunicipio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadOtrasConfig.aspx.cs">
+      <DependentUpon>FrmLoadOtrasConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmLoadOtrasConfig.aspx.designer.cs">
+      <DependentUpon>FrmLoadOtrasConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioActividadEcon.aspx.cs">
+      <DependentUpon>FrmMunicipioActividadEcon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioActividadEcon.aspx.designer.cs">
+      <DependentUpon>FrmMunicipioActividadEcon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioAutoretenciones.aspx.cs">
+      <DependentUpon>FrmMunicipioAutoretenciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioAutoretenciones.aspx.designer.cs">
+      <DependentUpon>FrmMunicipioAutoretenciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioCalendarioTrib.aspx.cs">
+      <DependentUpon>FrmMunicipioCalendarioTrib.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioCalendarioTrib.aspx.designer.cs">
+      <DependentUpon>FrmMunicipioCalendarioTrib.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioDescuentoProntoPago.aspx.cs">
+      <DependentUpon>FrmMunicipioDescuentoProntoPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioDescuentoProntoPago.aspx.designer.cs">
+      <DependentUpon>FrmMunicipioDescuentoProntoPago.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioImpuestos.aspx.cs">
+      <DependentUpon>FrmMunicipioImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmMunicipioImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmMunicipioImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmOtrasConfiguraciones.aspx.cs">
+      <DependentUpon>FrmOtrasConfiguraciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmOtrasConfiguraciones.aspx.designer.cs">
+      <DependentUpon>FrmOtrasConfiguraciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmTarifasMinima.aspx.cs">
+      <DependentUpon>FrmTarifasMinima.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmTarifasMinima.aspx.designer.cs">
+      <DependentUpon>FrmTarifasMinima.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerAcuerdosMunicipales.aspx.cs">
+      <DependentUpon>FrmVerAcuerdosMunicipales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerAcuerdosMunicipales.aspx.designer.cs">
+      <DependentUpon>FrmVerAcuerdosMunicipales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerInfoActividadEconomica.aspx.cs">
+      <DependentUpon>FrmVerInfoActividadEconomica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerInfoActividadEconomica.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoActividadEconomica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerInfoMunicipio.aspx.cs">
+      <DependentUpon>FrmVerInfoMunicipio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Divipola\FrmVerInfoMunicipio.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoMunicipio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlEmpresa.ascx.cs">
+      <DependentUpon>CtrlEmpresa.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlEmpresa.ascx.designer.cs">
+      <DependentUpon>CtrlEmpresa.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlParametroSistema.ascx.cs">
+      <DependentUpon>CtrlParametroSistema.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlParametroSistema.ascx.designer.cs">
+      <DependentUpon>CtrlParametroSistema.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlTipoLicencia.ascx.cs">
+      <DependentUpon>CtrlTipoLicencia.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\CtrlTipoLicencia.ascx.designer.cs">
+      <DependentUpon>CtrlTipoLicencia.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\FrmVerInfoEntidad.aspx.cs">
+      <DependentUpon>FrmVerInfoEntidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Empresa\FrmVerInfoEntidad.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoEntidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlInfoEntidad.ascx.cs">
+      <DependentUpon>CtrlInfoEntidad.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlInfoEntidad.ascx.designer.cs">
+      <DependentUpon>CtrlInfoEntidad.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlParametrizacion_321_525.ascx.cs">
+      <DependentUpon>CtrlParametrizacion_321_525.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlParametrizacion_321_525.ascx.designer.cs">
+      <DependentUpon>CtrlParametrizacion_321_525.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlUnidadCaptura.ascx.cs">
+      <DependentUpon>CtrlUnidadCaptura.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Formatos\CtrlUnidadCaptura.ascx.designer.cs">
+      <DependentUpon>CtrlUnidadCaptura.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConceptosProv.ascx.cs">
+      <DependentUpon>CtrlConceptosProv.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConceptosProv.ascx.designer.cs">
+      <DependentUpon>CtrlConceptosProv.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConfClienteProv.ascx.cs">
+      <DependentUpon>CtrlConfClienteProv.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConfClienteProv.ascx.designer.cs">
+      <DependentUpon>CtrlConfClienteProv.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConfConceptosProv.ascx.cs">
+      <DependentUpon>CtrlConfConceptosProv.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\CtrlConfConceptosProv.ascx.designer.cs">
+      <DependentUpon>CtrlConfConceptosProv.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\FrmEjecProvision.aspx.cs">
+      <DependentUpon>FrmEjecProvision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Provision\FrmEjecProvision.aspx.designer.cs">
+      <DependentUpon>FrmEjecProvision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\ReteICA\CtlConceptos.ascx.cs">
+      <DependentUpon>CtlConceptos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\ReteICA\CtlConceptos.ascx.designer.cs">
+      <DependentUpon>CtlConceptos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\ReteICA\CtrlRenglonConcepto.ascx.cs">
+      <DependentUpon>CtrlRenglonConcepto.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\ReteICA\CtrlRenglonConcepto.ascx.designer.cs">
+      <DependentUpon>CtrlRenglonConcepto.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlBanco.ascx.cs">
+      <DependentUpon>CtrlBanco.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlBanco.ascx.designer.cs">
+      <DependentUpon>CtrlBanco.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlDiasFestivo.ascx.cs">
+      <DependentUpon>CtrlDiasFestivo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlDiasFestivo.ascx.designer.cs">
+      <DependentUpon>CtrlDiasFestivo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlEstados.ascx.cs">
+      <DependentUpon>CtrlEstados.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlEstados.ascx.designer.cs">
+      <DependentUpon>CtrlEstados.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlFormularioImpuestos.ascx.cs">
+      <DependentUpon>CtrlFormularioImpuestos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlFormularioImpuestos.ascx.designer.cs">
+      <DependentUpon>CtrlFormularioImpuestos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlPeriodicidadPagos.ascx.cs">
+      <DependentUpon>CtrlPeriodicidadPagos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlPeriodicidadPagos.ascx.designer.cs">
+      <DependentUpon>CtrlPeriodicidadPagos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlPlanUnicoCuentas.ascx.cs">
+      <DependentUpon>CtrlPlanUnicoCuentas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlPlanUnicoCuentas.ascx.designer.cs">
+      <DependentUpon>CtrlPlanUnicoCuentas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoActividadEconomica.ascx.cs">
+      <DependentUpon>CtrlTipoActividadEconomica.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoActividadEconomica.ascx.designer.cs">
+      <DependentUpon>CtrlTipoActividadEconomica.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoCargo.ascx.cs">
+      <DependentUpon>CtrlTipoCargo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoCargo.ascx.designer.cs">
+      <DependentUpon>CtrlTipoCargo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoClasificacion.ascx.cs">
+      <DependentUpon>CtrlTipoClasificacion.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoClasificacion.ascx.designer.cs">
+      <DependentUpon>CtrlTipoClasificacion.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoCtrlActividades.ascx.cs">
+      <DependentUpon>CtrlTipoCtrlActividades.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoCtrlActividades.ascx.designer.cs">
+      <DependentUpon>CtrlTipoCtrlActividades.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoFirma.ascx.cs">
+      <DependentUpon>CtrlTipoFirma.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoFirma.ascx.designer.cs">
+      <DependentUpon>CtrlTipoFirma.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoMoneda.ascx.cs">
+      <DependentUpon>CtrlTipoMoneda.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoMoneda.ascx.designer.cs">
+      <DependentUpon>CtrlTipoMoneda.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNaturaleza.ascx.cs">
+      <DependentUpon>CtrlTipoNaturaleza.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNaturaleza.ascx.designer.cs">
+      <DependentUpon>CtrlTipoNaturaleza.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNivel.ascx.cs">
+      <DependentUpon>CtrlTipoNivel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNivel.ascx.designer.cs">
+      <DependentUpon>CtrlTipoNivel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNormatividad.ascx.cs">
+      <DependentUpon>CtrlTipoNormatividad.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoNormatividad.ascx.designer.cs">
+      <DependentUpon>CtrlTipoNormatividad.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTiposIdentificacion.ascx.cs">
+      <DependentUpon>CtrlTiposIdentificacion.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTiposIdentificacion.ascx.designer.cs">
+      <DependentUpon>CtrlTiposIdentificacion.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoTarifa.ascx.cs">
+      <DependentUpon>CtrlTipoTarifa.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlTipoTarifa.ascx.designer.cs">
+      <DependentUpon>CtrlTipoTarifa.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlUnidadesMedida.ascx.cs">
+      <DependentUpon>CtrlUnidadesMedida.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\CtrlUnidadesMedida.ascx.designer.cs">
+      <DependentUpon>CtrlUnidadesMedida.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddFormConfiguracion.aspx.cs">
+      <DependentUpon>FrmAddFormConfiguracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddFormConfiguracion.aspx.designer.cs">
+      <DependentUpon>FrmAddFormConfiguracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddPucImpuesto.aspx.cs">
+      <DependentUpon>FrmAddPucImpuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddPucImpuesto.aspx.designer.cs">
+      <DependentUpon>FrmAddPucImpuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddValorUnidadMedida.aspx.cs">
+      <DependentUpon>FrmAddValorUnidadMedida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmAddValorUnidadMedida.aspx.designer.cs">
+      <DependentUpon>FrmAddValorUnidadMedida.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmLoadPlanUnicoCuentas.aspx.cs">
+      <DependentUpon>FrmLoadPlanUnicoCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmLoadPlanUnicoCuentas.aspx.designer.cs">
+      <DependentUpon>FrmLoadPlanUnicoCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmLoadPucImpuesto.aspx.cs">
+      <DependentUpon>FrmLoadPucImpuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Parametros\Tipos\FrmLoadPucImpuesto.aspx.designer.cs">
+      <DependentUpon>FrmLoadPucImpuesto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptActEconomicas.ascx.cs">
+      <DependentUpon>CtrlRptActEconomicas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptActEconomicas.ascx.designer.cs">
+      <DependentUpon>CtrlRptActEconomicas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptAcuerdosMunicipales.ascx.cs">
+      <DependentUpon>CtrlRptAcuerdosMunicipales.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptAcuerdosMunicipales.ascx.designer.cs">
+      <DependentUpon>CtrlRptAcuerdosMunicipales.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptBancoCuentas.ascx.cs">
+      <DependentUpon>CtrlRptBancoCuentas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptBancoCuentas.ascx.designer.cs">
+      <DependentUpon>CtrlRptBancoCuentas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptCalendarioTribututario.ascx.cs">
+      <DependentUpon>CtrlRptCalendarioTribututario.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptCalendarioTribututario.ascx.designer.cs">
+      <DependentUpon>CtrlRptCalendarioTribututario.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptCantidadEstablecimientos.ascx.cs">
+      <DependentUpon>CtrlRptCantidadEstablecimientos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptCantidadEstablecimientos.ascx.designer.cs">
+      <DependentUpon>CtrlRptCantidadEstablecimientos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptConfiguracionImp.ascx.cs">
+      <DependentUpon>CtrlRptConfiguracionImp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptConfiguracionImp.ascx.designer.cs">
+      <DependentUpon>CtrlRptConfiguracionImp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptControlActividades.ascx.cs">
+      <DependentUpon>CtrlRptControlActividades.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptControlActividades.ascx.designer.cs">
+      <DependentUpon>CtrlRptControlActividades.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptControlActividadesAnalista.ascx.cs">
+      <DependentUpon>CtrlRptControlActividadesAnalista.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptControlActividadesAnalista.ascx.designer.cs">
+      <DependentUpon>CtrlRptControlActividadesAnalista.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptEstablecimientos.ascx.cs">
+      <DependentUpon>CtrlRptEstablecimientos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptEstablecimientos.ascx.designer.cs">
+      <DependentUpon>CtrlRptEstablecimientos.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptImpMunicipios.ascx.cs">
+      <DependentUpon>CtrlRptImpMunicipios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptImpMunicipios.ascx.designer.cs">
+      <DependentUpon>CtrlRptImpMunicipios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptMunicipioAutoretencion.ascx.cs">
+      <DependentUpon>CtrlRptMunicipioAutoretencion.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptMunicipioAutoretencion.ascx.designer.cs">
+      <DependentUpon>CtrlRptMunicipioAutoretencion.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptMunicipios.ascx.cs">
+      <DependentUpon>CtrlRptMunicipios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptMunicipios.ascx.designer.cs">
+      <DependentUpon>CtrlRptMunicipios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptOtrasConfig.ascx.cs">
+      <DependentUpon>CtrlRptOtrasConfig.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptOtrasConfig.ascx.designer.cs">
+      <DependentUpon>CtrlRptOtrasConfig.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptPlanUnicoCuenta.ascx.cs">
+      <DependentUpon>CtrlRptPlanUnicoCuenta.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptPlanUnicoCuenta.ascx.designer.cs">
+      <DependentUpon>CtrlRptPlanUnicoCuenta.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Anexos\CtrlRptAnexoAutoIca.ascx.cs">
+      <DependentUpon>CtrlRptAnexoAutoIca.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Anexos\CtrlRptAnexoAutoIca.ascx.designer.cs">
+      <DependentUpon>CtrlRptAnexoAutoIca.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Anexos\CtrlRptAnexoIca.ascx.cs">
+      <DependentUpon>CtrlRptAnexoIca.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Anexos\CtrlRptAnexoIca.ascx.designer.cs">
+      <DependentUpon>CtrlRptAnexoIca.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\Ctrl321.ascx.cs">
+      <DependentUpon>Ctrl321.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\Ctrl321.ascx.designer.cs">
+      <DependentUpon>Ctrl321.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\Ctrl525.ascx.cs">
+      <DependentUpon>Ctrl525.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\Ctrl525.ascx.designer.cs">
+      <DependentUpon>Ctrl525.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\CtrlCruzado.ascx.cs">
+      <DependentUpon>CtrlCruzado.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\CtrlCruzado.ascx.designer.cs">
+      <DependentUpon>CtrlCruzado.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\CtrlEjecuciones.ascx.cs">
+      <DependentUpon>CtrlEjecuciones.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Formatos\CtrlEjecuciones.ascx.designer.cs">
+      <DependentUpon>CtrlEjecuciones.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepAcumuladoProvICA.ascx.cs">
+      <DependentUpon>CtrlRepAcumuladoProvICA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepAcumuladoProvICA.ascx.designer.cs">
+      <DependentUpon>CtrlRepAcumuladoProvICA.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepCompProvICA.ascx.cs">
+      <DependentUpon>CtrlRepCompProvICA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepCompProvICA.ascx.designer.cs">
+      <DependentUpon>CtrlRepCompProvICA.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepMensualProvICA.ascx.cs">
+      <DependentUpon>CtrlRepMensualProvICA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepMensualProvICA.ascx.designer.cs">
+      <DependentUpon>CtrlRepMensualProvICA.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepRegContableProvICA.ascx.cs">
+      <DependentUpon>CtrlRepRegContableProvICA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Provision\CtrlRepRegContableProvICA.ascx.designer.cs">
+      <DependentUpon>CtrlRepRegContableProvICA.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptLogsAuditoria.ascx.cs">
+      <DependentUpon>CtrlRptLogsAuditoria.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptLogsAuditoria.ascx.designer.cs">
+      <DependentUpon>CtrlRptLogsAuditoria.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptRolesOpcionesMenu.ascx.cs">
+      <DependentUpon>CtrlRptRolesOpcionesMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptRolesOpcionesMenu.ascx.designer.cs">
+      <DependentUpon>CtrlRptRolesOpcionesMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptUsuarios.ascx.cs">
+      <DependentUpon>CtrlRptUsuarios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Seguridad\CtrlRptUsuarios.ascx.designer.cs">
+      <DependentUpon>CtrlRptUsuarios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlCambioClave.ascx.cs">
+      <DependentUpon>CtrlCambioClave.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlCambioClave.ascx.designer.cs">
+      <DependentUpon>CtrlCambioClave.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlConfiguracionAlertas.ascx.cs">
+      <DependentUpon>CtrlConfiguracionAlertas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlConfiguracionAlertas.ascx.designer.cs">
+      <DependentUpon>CtrlConfiguracionAlertas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlGenerarTablasDb.ascx.cs">
+      <DependentUpon>CtrlGenerarTablasDb.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlGenerarTablasDb.ascx.designer.cs">
+      <DependentUpon>CtrlGenerarTablasDb.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlGestionUsuarios.ascx.cs">
+      <DependentUpon>CtrlGestionUsuarios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlGestionUsuarios.ascx.designer.cs">
+      <DependentUpon>CtrlGestionUsuarios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlLogsAuditoria.ascx.cs">
+      <DependentUpon>CtrlLogsAuditoria.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlLogsAuditoria.ascx.designer.cs">
+      <DependentUpon>CtrlLogsAuditoria.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlOpcionesMenu.ascx.cs">
+      <DependentUpon>CtrlOpcionesMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlOpcionesMenu.ascx.designer.cs">
+      <DependentUpon>CtrlOpcionesMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlResetearCache.ascx.cs">
+      <DependentUpon>CtrlResetearCache.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlResetearCache.ascx.designer.cs">
+      <DependentUpon>CtrlResetearCache.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlRoles.ascx.cs">
+      <DependentUpon>CtrlRoles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlRoles.ascx.designer.cs">
+      <DependentUpon>CtrlRoles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlUsuarios.ascx.cs">
+      <DependentUpon>CtrlUsuarios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\CtrlUsuarios.ascx.designer.cs">
+      <DependentUpon>CtrlUsuarios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmAddConfiguracionAlerta.aspx.cs">
+      <DependentUpon>FrmAddConfiguracionAlerta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmAddConfiguracionAlerta.aspx.designer.cs">
+      <DependentUpon>FrmAddConfiguracionAlerta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmListarPermisos.aspx.cs">
+      <DependentUpon>FrmListarPermisos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmListarPermisos.aspx.designer.cs">
+      <DependentUpon>FrmListarPermisos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmLogsAuditoria.aspx.cs">
+      <DependentUpon>FrmLogsAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmLogsAuditoria.aspx.designer.cs">
+      <DependentUpon>FrmLogsAuditoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmModulosRol.aspx.cs">
+      <DependentUpon>FrmModulosRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmModulosRol.aspx.designer.cs">
+      <DependentUpon>FrmModulosRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmPermisosRol.aspx.cs">
+      <DependentUpon>FrmPermisosRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmPermisosRol.aspx.designer.cs">
+      <DependentUpon>FrmPermisosRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmRolActividades.aspx.cs">
+      <DependentUpon>FrmRolActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmRolActividades.aspx.designer.cs">
+      <DependentUpon>FrmRolActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmUsuariosRol.aspx.cs">
+      <DependentUpon>FrmUsuariosRol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmUsuariosRol.aspx.designer.cs">
+      <DependentUpon>FrmUsuariosRol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmVerDetalleAuditoria.aspx.cs">
+      <DependentUpon>FrmVerDetalleAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmVerDetalleAuditoria.aspx.designer.cs">
+      <DependentUpon>FrmVerDetalleAuditoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmVerInfoUsuario.aspx.cs">
+      <DependentUpon>FrmVerInfoUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Seguridad\FrmVerInfoUsuario.aspx.designer.cs">
+      <DependentUpon>FrmVerInfoUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCambiarPassword.aspx.cs">
+      <DependentUpon>FrmCambiarPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmCambiarPassword.aspx.designer.cs">
+      <DependentUpon>FrmCambiarPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmErrorPlataforma.aspx.cs">
+      <DependentUpon>FrmErrorPlataforma.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmErrorPlataforma.aspx.designer.cs">
+      <DependentUpon>FrmErrorPlataforma.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmResetPassword.aspx.cs">
+      <DependentUpon>FrmResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmResetPassword.aspx.designer.cs">
+      <DependentUpon>FrmResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmValidarToken.aspx.cs">
+      <DependentUpon>FrmValidarToken.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmValidarToken.aspx.designer.cs">
+      <DependentUpon>FrmValidarToken.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPageError.Master.cs">
+      <DependentUpon>MasterPageError.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPageError.Master.designer.cs">
+      <DependentUpon>MasterPageError.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPageGeneral.Master.cs">
+      <DependentUpon>MasterPageGeneral.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPageGeneral.Master.designer.cs">
+      <DependentUpon>MasterPageGeneral.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Misc\MiscReportes.cs" />
+    <Compile Include="Modulos\Administracion\Clientes\FrmClienteImpuestos.aspx.cs">
+      <DependentUpon>FrmClienteImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\Clientes\FrmClienteImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmClienteImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\Clientes\FrmClientes.aspx.cs">
+      <DependentUpon>FrmClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\Clientes\FrmClientes.aspx.designer.cs">
+      <DependentUpon>FrmClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\Clientes\FrmFirmantes.aspx.cs">
+      <DependentUpon>FrmFirmantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\Clientes\FrmFirmantes.aspx.designer.cs">
+      <DependentUpon>FrmFirmantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\ConciliacionHC\FrmConciliacionHC.aspx.cs">
+      <DependentUpon>FrmConciliacionHC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\ConciliacionHC\FrmConciliacionHC.aspx.designer.cs">
+      <DependentUpon>FrmConciliacionHC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\EjecucionXLote\FrmConfEjecucionXLote.aspx.cs">
+      <DependentUpon>FrmConfEjecucionXLote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\EjecucionXLote\FrmConfEjecucionXLote.aspx.designer.cs">
+      <DependentUpon>FrmConfEjecucionXLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmConsultaLiquidacionIca.aspx.cs">
+      <DependentUpon>FrmConsultaLiquidacionIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmConsultaLiquidacionIca.aspx.designer.cs">
+      <DependentUpon>FrmConsultaLiquidacionIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmControlActividades.aspx.cs">
+      <DependentUpon>FrmControlActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmControlActividades.aspx.designer.cs">
+      <DependentUpon>FrmControlActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmControlActividadesAnalista.aspx.cs">
+      <DependentUpon>FrmControlActividadesAnalista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmControlActividadesAnalista.aspx.designer.cs">
+      <DependentUpon>FrmControlActividadesAnalista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmEstadosFinancieros.aspx.cs">
+      <DependentUpon>FrmEstadosFinancieros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmEstadosFinancieros.aspx.designer.cs">
+      <DependentUpon>FrmEstadosFinancieros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmFichaTecnica.aspx.cs">
+      <DependentUpon>FrmFichaTecnica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmFichaTecnica.aspx.designer.cs">
+      <DependentUpon>FrmFichaTecnica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmLiquidacionImpuestos.aspx.cs">
+      <DependentUpon>FrmLiquidacionImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmLiquidacionImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmLiquidacionImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmObligacionesPorMuncipio.aspx.cs">
+      <DependentUpon>FrmObligacionesPorMuncipio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmObligacionesPorMuncipio.aspx.designer.cs">
+      <DependentUpon>FrmObligacionesPorMuncipio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmProximosVencimientos.aspx.cs">
+      <DependentUpon>FrmProximosVencimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Administracion\FrmProximosVencimientos.aspx.designer.cs">
+      <DependentUpon>FrmProximosVencimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Alumbrado\FrmRegistroConsumos.aspx.cs">
+      <DependentUpon>FrmRegistroConsumos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Alumbrado\FrmRegistroConsumos.aspx.designer.cs">
+      <DependentUpon>FrmRegistroConsumos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Alumbrado\FrmSectorMunicipio.aspx.cs">
+      <DependentUpon>FrmSectorMunicipio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Alumbrado\FrmSectorMunicipio.aspx.designer.cs">
+      <DependentUpon>FrmSectorMunicipio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmInfoEntidad.aspx.cs">
+      <DependentUpon>FrmInfoEntidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmInfoEntidad.aspx.designer.cs">
+      <DependentUpon>FrmInfoEntidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmParam321525.aspx.cs">
+      <DependentUpon>FrmParam321525.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmParam321525.aspx.designer.cs">
+      <DependentUpon>FrmParam321525.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmUnidadCaptura.aspx.cs">
+      <DependentUpon>FrmUnidadCaptura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\Formatos\FrmUnidadCaptura.aspx.designer.cs">
+      <DependentUpon>FrmUnidadCaptura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmBancos.aspx.cs">
+      <DependentUpon>FrmBancos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmBancos.aspx.designer.cs">
+      <DependentUpon>FrmBancos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmConceptosProv.aspx.cs">
+      <DependentUpon>FrmConceptosProv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmConceptosProv.aspx.designer.cs">
+      <DependentUpon>FrmConceptosProv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmConfConceptosProv.aspx.cs">
+      <DependentUpon>FrmConfConceptosProv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmConfConceptosProv.aspx.designer.cs">
+      <DependentUpon>FrmConfConceptosProv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDepartamentos.aspx.cs">
+      <DependentUpon>FrmDepartamentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDepartamentos.aspx.designer.cs">
+      <DependentUpon>FrmDepartamentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDesgloceICA.aspx.cs">
+      <DependentUpon>FrmDesgloceICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDesgloceICA.aspx.designer.cs">
+      <DependentUpon>FrmDesgloceICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDiasFestivo.aspx.cs">
+      <DependentUpon>FrmDiasFestivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmDiasFestivo.aspx.designer.cs">
+      <DependentUpon>FrmDiasFestivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmEmpresas.aspx.cs">
+      <DependentUpon>FrmEmpresas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmEmpresas.aspx.designer.cs">
+      <DependentUpon>FrmEmpresas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmEstados.aspx.cs">
+      <DependentUpon>FrmEstados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmEstados.aspx.designer.cs">
+      <DependentUpon>FrmEstados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmFormularioImpuestos.aspx.cs">
+      <DependentUpon>FrmFormularioImpuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmFormularioImpuestos.aspx.designer.cs">
+      <DependentUpon>FrmFormularioImpuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmMunicipios.aspx.cs">
+      <DependentUpon>FrmMunicipios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmMunicipios.aspx.designer.cs">
+      <DependentUpon>FrmMunicipios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPaises.aspx.cs">
+      <DependentUpon>FrmPaises.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPaises.aspx.designer.cs">
+      <DependentUpon>FrmPaises.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmParametrosLicencia.aspx.cs">
+      <DependentUpon>FrmParametrosLicencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmParametrosLicencia.aspx.designer.cs">
+      <DependentUpon>FrmParametrosLicencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPeriodicidadPagos.aspx.cs">
+      <DependentUpon>FrmPeriodicidadPagos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPeriodicidadPagos.aspx.designer.cs">
+      <DependentUpon>FrmPeriodicidadPagos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPlanUnicoCuentas.aspx.cs">
+      <DependentUpon>FrmPlanUnicoCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmPlanUnicoCuentas.aspx.designer.cs">
+      <DependentUpon>FrmPlanUnicoCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTarifasExcesivas.aspx.cs">
+      <DependentUpon>FrmTarifasExcesivas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTarifasExcesivas.aspx.designer.cs">
+      <DependentUpon>FrmTarifasExcesivas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoActividad.aspx.cs">
+      <DependentUpon>FrmTipoActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoActividad.aspx.designer.cs">
+      <DependentUpon>FrmTipoActividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoClasificacion.aspx.cs">
+      <DependentUpon>FrmTipoClasificacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoClasificacion.aspx.designer.cs">
+      <DependentUpon>FrmTipoClasificacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoCtrlActividad.aspx.cs">
+      <DependentUpon>FrmTipoCtrlActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoCtrlActividad.aspx.designer.cs">
+      <DependentUpon>FrmTipoCtrlActividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoFirma.aspx.cs">
+      <DependentUpon>FrmTipoFirma.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoFirma.aspx.designer.cs">
+      <DependentUpon>FrmTipoFirma.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoLicencia.aspx.cs">
+      <DependentUpon>FrmTipoLicencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoLicencia.aspx.designer.cs">
+      <DependentUpon>FrmTipoLicencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoMoneda.aspx.cs">
+      <DependentUpon>FrmTipoMoneda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoMoneda.aspx.designer.cs">
+      <DependentUpon>FrmTipoMoneda.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNaturaleza.aspx.cs">
+      <DependentUpon>FrmTipoNaturaleza.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNaturaleza.aspx.designer.cs">
+      <DependentUpon>FrmTipoNaturaleza.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNivel.aspx.cs">
+      <DependentUpon>FrmTipoNivel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNivel.aspx.designer.cs">
+      <DependentUpon>FrmTipoNivel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNormatividad.aspx.cs">
+      <DependentUpon>FrmTipoNormatividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoNormatividad.aspx.designer.cs">
+      <DependentUpon>FrmTipoNormatividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTiposCargo.aspx.cs">
+      <DependentUpon>FrmTiposCargo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTiposCargo.aspx.designer.cs">
+      <DependentUpon>FrmTiposCargo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTiposIdentificacion.aspx.cs">
+      <DependentUpon>FrmTiposIdentificacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTiposIdentificacion.aspx.designer.cs">
+      <DependentUpon>FrmTiposIdentificacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoTarifa.aspx.cs">
+      <DependentUpon>FrmTipoTarifa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmTipoTarifa.aspx.designer.cs">
+      <DependentUpon>FrmTipoTarifa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmUnidadesMedida.aspx.cs">
+      <DependentUpon>FrmUnidadesMedida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\FrmUnidadesMedida.aspx.designer.cs">
+      <DependentUpon>FrmUnidadesMedida.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\ReteICA\FrmConceptos.aspx.cs">
+      <DependentUpon>FrmConceptos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\ReteICA\FrmConceptos.aspx.designer.cs">
+      <DependentUpon>FrmConceptos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Parametros\ReteICA\FrmRenglonConcepto.aspx.cs">
+      <DependentUpon>FrmRenglonConcepto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Parametros\ReteICA\FrmRenglonConcepto.aspx.designer.cs">
+      <DependentUpon>FrmRenglonConcepto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptActEconomicas.aspx.cs">
+      <DependentUpon>FrmRptActEconomicas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptActEconomicas.aspx.designer.cs">
+      <DependentUpon>FrmRptActEconomicas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptAcuerdosMunicipales.aspx.cs">
+      <DependentUpon>FrmRptAcuerdosMunicipales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptAcuerdosMunicipales.aspx.designer.cs">
+      <DependentUpon>FrmRptAcuerdosMunicipales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptBancoCuentas.aspx.cs">
+      <DependentUpon>FrmRptBancoCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptBancoCuentas.aspx.designer.cs">
+      <DependentUpon>FrmRptBancoCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCalendarioTributario.aspx.cs">
+      <DependentUpon>FrmRptCalendarioTributario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCalendarioTributario.aspx.designer.cs">
+      <DependentUpon>FrmRptCalendarioTributario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCantidadEstablecimientos.aspx.cs">
+      <DependentUpon>FrmRptCantidadEstablecimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCantidadEstablecimientos.aspx.designer.cs">
+      <DependentUpon>FrmRptCantidadEstablecimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptConfiguracionImp.aspx.cs">
+      <DependentUpon>FrmRptConfiguracionImp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptConfiguracionImp.aspx.designer.cs">
+      <DependentUpon>FrmRptConfiguracionImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptControlActividades.aspx.cs">
+      <DependentUpon>FrmRptControlActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptControlActividades.aspx.designer.cs">
+      <DependentUpon>FrmRptControlActividades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCtrlActividadesAnalista.aspx.cs">
+      <DependentUpon>FrmRptCtrlActividadesAnalista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptCtrlActividadesAnalista.aspx.designer.cs">
+      <DependentUpon>FrmRptCtrlActividadesAnalista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptEstablecimientos.aspx.cs">
+      <DependentUpon>FrmRptEstablecimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptEstablecimientos.aspx.designer.cs">
+      <DependentUpon>FrmRptEstablecimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptImpMunicipios.aspx.cs">
+      <DependentUpon>FrmRptImpMunicipios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptImpMunicipios.aspx.designer.cs">
+      <DependentUpon>FrmRptImpMunicipios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptMunicipios.aspx.cs">
+      <DependentUpon>FrmRptMunicipios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptMunicipios.aspx.designer.cs">
+      <DependentUpon>FrmRptMunicipios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptMunicipiosAutoret.aspx.cs">
+      <DependentUpon>FrmRptMunicipiosAutoret.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptMunicipiosAutoret.aspx.designer.cs">
+      <DependentUpon>FrmRptMunicipiosAutoret.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptOtrasConfiguraciones.aspx.cs">
+      <DependentUpon>FrmRptOtrasConfiguraciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptOtrasConfiguraciones.aspx.designer.cs">
+      <DependentUpon>FrmRptOtrasConfiguraciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptPlanUnicoCuenta.aspx.cs">
+      <DependentUpon>FrmRptPlanUnicoCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptPlanUnicoCuenta.aspx.designer.cs">
+      <DependentUpon>FrmRptPlanUnicoCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Anexos\FrmRptAnexoAutoIca.aspx.cs">
+      <DependentUpon>FrmRptAnexoAutoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Anexos\FrmRptAnexoAutoIca.aspx.designer.cs">
+      <DependentUpon>FrmRptAnexoAutoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Anexos\FrmRptAnexoIca.aspx.cs">
+      <DependentUpon>FrmRptAnexoIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Anexos\FrmRptAnexoIca.aspx.designer.cs">
+      <DependentUpon>FrmRptAnexoIca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\Frm321.aspx.cs">
+      <DependentUpon>Frm321.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\Frm321.aspx.designer.cs">
+      <DependentUpon>Frm321.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\Frm525.aspx.cs">
+      <DependentUpon>Frm525.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\Frm525.aspx.designer.cs">
+      <DependentUpon>Frm525.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\FrmCruzado.aspx.cs">
+      <DependentUpon>FrmCruzado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\FrmCruzado.aspx.designer.cs">
+      <DependentUpon>FrmCruzado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\FrmEjecuciones.aspx.cs">
+      <DependentUpon>FrmEjecuciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Formatos\FrmEjecuciones.aspx.designer.cs">
+      <DependentUpon>FrmEjecuciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepAcumuladoProvICA.aspx.cs">
+      <DependentUpon>FrmRepAcumuladoProvICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepAcumuladoProvICA.aspx.designer.cs">
+      <DependentUpon>FrmRepAcumuladoProvICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepCompProvICA.aspx.cs">
+      <DependentUpon>FrmRepCompProvICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepCompProvICA.aspx.designer.cs">
+      <DependentUpon>FrmRepCompProvICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepMensualProvICA.aspx.cs">
+      <DependentUpon>FrmRepMensualProvICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepMensualProvICA.aspx.designer.cs">
+      <DependentUpon>FrmRepMensualProvICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepRegContableProvICA.aspx.cs">
+      <DependentUpon>FrmRepRegContableProvICA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\FrmRepRegContableProvICA.aspx.designer.cs">
+      <DependentUpon>FrmRepRegContableProvICA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptLogsAuditoria.aspx.cs">
+      <DependentUpon>FrmRptLogsAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptLogsAuditoria.aspx.designer.cs">
+      <DependentUpon>FrmRptLogsAuditoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptPerfilesOpcionesMenu.aspx.cs">
+      <DependentUpon>FrmRptPerfilesOpcionesMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptPerfilesOpcionesMenu.aspx.designer.cs">
+      <DependentUpon>FrmRptPerfilesOpcionesMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptUsuarios.aspx.cs">
+      <DependentUpon>FrmRptUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Seguridad\FrmRptUsuarios.aspx.designer.cs">
+      <DependentUpon>FrmRptUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmCambioClave.aspx.cs">
+      <DependentUpon>FrmCambioClave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmCambioClave.aspx.designer.cs">
+      <DependentUpon>FrmCambioClave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmConfiguracionAlertas.aspx.cs">
+      <DependentUpon>FrmConfiguracionAlertas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmConfiguracionAlertas.aspx.designer.cs">
+      <DependentUpon>FrmConfiguracionAlertas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmGenerarTablas.aspx.cs">
+      <DependentUpon>FrmGenerarTablas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmGenerarTablas.aspx.designer.cs">
+      <DependentUpon>FrmGenerarTablas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmGestionUsuarios.aspx.cs">
+      <DependentUpon>FrmGestionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmGestionUsuarios.aspx.designer.cs">
+      <DependentUpon>FrmGestionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmLogsAuditoria.aspx.cs">
+      <DependentUpon>FrmLogsAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmLogsAuditoria.aspx.designer.cs">
+      <DependentUpon>FrmLogsAuditoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmOpcionesMenu.aspx.cs">
+      <DependentUpon>FrmOpcionesMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmOpcionesMenu.aspx.designer.cs">
+      <DependentUpon>FrmOpcionesMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmResetearCache.aspx.cs">
+      <DependentUpon>FrmResetearCache.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmResetearCache.aspx.designer.cs">
+      <DependentUpon>FrmResetearCache.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmRoles.aspx.cs">
+      <DependentUpon>FrmRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmRoles.aspx.designer.cs">
+      <DependentUpon>FrmRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmUsuarios.aspx.cs">
+      <DependentUpon>FrmUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Seguridad\FrmUsuarios.aspx.designer.cs">
+      <DependentUpon>FrmUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Salir.aspx.cs">
+      <DependentUpon>Salir.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salir.aspx.designer.cs">
+      <DependentUpon>Salir.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50668</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5048/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,76 @@
+﻿html {
+    /*background-image: url("/Imagenes/General/img_principal3.jpg");*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.block {
+    width: 400px;
+    border: 5px solid #fff;
+    background: rgba(255,255,255,0.7);
+    text-align: center;
+    margin: 100px auto 0;
+}
+
+header {
+    display: block;
+    /*background: #FFFFFF;*/
+    padding: 10px 0px;
+}
+
+section {
+    overflow: auto;
+    /* Definimos el padding inferior:
+       50px del pie de pagina mas 10px de separacion
+    */
+    padding-bottom: 10px;
+    /* Definimos un padding superior */
+    padding-top: 30px;
+}
+
+footer {
+    position: relative;
+    /* Altura total del footer en px con valor negativo */
+    margin-top: 420px;
+    /* Altura del footer en px. Se han restado los 5px del margen
+               superior mas los 5px del margen inferior
+            */
+    height: 40px;
+    padding: 5px 0px;
+    clear: both;
+    /*background: #286af0;*/
+    text-align: center;
+    color: #000;
+}
+
+/* Esta clase define la anchura del contenido y la posicion centrada 
+           El contenido queda centrado y limitado, pero la cabecera y el pie
+           llegan hasta los limites del navegador.
+        */
+.define {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.panel span
+{
+    margin-left: 100px;
+    width: 75px;
+    color:red;
+}
+
+.BtnSend {
+    width: 53px;
+    height: 24px;
+    display: block;
+    float: right;
+    margin: 0 0 0 10px;
+    background: url('../Imagenes/Menu/16/upload.png') no-repeat center;
+    /*background-image: url('../Imagenes/Menu/16/upload.png');*/
+    text-decoration: none;
+    text-align: center;
+    line-height: 24px;
+    color: #fff;
+}

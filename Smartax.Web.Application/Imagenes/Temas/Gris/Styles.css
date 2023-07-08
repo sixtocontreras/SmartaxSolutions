@@ -1,0 +1,158 @@
+
+/*
+=============================================
+ESTILOS DE LA PAGINA MAESTRA
+=============================================
+*/
+
+Body
+{
+    font-family: Tahoma, Arial, Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    background-color: silver;
+    margin: 0px;
+}
+
+.tdCabezote
+{
+	background-image: url('/Imagenes/Temas/Gris/Imagenes/fondo_cabezote.jpg');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.tdContenido
+{
+    background-image: url('/Imagenes/Temas/Gris/Imagenes/fondo_contenido.jpg');
+    background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.tdPie
+{
+    background-image: url('/Imagenes/Temas/Gris/Imagenes/fondo_pie.png');
+    background-repeat: repeat-x;
+	background-position: top left;
+	color: #ffffff;
+	font-size: x-small;
+}
+
+.UserImage
+{
+	position: relative; left: 76px;
+}
+
+.Tab
+{
+	background-color: #F0F0F0;
+	border-color: #666666;
+	border-style: solid;
+	border-width: 1px;
+	padding: 10px;
+}
+
+/*
+=============================================
+TITULOS
+=============================================
+*/
+
+H1
+{
+    font-family: Tahoma, Arial, verdana, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #003366;
+}
+
+H2
+{
+    font-family: Tahoma, Arial, verdana, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #003366;
+}
+
+.Title
+{
+    font-family: Tahoma, Arial, verdana, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #003366;
+}
+
+.SubTitle
+{
+    font-family: Tahoma, Arial, verdana, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #003366;
+}
+
+/*
+=============================================
+RUTA - UBICACION
+=============================================
+*/
+
+.CeldaRuta{
+    background:transparent url('/Imagenes/Temas/Gris/Imagenes/fondo_ruta.png');
+    font-size: x-small;
+    font-weight: 700;
+}
+
+/*
+=============================================
+FORMULARIOS
+=============================================
+*/
+
+.textbox {
+	border: 1px solid #666666;
+	background-image: url('/Imagenes/Temas/Gris/Imagenes/fondo_textbox.gif');
+	FONT-SIZE: 12px;
+	font-family: Tahoma, Arial, verdana, Helvetica, sans-serif;
+}
+
+.FormLabels
+{
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.campoRequerido
+{
+	font-weight: bold;
+	font-size: 10px;
+	color:Red;
+}
+
+/*
+=============================================
+LINKS
+=============================================
+*/
+
+A:link  {
+    text-decoration:    none;
+    color:  #00669c;
+}
+
+A:visited   {
+    text-decoration:    none;
+    color:  #00669c;
+}
+
+A:active    {
+    text-decoration:    none;
+    color:  #00669c;
+}
+
+A:hover {
+    text-decoration:    underline;
+    color:  #00669c;
+}
