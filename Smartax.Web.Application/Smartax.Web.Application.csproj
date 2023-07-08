@@ -354,6 +354,7 @@
     <Content Include="Controles\Reportes\Administrativos\CtrlRptMunicipios.ascx" />
     <Content Include="Controles\Reportes\Administrativos\CtrlRptOtrasConfig.ascx" />
     <Content Include="Controles\Reportes\Administrativos\CtrlRptPlanUnicoCuenta.ascx" />
+    <Content Include="Controles\Reportes\Administrativos\CtrlRptRetencionIca.ascx" />
     <Content Include="Controles\Reportes\Anexos\CtrlRptAnexoAutoIca.ascx" />
     <Content Include="Controles\Reportes\Anexos\CtrlRptAnexoIca.ascx" />
     <Content Include="Controles\Reportes\Formatos\Ctrl321.ascx" />
@@ -871,6 +872,7 @@
     <Content Include="Modulos\Reportes\Administracion\FrmRptMunicipiosAutoret.aspx" />
     <Content Include="Modulos\Reportes\Administracion\FrmRptOtrasConfiguraciones.aspx" />
     <Content Include="Modulos\Reportes\Administracion\FrmRptPlanUnicoCuenta.aspx" />
+    <Content Include="Modulos\Reportes\Administracion\FrmRptRetencionIca.aspx" />
     <Content Include="Modulos\Reportes\Anexos\FrmRptAnexoAutoIca.aspx" />
     <Content Include="Modulos\Reportes\Anexos\FrmRptAnexoIca.aspx" />
     <Content Include="Modulos\Reportes\Formatos\Frm321.aspx" />
@@ -2311,6 +2313,13 @@
     <Compile Include="Controles\Reportes\Administrativos\CtrlRptPlanUnicoCuenta.ascx.designer.cs">
       <DependentUpon>CtrlRptPlanUnicoCuenta.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptRetencionIca.ascx.cs">
+      <DependentUpon>CtrlRptRetencionIca.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Reportes\Administrativos\CtrlRptRetencionIca.ascx.designer.cs">
+      <DependentUpon>CtrlRptRetencionIca.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controles\Reportes\Anexos\CtrlRptAnexoAutoIca.ascx.cs">
       <DependentUpon>CtrlRptAnexoAutoIca.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3021,6 +3030,13 @@
     </Compile>
     <Compile Include="Modulos\Reportes\Administracion\FrmRptPlanUnicoCuenta.aspx.designer.cs">
       <DependentUpon>FrmRptPlanUnicoCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptRetencionIca.aspx.cs">
+      <DependentUpon>FrmRptRetencionIca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modulos\Reportes\Administracion\FrmRptRetencionIca.aspx.designer.cs">
+      <DependentUpon>FrmRptRetencionIca.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modulos\Reportes\Anexos\FrmRptAnexoAutoIca.aspx.cs">
       <DependentUpon>FrmRptAnexoAutoIca.aspx</DependentUpon>

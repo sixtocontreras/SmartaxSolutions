@@ -13,6 +13,37 @@ namespace Smartax.Web.Application.Clases.Seguridad
 
         public string MostrarSeleccione { get; set; }
 
+        public DataTable GetTipoRptRetencionIca()
+        {
+            DataTable TablaDatos = new DataTable();
+            TablaDatos.TableName = "DtTipoRptRetencionIca";
+            try
+            {
+                TablaDatos.Columns.Add("idrpt_retencionica");
+                TablaDatos.Columns.Add("rpt_retencionica");
+
+                if (MostrarSeleccione != null)
+                {
+                    if (MostrarSeleccione.ToString().Equals("SI"))
+                    {
+                        TablaDatos.Rows.Add("", "<< Seleccione >>");
+                    }
+                }
+                TablaDatos.Rows.Add("1", "PAGADURIA");
+                TablaDatos.Rows.Add("2", "LEASING HABITACIONAL");
+                TablaDatos.Rows.Add("3", "LEASING FINANCIERO");
+                TablaDatos.Rows.Add("4", "TARJETAS DE CREDITO");
+                TablaDatos.Rows.Add("5", "INFORMACION CONTABLE");
+
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Error al cargar la lista de reportes de retencion de ica. Motivo: " + ex.Message);
+            }
+
+            return TablaDatos;
+        }
+
         public DataTable GetTipoCalculo()
         {
             DataTable TablaDatos = new DataTable();

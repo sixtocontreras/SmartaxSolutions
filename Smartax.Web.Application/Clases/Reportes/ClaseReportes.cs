@@ -53,7 +53,485 @@ namespace Smartax.Web.Application.Clases.Reportes
         public object IdMunicipio { get; set; }
         public object TipoConsulta { get; set; }
         public int TipoProceso { get; set; }
+        public string Mes { get; set; }
+
         #endregion
+
+        public DataTable GetRptRetencionIca(ref string _MsgError)
+        {
+            DataTable TablaDatos = new DataTable();
+            TablaDatos.TableName = "DtRptRetencionIca";
+            try
+            {
+                #region OBJETO DE CONEXION A LA DB
+                StringBuilder sSQL = new StringBuilder();
+                //Aqui pasamos el string de conexion al objeto conection de la base de datos con la que se tiene que conectar
+                if ((MotorBaseDatos.ToString().Trim().Equals("PostgreSQL")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["PostgreSQL"].ConnectionString;
+                    myConnectionDb = new PgSqlConnection(connString);
+                }
+                else if ((MotorBaseDatos.ToString().Trim().Equals("MySQL")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
+                    myConnectionDb = new MySqlConnection(connString);
+                }
+                else if ((MotorBaseDatos.ToString().Trim().Equals("SQLServer")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString;
+                    myConnectionDb = new SqlConnection(connString);
+                }
+                else if ((MotorBaseDatos.ToString().Trim().Equals("Oracle")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
+                    myConnectionDb = new OracleConnection(connString);
+                }
+                else
+                {
+                    _log.Error("No existe configurado un Motor de Base de Datos a Trabajar !");
+                    return null;
+                }
+
+                //Aqui hacemos la debidas conexiones a la base de dato que esta configurada para trabajar 
+                //Nota: Solo se permite una configuración de la base de datos en el web.config
+                if (myConnectionDb.State != ConnectionState.Open)
+                {
+                    myConnectionDb.Open();
+                }
+                #endregion
+
+                //Aqui hacemos los llamados de los sp o consultas a utilizar en la respectiva base de datos
+                if (myConnectionDb is PgSqlConnection)
+                {
+                    #region OBTENER DATOS DE LA DB DE POSTGRESQL
+                    IDbTransaction Transac = myConnectionDb.BeginTransaction();
+                    TheCommandPostgreSQL = new PgSqlCommand("sp_web_get_reportes_retencion_ica", (PgSqlConnection)myConnectionDb);
+                    TheCommandPostgreSQL.CommandType = CommandType.StoredProcedure;
+                    //Limpiar parametros
+                    TheCommandPostgreSQL.Parameters.Clear();
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_tipo_reporte", TipoProceso);
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_anio_gravable", AnioGravable);
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_mes", Mes);
+
+                    TheDataReaderPostgreSQL = TheCommandPostgreSQL.ExecuteReader();
+
+                    //Reporte de Pagaduria
+                    if (TipoProceso == 1)
+                    {
+                        #region DEFINICION DE COLUMNAS DEL DATATABLE
+                        TablaDatos.Columns.Add("id", typeof(Int32));
+                        TablaDatos.Columns.Add("unidad_negocio");
+                        TablaDatos.Columns.Add("id_comprobante");
+                        TablaDatos.Columns.Add("n_linea_comprobante", typeof(Int32));
+                        TablaDatos.Columns.Add("id_set_proveedor");
+                        TablaDatos.Columns.Add("id_proveedor");
+                        TablaDatos.Columns.Add("numero_identificacion");
+                        TablaDatos.Columns.Add("fecha_contable");
+                        TablaDatos.Columns.Add("tipo_impuesto");
+                        TablaDatos.Columns.Add("codigo_actividad");
+                        TablaDatos.Columns.Add("importe_base_retencion");
+                        TablaDatos.Columns.Add("base_retencion_moneda_base");
+                        TablaDatos.Columns.Add("importe_retencion");
+                        TablaDatos.Columns.Add("importe_retencion_moneda_base");
+                        TablaDatos.Columns.Add("porcentaje_retencion");
+                        TablaDatos.Columns.Add("moneda_transaccion");
+                        TablaDatos.Columns.Add("moneda_base");
+                        TablaDatos.Columns.Add("id_usuario_add");
+                        TablaDatos.Columns.Add("id_usuario_up");
+                        TablaDatos.Columns.Add("fecha_registro");
+                        TablaDatos.Columns.Add("fecha_actualizacion");
+                        TablaDatos.Columns.Add("id_estado");
+
+                        #endregion
+
+                        if (TheDataReaderPostgreSQL != null)
+                        {
+                            while (TheDataReaderPostgreSQL.Read())
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATAREADER
+                                DataRow Fila = null;
+                                Fila = TablaDatos.NewRow();
+                                Fila["id"] = Int32.Parse(TheDataReaderPostgreSQL["id"].ToString().Trim());
+                                Fila["unidad_negocio"] = TheDataReaderPostgreSQL["unidad_negocio"].ToString().Trim();
+                                Fila["id_comprobante"] = TheDataReaderPostgreSQL["id_comprobante"].ToString().Trim();
+                                Fila["n_linea_comprobante"] = Int32.Parse(TheDataReaderPostgreSQL["n_linea_comprobante"].ToString().Trim());
+                                Fila["id_set_proveedor"] = TheDataReaderPostgreSQL["id_set_proveedor"].ToString().Trim();
+                                Fila["id_proveedor"] = TheDataReaderPostgreSQL["id_proveedor"].ToString().Trim();
+                                Fila["numero_identificacion"] = TheDataReaderPostgreSQL["numero_identificacion"].ToString().Trim();
+                                Fila["fecha_contable"] = TheDataReaderPostgreSQL["fecha_contable"].ToString().Trim();
+                                Fila["tipo_impuesto"] = TheDataReaderPostgreSQL["tipo_impuesto"].ToString().Trim();
+                                Fila["codigo_actividad"] = TheDataReaderPostgreSQL["codigo_actividad"].ToString().Trim();
+                                Fila["importe_base_retencion"] = TheDataReaderPostgreSQL["importe_base_retencion"].ToString().Trim();
+                                Fila["base_retencion_moneda_base"] = TheDataReaderPostgreSQL["base_retencion_moneda_base"].ToString().Trim();
+                                Fila["importe_retencion"] = TheDataReaderPostgreSQL["importe_retencion"].ToString().Trim();
+                                Fila["importe_retencion_moneda_base"] = TheDataReaderPostgreSQL["importe_retencion_moneda_base"].ToString().Trim();
+                                Fila["porcentaje_retencion"] = TheDataReaderPostgreSQL["porcentaje_retencion"].ToString().Trim();
+                                Fila["moneda_transaccion"] = TheDataReaderPostgreSQL["moneda_transaccion"].ToString().Trim();
+                                Fila["moneda_base"] = TheDataReaderPostgreSQL["moneda_base"].ToString().Trim();
+                                Fila["id_usuario_add"] = TheDataReaderPostgreSQL["id_usuario_add"].ToString().Trim();
+                                Fila["id_usuario_up"] = TheDataReaderPostgreSQL["id_usuario_up"].ToString().Trim();
+                                Fila["fecha_registro"] = TheDataReaderPostgreSQL["fecha_registro"].ToString().Trim();
+                                Fila["fecha_actualizacion"] = TheDataReaderPostgreSQL["fecha_actualizacion"].ToString().Trim();
+                                Fila["id_estado"] = TheDataReaderPostgreSQL["id_estado"].ToString().Trim();
+
+                                TablaDatos.Rows.Add(Fila);
+                                #endregion
+                            }
+                        }
+                        _MsgError = "";
+                        #endregion
+                    }
+                    else if (TipoProceso == 2)
+                    {
+                        #region DEFINICION DE COLUMNAS DEL DATATABLE
+                        TablaDatos.Columns.Add("id", typeof(Int32));
+                        TablaDatos.Columns.Add("ica_consecutivo");
+                        TablaDatos.Columns.Add("fecha_registro");
+                        TablaDatos.Columns.Add("email_address");
+                        TablaDatos.Columns.Add("area_a_la_que_corresponde");
+                        TablaDatos.Columns.Add("nombre_del_vendedor_o_persona_que_entrego_el_bien");
+                        TablaDatos.Columns.Add("nit");
+                        TablaDatos.Columns.Add("digito_de_verificacion");
+                        TablaDatos.Columns.Add("numero_de_la_obligacion");
+                        TablaDatos.Columns.Add("sucursal_de_radicacion_de_credito");
+                        TablaDatos.Columns.Add("direccion_del_domicilio_principal_del_vendedor_o_persona_que_en");
+                        TablaDatos.Columns.Add("ciudad_del_domicilio_principal_de_vendedor_o_persona_que_entreg");
+                        TablaDatos.Columns.Add("numero_telefonico");
+                        TablaDatos.Columns.Add("correo_electronico");
+                        TablaDatos.Columns.Add("fecha_de_desembolso_o_escrituracion");
+                        TablaDatos.Columns.Add("mes_de_la_retencion");
+                        TablaDatos.Columns.Add("anio_de_la_escrituracion");
+                        TablaDatos.Columns.Add("nit_del_municipio_donde_se_encuentra_ubicado_el_inmueble");
+                        TablaDatos.Columns.Add("calidad_tributaria");
+                        TablaDatos.Columns.Add("es_un_activo_fijo");
+                        TablaDatos.Columns.Add("codigo_dane_del_municipio_del_domicilio_principal_del_vendedor");
+                        TablaDatos.Columns.Add("valor_de_la_compra_o_dacion");
+                        TablaDatos.Columns.Add("tarifa_de_retencion");
+                        TablaDatos.Columns.Add("digite_el_valor_de_retencion_de_ica");
+                        TablaDatos.Columns.Add("ciudad_de_ubicacion_del_inmueble");
+                        TablaDatos.Columns.Add("mes_del_desembolso");
+                        TablaDatos.Columns.Add("url_archivo_generado");
+                        TablaDatos.Columns.Add("esta_retencion_corresponde_a_una_operacion_del_anio_actual");
+                        TablaDatos.Columns.Add("url_archivo_cargado");
+                        TablaDatos.Columns.Add("id_usuario_add");
+                        TablaDatos.Columns.Add("id_usuario_up");
+                        TablaDatos.Columns.Add("fecha_registro_aud");
+                        TablaDatos.Columns.Add("fecha_actualizacion");
+                        TablaDatos.Columns.Add("id_estado");
+
+                        #endregion
+
+                        if (TheDataReaderPostgreSQL != null)
+                        {
+                            while (TheDataReaderPostgreSQL.Read())
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATAREADER
+                                DataRow Fila = null;
+                                Fila = TablaDatos.NewRow();
+                                Fila["id"] = Int32.Parse(TheDataReaderPostgreSQL["id"].ToString().Trim());
+                                Fila["ica_consecutivo"] = TheDataReaderPostgreSQL["ica_consecutivo"].ToString().Trim();
+                                Fila["fecha_registro"] = TheDataReaderPostgreSQL["fecha_registro"].ToString().Trim();
+                                Fila["email_address"] = TheDataReaderPostgreSQL["email_address"].ToString().Trim();
+                                Fila["area_a_la_que_corresponde"] = TheDataReaderPostgreSQL["area_a_la_que_corresponde"].ToString().Trim();
+                                Fila["nombre_del_vendedor_o_persona_que_entrego_el_bien"] = TheDataReaderPostgreSQL["nombre_del_vendedor_o_persona_que_entrego_el_bien"].ToString().Trim();
+                                Fila["nit"] = TheDataReaderPostgreSQL["nit"].ToString().Trim();
+                                Fila["digito_de_verificacion"] = TheDataReaderPostgreSQL["digito_de_verificacion"].ToString().Trim();
+                                Fila["numero_de_la_obligacion"] = TheDataReaderPostgreSQL["numero_de_la_obligacion"].ToString().Trim();
+                                Fila["sucursal_de_radicacion_de_credito"] = TheDataReaderPostgreSQL["sucursal_de_radicacion_de_credito"].ToString().Trim();
+                                Fila["direccion_del_domicilio_principal_del_vendedor_o_persona_que_en"] = TheDataReaderPostgreSQL["direccion_del_domicilio_principal_del_vendedor_o_persona_que_en"].ToString().Trim();
+                                Fila["ciudad_del_domicilio_principal_de_vendedor_o_persona_que_entreg"] = TheDataReaderPostgreSQL["ciudad_del_domicilio_principal_de_vendedor_o_persona_que_entreg"].ToString().Trim();
+                                Fila["numero_telefonico"] = TheDataReaderPostgreSQL["numero_telefonico"].ToString().Trim();
+                                Fila["correo_electronico"] = TheDataReaderPostgreSQL["correo_electronico"].ToString().Trim();
+                                Fila["fecha_de_desembolso_o_escrituracion"] = TheDataReaderPostgreSQL["fecha_de_desembolso_o_escrituracion"].ToString().Trim();
+                                Fila["mes_de_la_retencion"] = TheDataReaderPostgreSQL["mes_de_la_retencion"].ToString().Trim();
+                                Fila["anio_de_la_escrituracion"] = TheDataReaderPostgreSQL["anio_de_la_escrituracion"].ToString().Trim();
+                                Fila["nit_del_municipio_donde_se_encuentra_ubicado_el_inmueble"] = TheDataReaderPostgreSQL["nit_del_municipio_donde_se_encuentra_ubicado_el_inmueble"].ToString().Trim();
+                                Fila["calidad_tributaria"] = TheDataReaderPostgreSQL["calidad_tributaria"].ToString().Trim();
+                                Fila["es_un_activo_fijo"] = TheDataReaderPostgreSQL["es_un_activo_fijo"].ToString().Trim();
+                                Fila["codigo_dane_del_municipio_del_domicilio_principal_del_vendedor"] = TheDataReaderPostgreSQL["codigo_dane_del_municipio_del_domicilio_principal_del_vendedor"].ToString().Trim();
+                                Fila["valor_de_la_compra_o_dacion"] = TheDataReaderPostgreSQL["valor_de_la_compra_o_dacion"].ToString().Trim();
+                                Fila["tarifa_de_retencion"] = TheDataReaderPostgreSQL["tarifa_de_retencion"].ToString().Trim();
+                                Fila["digite_el_valor_de_retencion_de_ica"] = TheDataReaderPostgreSQL["digite_el_valor_de_rentencion_de_ica"].ToString().Trim();
+                                Fila["ciudad_de_ubicacion_del_inmueble"] = TheDataReaderPostgreSQL["ciudad_de_ubicacion_del_inmueble"].ToString().Trim();
+                                Fila["mes_del_desembolso"] = TheDataReaderPostgreSQL["mes_del_desembolso"].ToString().Trim();
+                                Fila["url_archivo_generado"] = TheDataReaderPostgreSQL["url_archivo_generado"].ToString().Trim();
+                                Fila["esta_retencion_corresponde_a_una_operacion_del_anio_actual"] = TheDataReaderPostgreSQL["esta_retencion_corresponde_a_una_operacion_del_anio_actual"].ToString().Trim();
+                                Fila["url_archivo_cargado"] = TheDataReaderPostgreSQL["url_archivo_cargado"].ToString().Trim();
+                                Fila["id_usuario_add"] = TheDataReaderPostgreSQL["id_usuario_add"].ToString().Trim();
+                                Fila["id_usuario_up"] = TheDataReaderPostgreSQL["id_usuario_up"].ToString().Trim();
+                                Fila["fecha_registro_aud"] = TheDataReaderPostgreSQL["fecha_registro_aud"].ToString().Trim();
+                                Fila["fecha_actualizacion"] = TheDataReaderPostgreSQL["fecha_actualizacion"].ToString().Trim();
+                                Fila["id_estado"] = TheDataReaderPostgreSQL["id_estado"].ToString().Trim();
+
+                                TablaDatos.Rows.Add(Fila);
+                                #endregion
+                            }
+                        }
+                        _MsgError = "";
+                    }
+                    else if (TipoProceso == 3)
+                    {
+                        #region DEFINICION DE COLUMNAS DEL DATATABLE
+                        TablaDatos.Columns.Add("id", typeof(Int32));
+                        TablaDatos.Columns.Add("tipo_ident");
+                        TablaDatos.Columns.Add("numero_ident");
+                        TablaDatos.Columns.Add("tipo_imp");
+                        TablaDatos.Columns.Add("subtipo_imp");
+                        TablaDatos.Columns.Add("tarifa");
+                        TablaDatos.Columns.Add("valor");
+                        TablaDatos.Columns.Add("nit_teso");
+                        TablaDatos.Columns.Add("nom_teso");
+                        TablaDatos.Columns.Add("num_cue");
+                        TablaDatos.Columns.Add("naturaleza");
+                        TablaDatos.Columns.Add("tipo_compro");
+                        TablaDatos.Columns.Add("numero_compro");
+                        TablaDatos.Columns.Add("nombre_tercero");
+                        TablaDatos.Columns.Add("base");
+                        TablaDatos.Columns.Add("fecha_registro");
+                        TablaDatos.Columns.Add("direccion_tercero");
+                        TablaDatos.Columns.Add("correo_electronico");
+                        TablaDatos.Columns.Add("departamento_tercero");
+                        TablaDatos.Columns.Add("ciudad_tercero");
+                        TablaDatos.Columns.Add("pais_tercero");
+                        TablaDatos.Columns.Add("telefono_tercero");
+                        TablaDatos.Columns.Add("id_usuario_add");
+                        TablaDatos.Columns.Add("id_usuario_up");
+                        TablaDatos.Columns.Add("fecha_registro_aud");
+                        TablaDatos.Columns.Add("fecha_actualizacion");
+                        TablaDatos.Columns.Add("id_estado");
+
+                        #endregion
+
+                        if (TheDataReaderPostgreSQL != null)
+                        {
+                            while (TheDataReaderPostgreSQL.Read())
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATAREADER
+                                DataRow Fila = null;
+                                Fila = TablaDatos.NewRow();
+                                Fila["id"] = Int32.Parse(TheDataReaderPostgreSQL["id"].ToString().Trim());
+                                Fila["tipo_ident"] = TheDataReaderPostgreSQL["tipo_ident"].ToString().Trim();
+                                Fila["numero_ident"] = TheDataReaderPostgreSQL["numero_ident"].ToString().Trim();
+                                Fila["tipo_imp"] = TheDataReaderPostgreSQL["tipo_imp"].ToString().Trim();
+                                Fila["subtipo_imp"] = TheDataReaderPostgreSQL["subtipo_imp"].ToString().Trim();
+                                Fila["tarifa"] = TheDataReaderPostgreSQL["tarifa"].ToString().Trim();
+                                Fila["valor"] = TheDataReaderPostgreSQL["valor"].ToString().Trim();
+                                Fila["nit_teso"] = TheDataReaderPostgreSQL["nit_teso"].ToString().Trim();
+                                Fila["nom_teso"] = TheDataReaderPostgreSQL["nom_teso"].ToString().Trim();
+                                Fila["num_cue"] = TheDataReaderPostgreSQL["num_cue"].ToString().Trim();
+                                Fila["naturaleza"] = TheDataReaderPostgreSQL["naturaleza"].ToString().Trim();
+                                Fila["tipo_compro"] = TheDataReaderPostgreSQL["tipo_compro"].ToString().Trim();
+                                Fila["numero_compro"] = TheDataReaderPostgreSQL["numero_compro"].ToString().Trim();
+                                Fila["nombre_tercero"] = TheDataReaderPostgreSQL["nombre_tercero"].ToString().Trim();
+                                Fila["base"] = TheDataReaderPostgreSQL["base"].ToString().Trim();
+                                Fila["fecha_registro"] = TheDataReaderPostgreSQL["fecha_registro"].ToString().Trim();
+                                Fila["direccion_tercero"] = TheDataReaderPostgreSQL["direccion_tercero"].ToString().Trim();
+                                Fila["correo_electronico"] = TheDataReaderPostgreSQL["correo_electronico"].ToString().Trim();
+                                Fila["departamento_tercero"] = TheDataReaderPostgreSQL["departamento_tercero"].ToString().Trim();
+                                Fila["ciudad_tercero"] = TheDataReaderPostgreSQL["ciudad_tercero"].ToString().Trim();
+                                Fila["pais_tercero"] = TheDataReaderPostgreSQL["pais_tercero"].ToString().Trim();
+                                Fila["telefono_tercero"] = TheDataReaderPostgreSQL["telefono_tercero"].ToString().Trim();
+                                Fila["id_usuario_add"] = TheDataReaderPostgreSQL["id_usuario_add"].ToString().Trim();
+                                Fila["id_usuario_up"] = TheDataReaderPostgreSQL["id_usuario_up"].ToString().Trim();
+                                Fila["fecha_registro_aud"] = TheDataReaderPostgreSQL["fecha_registro_aud"].ToString().Trim();
+                                Fila["fecha_actualizacion"] = TheDataReaderPostgreSQL["fecha_actualizacion"].ToString().Trim();
+                                Fila["id_estado"] = TheDataReaderPostgreSQL["id_estado"].ToString().Trim();
+
+
+                                TablaDatos.Rows.Add(Fila);
+                                #endregion
+                            }
+                        }
+                        _MsgError = "";
+                    }
+                    else if (TipoProceso == 4)
+                    {
+                        #region DEFINICION DE COLUMNAS DEL DATATABLE
+                        TablaDatos.Columns.Add("id", typeof(Int32));
+                        TablaDatos.Columns.Add("tipo");
+                        TablaDatos.Columns.Add("impuesto");
+                        TablaDatos.Columns.Add("cod_ciu");
+                        TablaDatos.Columns.Add("ciudad");
+                        TablaDatos.Columns.Add("nit");
+                        TablaDatos.Columns.Add("tm");
+                        TablaDatos.Columns.Add("marca");
+                        TablaDatos.Columns.Add("fecha_inicial");
+                        TablaDatos.Columns.Add("fecha_final");
+                        TablaDatos.Columns.Add("valor_venta ");
+                        TablaDatos.Columns.Add("establecimiento");
+                        TablaDatos.Columns.Add("valor_impuesto");
+                        TablaDatos.Columns.Add("valor_base");
+                        TablaDatos.Columns.Add("id_usuario_add");
+                        TablaDatos.Columns.Add("id_usuario_up");
+                        TablaDatos.Columns.Add("fecha_registro");
+                        TablaDatos.Columns.Add("fecha_actualizacion");
+                        TablaDatos.Columns.Add("id_estado");
+
+                        #endregion
+
+                        if (TheDataReaderPostgreSQL != null)
+                        {
+                            while (TheDataReaderPostgreSQL.Read())
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATAREADER
+                                DataRow Fila = null;
+                                Fila = TablaDatos.NewRow();
+                                Fila["id"] = Int32.Parse(TheDataReaderPostgreSQL["id"].ToString().Trim());
+                                Fila["tipo"] = TheDataReaderPostgreSQL["tipo"].ToString().Trim();
+                                Fila["impuesto"] = TheDataReaderPostgreSQL["impuesto"].ToString().Trim();
+                                Fila["cod_ciu"] = TheDataReaderPostgreSQL["cod_ciu"].ToString().Trim();
+                                Fila["ciudad"] = TheDataReaderPostgreSQL["ciudad"].ToString().Trim();
+                                Fila["nit"] = TheDataReaderPostgreSQL["nit"].ToString().Trim();
+                                Fila["tm"] = TheDataReaderPostgreSQL["tm"].ToString().Trim();
+                                Fila["marca"] = TheDataReaderPostgreSQL["marca"].ToString().Trim();
+                                Fila["fecha_inicial"] = TheDataReaderPostgreSQL["fecha_inicial"].ToString().Trim();
+                                Fila["fecha_final"] = TheDataReaderPostgreSQL["fecha_final"].ToString().Trim();
+                                Fila["valor_venta "] = TheDataReaderPostgreSQL["valor_venta"].ToString().Trim();
+                                Fila["establecimiento"] = TheDataReaderPostgreSQL["establecimiento"].ToString().Trim();
+                                Fila["valor_impuesto"] = TheDataReaderPostgreSQL["valor_impuesto"].ToString().Trim();
+                                Fila["valor_base"] = TheDataReaderPostgreSQL["valor_base"].ToString().Trim();
+                                Fila["id_usuario_add"] = TheDataReaderPostgreSQL["id_usuario_add"].ToString().Trim();
+                                Fila["id_usuario_up"] = TheDataReaderPostgreSQL["id_usuario_up"].ToString().Trim();
+                                Fila["fecha_registro"] = TheDataReaderPostgreSQL["fecha_registro"].ToString().Trim();
+                                Fila["fecha_actualizacion"] = TheDataReaderPostgreSQL["fecha_actualizacion"].ToString().Trim();
+                                Fila["id_estado"] = TheDataReaderPostgreSQL["id_estado"].ToString().Trim();
+
+                                TablaDatos.Rows.Add(Fila);
+                                #endregion
+                            }
+                        }
+                        _MsgError = "";
+                    }
+                    else if (TipoProceso == 5)
+                    {
+                        #region DEFINICION DE COLUMNAS DEL DATATABLE
+                        TablaDatos.Columns.Add("id", typeof(Int32));
+                        TablaDatos.Columns.Add("un");
+                        TablaDatos.Columns.Add("g_libros");
+                        TablaDatos.Columns.Add("libro");
+                        TablaDatos.Columns.Add("cuenta");
+                        TablaDatos.Columns.Add("sucursal");
+                        TablaDatos.Columns.Add("dependencia");
+                        TablaDatos.Columns.Add("id_asiento");
+                        TablaDatos.Columns.Add("fecha_comprobante");
+                        TablaDatos.Columns.Add("fecha_proceso");
+                        TablaDatos.Columns.Add("descripcion");
+                        TablaDatos.Columns.Add("debito");
+                        TablaDatos.Columns.Add("credito");
+                        TablaDatos.Columns.Add("auxiliar");
+                        TablaDatos.Columns.Add("referencia");
+                        TablaDatos.Columns.Add("usuario");
+                        TablaDatos.Columns.Add("id_comprobante");
+                        TablaDatos.Columns.Add("estado");
+                        TablaDatos.Columns.Add("real");
+                        TablaDatos.Columns.Add("id_usuario_add");
+                        TablaDatos.Columns.Add("id_usuario_up");
+                        TablaDatos.Columns.Add("fecha_registro");
+                        TablaDatos.Columns.Add("fecha_actualizacion");
+                        TablaDatos.Columns.Add("id_estado");
+
+                        #endregion
+
+                        if (TheDataReaderPostgreSQL != null)
+                        {
+                            while (TheDataReaderPostgreSQL.Read())
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATAREADER
+                                DataRow Fila = null;
+                                Fila = TablaDatos.NewRow();
+                                Fila["id"] = Int32.Parse(TheDataReaderPostgreSQL["id"].ToString().Trim());
+                                Fila["un"] = TheDataReaderPostgreSQL["un"].ToString().Trim();
+                                Fila["g_libros"] = TheDataReaderPostgreSQL["g_libros"].ToString().Trim();
+                                Fila["libro"] = TheDataReaderPostgreSQL["libro"].ToString().Trim();
+                                Fila["cuenta"] = TheDataReaderPostgreSQL["cuenta"].ToString().Trim();
+                                Fila["sucursal"] = TheDataReaderPostgreSQL["sucursal"].ToString().Trim();
+                                Fila["dependencia"] = TheDataReaderPostgreSQL["dependencia"].ToString().Trim();
+                                Fila["id_asiento"] = TheDataReaderPostgreSQL["id_asiento"].ToString().Trim();
+                                Fila["fecha_comprobante"] = TheDataReaderPostgreSQL["fecha_comprobante"].ToString().Trim();
+                                Fila["fecha_proceso"] = TheDataReaderPostgreSQL["fecha_proceso"].ToString().Trim();
+                                Fila["descripcion"] = TheDataReaderPostgreSQL["descripcion"].ToString().Trim();
+                                Fila["debito"] = TheDataReaderPostgreSQL["debito"].ToString().Trim();
+                                Fila["credito"] = TheDataReaderPostgreSQL["credito"].ToString().Trim();
+                                Fila["auxiliar"] = TheDataReaderPostgreSQL["auxiliar"].ToString().Trim();
+                                Fila["referencia"] = TheDataReaderPostgreSQL["referencia"].ToString().Trim();
+                                Fila["usuario"] = TheDataReaderPostgreSQL["usuario"].ToString().Trim();
+                                Fila["id_comprobante"] = TheDataReaderPostgreSQL["id_comprobante"].ToString().Trim();
+                                Fila["estado"] = TheDataReaderPostgreSQL["estado"].ToString().Trim();
+                                Fila["real"] = TheDataReaderPostgreSQL["real"].ToString().Trim();
+                                Fila["id_usuario_add"] = TheDataReaderPostgreSQL["id_usuario_add"].ToString().Trim();
+                                Fila["id_usuario_up"] = TheDataReaderPostgreSQL["id_usuario_up"].ToString().Trim();
+                                Fila["fecha_registro"] = TheDataReaderPostgreSQL["fecha_registro"].ToString().Trim();
+                                Fila["fecha_actualizacion"] = TheDataReaderPostgreSQL["fecha_actualizacion"].ToString().Trim();
+                                Fila["id_estado"] = TheDataReaderPostgreSQL["id_estado"].ToString().Trim();
+
+
+                                TablaDatos.Rows.Add(Fila);
+                                #endregion
+                            }
+                        }
+                        _MsgError = "";
+                    }
+
+                }
+                else if (myConnectionDb is MySqlConnection)
+                {
+                    //Para Base de Datos MySQL
+                }
+                else if (myConnectionDb is SqlConnection)
+                {
+                    //Para Base de Datos SQL Server
+                }
+                else if (myConnectionDb is OracleConnection)
+                {
+                    //Para Base de Datos Oracle
+                }
+                else
+                {
+                    _log.Error("No existe configurado un Motor de Base de Datos a Trabajar !");
+                    return TablaDatos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TablaDatos = null;
+                _MsgError = "Error con el sp [sp_web_get_reportes_retencion_ica]. Motivo: " + ex.Message;
+                _log.Error(_MsgError);
+            }
+            finally
+            {
+                #region FINALIZAR OBJETO DE CONEXION A LA DB
+                //Aqui realizamos el cierre de los objetos de conexion abiertos
+                if (myConnectionDb is PgSqlConnection)
+                {
+                    TheCommandPostgreSQL = null;
+                    TheDataReaderPostgreSQL.Close();
+                    TheDataReaderPostgreSQL = null;
+                }
+                else if (myConnectionDb is MySqlConnection)
+                {
+                    TheCommandMySQL = null;
+                    TheDataReaderMySQL.Close();
+                    TheDataReaderMySQL = null;
+                }
+                else if (myConnectionDb is SqlConnection)
+                {
+                    TheCommandSQLServer = null;
+                    TheDataReaderSQLServer.Close();
+                    TheDataReaderSQLServer = null;
+                }
+                else if (myConnectionDb is OracleConnection)
+                {
+                    TheCommandOracle = null;
+                    TheDataReaderOracle.Close();
+                    TheDataReaderOracle = null;
+                }
+                myConnectionDb.Close();
+                myConnectionDb.Dispose();
+                #endregion
+            }
+
+            return TablaDatos;
+        }
 
         public DataTable GetRptAcuerdosMunicipales(ref string _MsgError)
         {
