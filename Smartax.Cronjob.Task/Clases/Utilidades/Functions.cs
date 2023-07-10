@@ -1,5 +1,7 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -54,6 +56,258 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
             }
 
             return Arreglo;
+        }
+
+        //Metodo para pasar de CSV a Datatable
+        public DataTable GetEtl(string _ManejaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, char[] _Separador, ref string _MsgError)
+        {
+            DataTable dtEtl = new DataTable();
+            dtEtl.TableName = "DtDatos";
+            int _ContadorFilas = 0;
+            try
+            {
+                StreamReader sr = new StreamReader(strPathFile);
+                string[] headers = sr.ReadLine().Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
+                int ContadorRow = 0;
+
+                if (_ManejaCampoTitulo.Trim().Equals("S"))
+                {
+                    //Creamos el encabezado del DataTable
+                    foreach (string dtColumn in headers)
+                    {
+                        //dtEtl.Columns.Add(dtColumn.ToString().Trim().Replace("\"", ""));
+                        dtEtl.Columns.Add(this.GetLimpiarCadena(dtColumn.ToString().Trim()).Replace(" ", "_").Replace("  ", "_"));
+                    }
+                }
+                else
+                {
+                    ContadorRow = _IniciaCampoDetalle;
+                }
+
+                //Insertamos los datos al Datatable
+                string[] csvRows = File.ReadAllLines(strPathFile);
+                string[] fields = null;
+                foreach (string csvRow in csvRows)
+                {
+                    try
+                    {
+                        //fields = csvRow.Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
+                        fields = csvRow.Split(_Separador);
+                        if (fields.Length > 0)
+                        {
+                            //--AQUI VALIDAMOS QUE CODIGO DE OFICINA Y # DE CUENTA VENGAN LLENOS
+                            //if (fields[0].ToString().Trim().Length > 0 && fields[1].ToString().Trim().Length > 0)
+                            //{
+                            if (ContadorRow != 0)
+                            {
+                                try
+                                {
+                                    DataRow ItemRow = dtEtl.NewRow();
+                                    ItemRow.ItemArray = fields;
+                                    dtEtl.Rows.Add(ItemRow);
+                                    _ContadorFilas++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    _MsgError = "1. Error al obtener los datos de la fila [" + _ContadorFilas + "] del archivo en el proceso de ETL. Motivo: " + ex.Message;
+                                    FixedData.LogApi.Error(_MsgError);
+                                    return dtEtl;
+                                }
+                            }
+                            //}
+                            ContadorRow++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _MsgError = "2. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                        FixedData.LogApi.Error(_MsgError);
+                        return dtEtl;
+                    }
+                }
+
+                _MsgError = "";
+                sr.Close();
+            }
+            catch (Exception ex)
+            {
+                dtEtl = null;
+                _MsgError = "3. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                FixedData.LogApi.Error(_MsgError);
+            }
+
+            return dtEtl;
+        }
+
+        //Metodo para pasar de CSV a Datatable
+        public DataTable GetEtl_LongCampo(string _ManejaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, char[] _Separador, ref string _MsgError)
+        {
+            DataTable dtEtl = new DataTable();
+            dtEtl.TableName = "DtDatos";
+            int _ContadorFilas = 0;
+            try
+            {
+                #region PASO 1: AQUI DEFINIMOS EL DATATABLE PARA ALMACENAR LOS DATOS
+                //Creamos el DataTable donde se almacenaran las Facturas a Pagar.
+                dtEtl = new DataTable();
+                dtEtl.Columns.Add("id_registro", typeof(Int32));
+                dtEtl.PrimaryKey = new DataColumn[] { dtEtl.Columns["id_registro"] };
+                dtEtl.Columns.Add("tipo");
+                dtEtl.Columns.Add("impuesto");
+                dtEtl.Columns.Add("cod_ciu");
+                dtEtl.Columns.Add("ciudad");
+                dtEtl.Columns.Add("nit");
+                dtEtl.Columns.Add("tm");
+                dtEtl.Columns.Add("marca");
+                dtEtl.Columns.Add("fecha_inicial");
+                dtEtl.Columns.Add("fecha_final");
+                dtEtl.Columns.Add("valor_venta");
+                dtEtl.Columns.Add("establecimiento");
+                dtEtl.Columns.Add("valor_impuesto");
+                dtEtl.Columns.Add("valor_base");
+                #endregion
+
+                //--AQUI COMENZAMOS A LEER EL ARCHIVO
+                StreamReader sr = new StreamReader(strPathFile);
+                string line = sr.ReadLine();
+                //Continue to read until you reach end of file
+                while (line != null)
+                {
+                    //--AQUI VALIDAMOS QUE LAS 2 PRIMERAS POSICIONES DE LA LINEA SEA 06 QUE INDICA EL DETALLE
+                    if (_ManejaCampoTitulo.Trim().Equals("N"))
+                    {
+                        #region AQUI OBTENEMOS LOS DATOS DE CADA LINEA DEL ARCHIVO
+                        //--
+                        _ContadorFilas++;
+                        string _Tipo = line.ToString().Trim().Substring(0, 3);
+                        string _Impuesto = line.ToString().Trim().Substring(4, 9);
+                        string _CodCiu = line.ToString().Trim().Substring(13, 7);
+                        string _Ciudad = line.ToString().Trim().Substring(20, 14);
+                        string _Nit = line.ToString().Trim().Substring(34, 27);
+                        string _Tm = line.ToString().Trim().Substring(61, 2);
+                        string _Marca = line.ToString().Trim().Substring(63, 19);
+                        string _FechaInicial = line.ToString().Trim().Substring(82, 11);
+                        string _FechaFinal = line.ToString().Trim().Substring(93, 11);
+                        string _ValorVenta = line.ToString().Trim().Substring(104, 15);
+                        string _Establecimiento = line.ToString().Trim().Substring(119, 38);
+                        string _ValorImpuesto = line.ToString().Trim().Substring(157, 15);
+                        string _ValorBase1 = line.ToString().Trim().Substring(172, 14);
+                        string _DecimalesValorBase = line.ToString().Trim().Substring(186, 3);
+                        string _ValorBase = _ValorBase1 + "." + _DecimalesValorBase;
+                        //--
+                        DataRow Fila = null;
+                        Fila = dtEtl.NewRow();
+                        Fila["id_registro"] = dtEtl.Rows.Count + 1;
+                        Fila["tipo"] = _Tipo.ToString().Trim();
+                        Fila["impuesto"] = _Impuesto.ToString().Trim();
+                        Fila["cod_ciu"] = _CodCiu.ToString().Trim();
+                        Fila["ciudad"] = _Ciudad.ToString().Trim();
+                        Fila["nit"] = _Nit.ToString().Trim();
+                        Fila["tm"] = _Tm.ToString().Trim();
+                        Fila["marca"] = _Marca.ToString().Trim();
+                        Fila["fecha_inicial"] = _FechaInicial.ToString().Trim().Substring(0, 4) + "-" + _FechaInicial.ToString().Trim().Substring(4, 2) + "-" + _FechaInicial.ToString().Trim().Substring(6, 2);
+                        Fila["fecha_final"] = _FechaFinal.ToString().Trim().Substring(0, 4) + "-" + _FechaFinal.ToString().Trim().Substring(4, 2) + "-" + _FechaFinal.ToString().Trim().Substring(6, 2);
+                        Fila["valor_venta"] = _ValorVenta.ToString().Trim();
+                        Fila["establecimiento"] = _Establecimiento.ToString().Trim();
+                        Fila["valor_impuesto"] = _ValorImpuesto.ToString().Trim();
+                        Fila["valor_base"] = _ValorBase.ToString().Trim();
+                        dtEtl.Rows.Add(Fila);
+                        line = sr.ReadLine();
+                        #endregion
+                    }
+                    else
+                    {
+                        line = sr.ReadLine();
+                    }
+                }
+
+                //StreamReader sr = new StreamReader(strPathFile);
+                //string[] headers = sr.ReadLine().Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
+                //int ContadorRow = 0;
+
+                //if (_ManejaCampoTitulo.Trim().Equals("S"))
+                //{
+                //    //Creamos el encabezado del DataTable
+                //    foreach (string dtColumn in headers)
+                //    {
+                //        //dtEtl.Columns.Add(dtColumn.ToString().Trim().Replace("\"", ""));
+                //        dtEtl.Columns.Add(this.GetLimpiarCadena(dtColumn.ToString().Trim()).Replace(" ", "_").Replace("  ", "_"));
+                //    }
+                //}
+                //else
+                //{
+                //    ContadorRow = _IniciaCampoDetalle;
+                //}
+
+                ////Insertamos los datos al Datatable
+                //string[] csvRows = File.ReadAllLines(strPathFile);
+                //string[] fields = null;
+                //foreach (string csvRow in csvRows)
+                //{
+                //    try
+                //    {
+                //        //fields = csvRow.Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
+                //        fields = csvRow.Split(_Separador);
+                //        if (fields.Length > 0)
+                //        {
+                //            //--AQUI VALIDAMOS QUE CODIGO DE OFICINA Y # DE CUENTA VENGAN LLENOS
+                //            //if (fields[0].ToString().Trim().Length > 0 && fields[1].ToString().Trim().Length > 0)
+                //            //{
+                //            if (ContadorRow != 0)
+                //            {
+                //                try
+                //                {
+                //                    DataRow ItemRow = dtEtl.NewRow();
+                //                    ItemRow.ItemArray = fields;
+                //                    dtEtl.Rows.Add(ItemRow);
+                //                    _ContadorFilas++;
+                //                }
+                //                catch (Exception ex)
+                //                {
+                //                    _MsgError = "1. Error al obtener los datos de la fila [" + _ContadorFilas + "] del archivo en el proceso de ETL. Motivo: " + ex.Message;
+                //                    FixedData.LogApi.Error(_MsgError);
+                //                    return dtEtl;
+                //                }
+                //            }
+                //            //}
+                //            ContadorRow++;
+                //        }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        _MsgError = "2. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                //        FixedData.LogApi.Error(_MsgError);
+                //        return dtEtl;
+                //    }
+                //}
+
+                _MsgError = "";
+                sr.Close();
+            }
+            catch (Exception ex)
+            {
+                dtEtl = null;
+                _MsgError = "3. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                FixedData.LogApi.Error(_MsgError);
+            }
+
+            return dtEtl;
+        }
+
+        public string GetLimpiarCadena(string _Cadena)
+        {
+            string _Result = "";
+            try
+            {
+                _Result = _Cadena.ToString().Trim().ToUpper().Replace("Á", "A").Replace("É", "E").Replace("Í", "I").Replace("Ó", "O").Replace("Ú", "U").Replace("Ñ", "N").Replace("(", "").Replace(")", "").Replace("*", "").Replace("°", "").Replace("-", " ").Replace(";", "").Replace(".", "").Replace(",", "").Replace("¿", "").Replace("?", "").Replace("[", "").Replace("]", "").Replace("=", "").Replace("&", "").Replace("%", "").Replace("$", "").Replace("#", "").Replace("\"", "").Replace("!", "").Replace("'", "").Replace("/", "").Replace("\"", "").Replace("Nº", "").Replace("�", "");
+                //_Result = _Cadena.ToString().Trim().Replace("Á", "A").Replace("É", "E").Replace("Í", "I").Replace("Ó", "O").Replace("Ú", "U").Replace("Ñ", "N");
+            }
+            catch (Exception ex)
+            {
+                _Result = _Cadena;
+            }
+
+            return _Result;
         }
 
     }

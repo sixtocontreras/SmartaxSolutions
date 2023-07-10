@@ -494,6 +494,9 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                 int _Periodo = Int32.Parse(this.CmbPeriodo.SelectedValue.ToString().Trim());
                 ObjProcessAPI.AnioProcesar = Int32.Parse(this.CmbAnioGravable.SelectedValue.ToString().Trim());
                 ObjProcessAPI.MesProcesar = Int32.Parse(this.CmbPeriodo.SelectedValue.ToString().Trim());
+                //--GENERAR EL UUID
+                Guid _UuId = Guid.NewGuid();
+                ObjProcessAPI.UuId = _UuId.ToString().Trim();
                 string _DataTarea = this.CmbAnioGravable.SelectedItem.Text.ToString().Trim() + "_" + this.CmbTipoPeriodicidad.SelectedItem.Text.ToString().Trim() + "_" + this.CmbPeriodo.SelectedValue.ToString().Trim();
 
                 string _Mensaje = "";
@@ -506,7 +509,7 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                     string _MsgError = "";
                     DeleteTaskSchedulerManual(_NombreTarea, ref _MsgError);
                     //--
-                    if (CreateTaskSchedulerManual(_TipoProceso, _Periodo, _NombreTarea, ref _MsgError))
+                    if (CreateTaskSchedulerManual(_TipoProceso, ObjProcessAPI.UuId, _NombreTarea, ref _MsgError))
                     {
                         #region REGISTRO DE LOGS DE AUDITORIA
                         //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
@@ -648,7 +651,7 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
         }
 
         #region DEFINICION DE METODOS PARA CREAR Y ELIMINAR TAREAS PROGRAMADAS
-        private bool CreateTaskSchedulerManual(int _TipoProceso, int _Periodo, string _NombreTarea, ref string _MsgError)
+        private bool CreateTaskSchedulerManual(int _TipoProceso, string _UuId, string _NombreTarea, ref string _MsgError)
         {
             bool Result = false;
             string _NombreProveedor = "";
@@ -708,38 +711,39 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
 
                     #region AQUI OBTENEMOS EL MES ANTERIOR PARA EL BIMESTRE
                     //--
-                    int _PrevMonth = 0;
-                    switch (_Periodo)
-                    {
-                        case 1:
-                            _PrevMonth = 1;
-                            break;
-                        case 2:
-                            _PrevMonth = 3;
-                            break;
-                        case 3:
-                            _PrevMonth = 5;
-                            break;
-                        case 4:
-                            _PrevMonth = 7;
-                            break;
-                        case 5:
-                            _PrevMonth = 9;
-                            break;
-                        case 6:
-                            _PrevMonth = 11;
-                            break;
-                        default:
-                            _PrevMonth = (_Periodo - 1);
-                            break;
-                    }
+                    //int _PrevMonth = 0;
+                    //switch (_Periodo)
+                    //{
+                    //    case 1:
+                    //        _PrevMonth = 1;
+                    //        break;
+                    //    case 2:
+                    //        _PrevMonth = 3;
+                    //        break;
+                    //    case 3:
+                    //        _PrevMonth = 5;
+                    //        break;
+                    //    case 4:
+                    //        _PrevMonth = 7;
+                    //        break;
+                    //    case 5:
+                    //        _PrevMonth = 9;
+                    //        break;
+                    //    case 6:
+                    //        _PrevMonth = 11;
+                    //        break;
+                    //    default:
+                    //        _PrevMonth = (_Periodo - 1);
+                    //        break;
+                    //}
                     #endregion
 
                     int _IdCliente = Int32.Parse(this.Session["IdCliente"].ToString().Trim());
                     int _IdTipoPeriodicidad = Int32.Parse(this.CmbTipoPeriodicidad.SelectedValue.ToString().Trim());
                     int _AnioGravable = Int32.Parse(this.CmbAnioGravable.SelectedValue.ToString().Trim());
                     string _MesEf = this.CmbPeriodo.SelectedValue.ToString().Trim();
-                    string _VersionEf = _PrevMonth.ToString();
+                    //string _VersionEf = _PrevMonth.ToString();
+                    string _VersionEf = _UuId;
                     int _IdUsuario = Int32.Parse(this.Session["IdUsuario"].ToString().Trim());
                     //--
                     td.Actions.Add(new ExecAction(FixedData.PathTasksProgramadas, _TipoProceso + " " + _NombreTarea + " " + _IdCliente + " " + _AnioGravable + " " + _MesEf + " " + _IdTipoPeriodicidad + " " + _VersionEf + " " + _IdUsuario));

@@ -7,6 +7,7 @@ using Smartax.Cronjob.Process.Clases.Transactions;
 using Smartax.Cronjob.Process.Clases.Models;
 using System.Threading.Tasks;
 using System.Data;
+using Smartax.Cronjob.Task.Clases.Transactions;
 
 namespace Smartax.Cronjob.Process
 {
@@ -72,7 +73,7 @@ namespace Smartax.Cronjob.Process
                     _DiaSemana = DateTime.Now.ToString("dddd").ToString().Trim().ToUpper();
                     #endregion
                 }
-                else if (FixedData.AmbienteTask.Trim().Equals("DESARROLLO"))
+                else if (FixedData.AmbienteTask.Trim().Equals("DESARROLLO_1"))
                 {
                     #region PARAMETROS DE ENTRADA
                     //--DEFINICION DE VARUIABLES PARA PRUEBAS
@@ -103,6 +104,22 @@ namespace Smartax.Cronjob.Process
                     //_IdDepartamento = 11;
                     //_IdMunicipio = 474;
                     //_IdEstadoDeclaracion = 2;
+                    _DiaSemana = DateTime.Now.ToString("dddd").ToString().Trim().ToUpper();
+                    #endregion
+                }
+                else if (FixedData.AmbienteTask.Trim().Equals("DESARROLLO"))
+                {
+                    #region PARAMETROS DE ENTRADA
+                    //--DEFINICION DE VARUIABLES PARA PRUEBAS
+                    _TipoProceso = FixedData.IDTIPO_PROCESO;
+                    _NombreTarea = "FILE_DAVIBOX_" + "2023" + "_MENSUAL" + "01";
+                    _IdCliente = 4;
+                    _AnioGravable = Int32.Parse(DateTime.Now.ToString("yyyy").ToString().Trim());
+                    _MesEstadoFinanciero = "04";
+                    _IdFormularioImpuesto = FixedData.IDFORMULARIO_IMPUESTO;
+                    _VersionEf = "4e4e95bf-1738-41b0-872d-d0478344e3d6";
+                    _IdEstado = 1;
+                    _IdUsuario = 2;
                     _DiaSemana = DateTime.Now.ToString("dddd").ToString().Trim().ToUpper();
                     #endregion
                 }
@@ -219,6 +236,19 @@ namespace Smartax.Cronjob.Process
                     objTransac.ProcessLiquidacionXOficinas(objImpustosOfic);
                     #endregion
                 }
+                else if (_TipoProceso == FixedData.TASK_PROCESAR_FILE_DAVIBOX)
+                {
+                    #region REALIZAR EL PROCESO DE LIQUIDACION POR OFICINAS
+                    //--INSTANCIAMOS EL OBJETO DE CLASE
+                    FileDavibox_Req objFileDavibox = new FileDavibox_Req();
+                    objFileDavibox.anio_gravable = _AnioGravable;
+                    objFileDavibox.mes_procesar = _MesEstadoFinanciero.ToString().Trim();
+                    objFileDavibox.uuid = _VersionEf.ToString().Trim();
+                    //--
+                    ProcessFileDavibox objTransac = new ProcessFileDavibox();
+                    objTransac.ProcesarArchivosDavibox(objFileDavibox);
+                    #endregion
+                }
                 else if (_TipoProceso == FixedData.TASK_ACTIVIDAD_USUARIOS)
                 {
                     #region VALIDAMOS TIEMPO DE INACTIVIDAD DE USUARIOS
@@ -228,7 +258,7 @@ namespace Smartax.Cronjob.Process
                     objProcess.IdUsuario = null;
                     objProcess.IdCliente = 4;
                     objProcess.IdEstado = 1;
-                    
+
                     DataTable dtDatos = new DataTable();
                     dtDatos = objProcess.GetActividadUsuarios();
                     if (dtDatos != null)
@@ -247,7 +277,7 @@ namespace Smartax.Cronjob.Process
                                 // Difference in days.
                                 int _DiasObtenido = ts.Days;
                                 //--VALIDAR LA CANTIDAD DE DIAS DE INACTIVIDAD
-                                if(_DiasObtenido > FixedData.DIAS_INACTIVIDAD_USUARIO)
+                                if (_DiasObtenido > FixedData.DIAS_INACTIVIDAD_USUARIO)
                                 {
                                     #region AQUI INACTIVAMOS EL USUARIO EN EL SISTEMA
                                     //--
@@ -322,19 +352,19 @@ namespace Smartax.Cronjob.Process
             }
         }
 
-        private static async Task MainAsync(InfoEstablecimientos objBase)
-        {
-            Console.WriteLine("--------| EL PROCESO DE LA TAREA CONCURRENTE INICIO |---------");
-            //--AQUI DEFINIMOS LA CANTIDAD DE LOTES POR PROCESO
+        //private static async Task MainAsync(InfoEstablecimientos objBase)
+        //{
+        //    Console.WriteLine("--------| EL PROCESO DE LA TAREA CONCURRENTE INICIO |---------");
+        //    //--AQUI DEFINIMOS LA CANTIDAD DE LOTES POR PROCESO
 
-            ProcessConcurrentBag objProcess = new ProcessConcurrentBag();
-            await objProcess.EjecutarProcessAsync(objBase, "carpetTemporal", 1);
-            if (objProcess.ErrorMessage != "")
-            {
-                Console.WriteLine(objProcess.ErrorMessage);
-            }
-            Console.WriteLine("--------| EL PROCESO DE LA TAREA CONCURRENTE FINALIZO |---------");
-        }
+        //    ProcessConcurrentBag objProcess = new ProcessConcurrentBag();
+        //    await objProcess.EjecutarProcessAsync(objBase, "carpetTemporal", 1);
+        //    if (objProcess.ErrorMessage != "")
+        //    {
+        //        Console.WriteLine(objProcess.ErrorMessage);
+        //    }
+        //    Console.WriteLine("--------| EL PROCESO DE LA TAREA CONCURRENTE FINALIZO |---------");
+        //}
 
     }
 }

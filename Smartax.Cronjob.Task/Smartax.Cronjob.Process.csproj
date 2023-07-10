@@ -92,6 +92,7 @@
     <Compile Include="Clases\Models\ParametrosIn_Req.cs" />
     <Compile Include="Clases\Transactions\ProcessConcurrentBag.cs" />
     <Compile Include="Clases\Transactions\ProcessDb.cs" />
+    <Compile Include="Clases\Transactions\ProcessFileDavibox.cs" />
     <Compile Include="Clases\Utilidades\EnviarEmails.cs" />
     <Compile Include="Clases\Utilidades\FixedData.cs" />
     <Compile Include="Clases\Utilidades\Functions.cs" />

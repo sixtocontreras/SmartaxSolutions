@@ -62,4 +62,11 @@ namespace Smartax.Cronjob.Process.Clases.Models
         public bool ProcesoOk { get; set; }
     }
 
+    public class FileDavibox_Req
+    {
+        public int anio_gravable { get; set; }
+        public string mes_procesar { get; set; }
+        public string uuid { get; set; }
+    }
+
 }

@@ -21,6 +21,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
         //--DEFINICION DE VARIABLES DEL SISTEMA
         public static string REPOSITORIO_LIQUIDACION = ConfigurationManager.AppSettings["REPOSITORIO_LIQUIDACION"].ToString();
         public static int MAXIMA_CONCURRENCIA = Int32.Parse(ConfigurationManager.AppSettings["MAXIMA_CONCURRENCIA"].ToString().Trim());
+        public static readonly int CantidadRegProcesar = Int32.Parse(ConfigurationManager.AppSettings["CANTIDAD_REG_PROCESAR"].ToString().Trim());
         public static int CANTIDAD_LOTE = Int32.Parse(ConfigurationManager.AppSettings["CANTIDAD_LOTE"].ToString().Trim());
         public static int IDTIPO_PROCESO = Int32.Parse(ConfigurationManager.AppSettings["IDTIPO_PROCESO"].ToString().Trim());
         public static int IDFORMULARIO_IMPUESTO = Int32.Parse(ConfigurationManager.AppSettings["IDFORMULARIO_IMPUESTO"].ToString().Trim());
@@ -42,6 +43,9 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
         public static string EnvioEmailCopia = ConfigurationManager.AppSettings["ENVIO_EMAIL_COPIA"].ToString().Trim();
         public static string EmailDestinoError = ConfigurationManager.AppSettings["EMAIL_DESTINATION_ERROR"].ToString().Trim();
         public static string EmailCopiaProcesos = ConfigurationManager.AppSettings["EMAIL_COPIA_PROCESOS"].ToString().Trim();
+
+        //--DEFINICION DE VARIABLES PARA EL EMAIL DE NOTIFICACION
+        public static string PathFileDavibox = ConfigurationManager.AppSettings["PATH_FILE_DAVIBOX"].ToString().Trim();
 
         //--VARIABLES DE CONFIGURACION DE SEPARADOR DE MILES Y DECIMALES
         public static readonly string SeparadorMilesAp = ConfigurationManager.AppSettings["SEPARADOR_MILES_AP"].ToString().Trim();

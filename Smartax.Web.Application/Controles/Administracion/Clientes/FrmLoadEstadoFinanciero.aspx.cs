@@ -1381,7 +1381,6 @@ namespace Smartax.Web.Application.Controles.Administracion.Clientes
 
             return TableHtml.ToString();
         }
-
         #endregion
     }
 }

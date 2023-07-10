@@ -290,8 +290,6 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                 //request.AddHeader("Authorization", "Bearer " + _TokenAut[1].ToString().Trim() + "");
                 //Variable de respuesta a petición POST
                 var respPOST = new object();
-                //--GENERAR EL UUID
-                Guid _UuId = Guid.NewGuid();
                 //string myuuidAsString = _UuId.ToString();
                 DownloadFileDavibox_Req conReq = null;
 
@@ -301,7 +299,7 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                     //Establecer el DTO para enviar, Setear datos
                     conReq = new DownloadFileDavibox_Req
                     {
-                        uuid = _UuId.ToString(),
+                        uuid = UuId.ToString().Trim(),
                         month = MesProcesar,
                         year = AnioProcesar,
                         bimonthly = false
@@ -340,7 +338,7 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                     //Establecer el DTO para enviar, Setear datos
                     conReq = new DownloadFileDavibox_Req
                     {
-                        uuid = _UuId.ToString(),
+                        uuid = UuId.ToString().Trim(),
                         month = MesProcesar,
                         year = AnioProcesar,
                         bimonthly = true,
