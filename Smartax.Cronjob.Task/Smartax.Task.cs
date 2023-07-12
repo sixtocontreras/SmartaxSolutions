@@ -245,6 +245,8 @@ namespace Smartax.Cronjob.Process
                     objFileDavibox.anio_gravable = _AnioGravable;
                     objFileDavibox.mes_procesar = _MesEstadoFinanciero.ToString().Trim();
                     objFileDavibox.uuid = _VersionEf.ToString().Trim();
+                    objFileDavibox.nombre_tarea = _NombreTarea.ToString().Trim();   
+
                     //--
                     ProcessFileDavibox objTransac = new ProcessFileDavibox();
                     objTransac.ProcesarArchivosDavibox(objFileDavibox);

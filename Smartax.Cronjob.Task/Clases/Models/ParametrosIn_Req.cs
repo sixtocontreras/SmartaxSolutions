@@ -67,6 +67,7 @@ namespace Smartax.Cronjob.Process.Clases.Models
         public int anio_gravable { get; set; }
         public string mes_procesar { get; set; }
         public string uuid { get; set; }
+        public string nombre_tarea { get; set; }
     }
 
 }

@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using Microsoft.Win32.TaskScheduler;
 using Smartax.Cronjob.Process.Clases.Models;
 using Smartax.Cronjob.Process.Clases.Transactions;
 using Smartax.Cronjob.Process.Clases.Utilidades;
@@ -46,6 +48,14 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                     {
                         #region AQUI RECORREMOS LOS DATOS DEL DATATABLE
                         //--ESTA VARIABLE ES SOLO PARA EL PROCESO DE CARGUE DE INFO DE TARJETA DE CREDITO
+                        DataTable dtFiles = new DataTable();
+                        dtFiles.TableName = "DtFiles";
+                        dtFiles = new DataTable();
+                        dtFiles.Columns.Add("ID_REGISTRO", typeof(Int32));
+                        dtFiles.PrimaryKey = new DataColumn[] { dtFiles.Columns["ID_REGISTRO"] };
+                        dtFiles.Columns.Add("NOMBRE_ARCHIVO");
+                        dtFiles.Columns.Add("CANTIDAD_REGISTROS");
+
                         int _ContadorTc = 0, _ContadorIc = 0;
                         foreach (DataRow rowItemEf in dtFileDavibox.Rows)
                         {
@@ -63,6 +73,13 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                             //--AQUI VALIDAMOS SI EL ARCHIVO EXISTE EN LA RUTA
                             if (File.Exists(_PathFilesDavibox))
                             {
+                                //--AQUI AGREGAMOS LOS DATOS DEL ARCHIVO AL DATATABLE
+                                DataRow Fila = null;
+                                Fila = dtFiles.NewRow();
+                                Fila["ID_REGISTRO"] = dtFiles.Rows.Count + 1;
+                                Fila["NOMBRE_ARCHIVO"] = _NombreFileDavibox.ToString().Trim();
+                                //dtFiles.Rows.Add(Fila);
+
                                 //--VALIDAMOS EL SEPARADOR DEL ARCHIVO Y CARGA ETL
                                 #region AQUI INICIAMOS EL PROCESO DE CARGA DEL ARCHIVO
                                 char[] _TipoSeparador = null;
@@ -72,12 +89,14 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                 if (_SeparadorArchivo.ToString().Trim().Equals("TAB"))
                                 {
                                     _TipoSeparador = new char[] { '\t' };
+                                    //--
+                                    dtEtl = objFunctions.GetEtl(_ManejaCampoTitulo, _IniciaCampoDetalle, _PathFilesDavibox, _TipoSeparador, ref _MsgError);
                                 }
                                 else if (_SeparadorArchivo.ToString().Trim().Equals("ESP"))
                                 {
                                     _TipoSeparador = new char[] { ' ' };
                                     //--
-                                    dtEtl = objFunctions.GetEtl_LongCampo(_ManejaCampoTitulo, _IniciaCampoDetalle, _PathFilesDavibox, _TipoSeparador, ref _MsgError);
+                                    dtEtl = objFunctions.GetEtl_LongCampo(_ManejaCampoTitulo, _NombreTabla, _IniciaCampoDetalle, _PathFilesDavibox, ref _MsgError);
                                 }
                                 else if (_SeparadorArchivo.ToString().Trim().Equals("EXCEL"))
                                 {
@@ -97,6 +116,10 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                     if (dtEtl.Rows.Count > 0)
                                     {
                                         #region VALIDAMOS LA TABLA DONDE SE VA A CARGAR LA INFORMACION EN LA DB
+                                        //--
+                                        Fila["CANTIDAD_REGISTROS"] = String.Format(String.Format("{0:###,###,##0}", dtEtl.Rows.Count));
+                                        dtFiles.Rows.Add(Fila);
+
                                         string _ArrayData = "", _ErrorProcesar = "N";
                                         int _CantidadTotalReg = 0, _CantidadReg = 0, _CantidadLoteProcesado = 0;
                                         //--
@@ -297,7 +320,7 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                                         double DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA = Double.Parse(DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA1);
                                                         string CIUDAD_DE_UBICACION_DEL_INMUEBLE = rowItemEtl["CIUDAD_DE_UBICACION_DEL_INMUEBLE"].ToString().Trim().Length > 0 ? rowItemEtl["CIUDAD_DE_UBICACION_DEL_INMUEBLE"].ToString().Trim() : "NA";
                                                         string MES_DEL_DESEMBOLSO = rowItemEtl["MES_DEL_DESEMBOLSO"].ToString().Trim().Length > 0 ? rowItemEtl["MES_DEL_DESEMBOLSO"].ToString().Trim() : "NA";
-                                                        string URL_ARCHIVO_GENERADO =  rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim().Length > 0 ? rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim() : "NA";
+                                                        string URL_ARCHIVO_GENERADO = rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim().Length > 0 ? rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim() : "NA";
                                                         string ESTA_RETENCION_CORRESPONDE = rowItemEtl["ESTA_RETENCION_CORRESPONDE_A_UNA_OPERACION_DEL_ANO_ACTUAL"].ToString().Trim().Length > 0 ? rowItemEtl["ESTA_RETENCION_CORRESPONDE_A_UNA_OPERACION_DEL_ANO_ACTUAL"].ToString().Trim() : "NA";
                                                         string URL_ARCHIVO_CARGADO = rowItemEtl["URL_ARCHIVO_CARGADO"].ToString().Trim().Length > 0 ? rowItemEtl["URL_ARCHIVO_CARGADO"].ToString().Trim() : "NA";
 
@@ -906,6 +929,45 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                 #endregion
                             }
                         }
+
+                        #region AQUI VALIDAMOS LA CANTIDAD DE ARCHIVOS DEL DAVIBOX PROCESADOS 
+                        //--VALIDAMOS SI LA LISTA VIENE LLENA
+                        if (dtFiles != null)
+                        {
+                            if (dtFiles.Rows.Count > 0)
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DEL DATABLE PARA ENVIAR EL EMAIL
+                                //--AQUI BORRAMOS LA TAREA PROGRAMADA
+                                DeleteTaskSchedulerManual(objFileDavibox.nombre_tarea.ToString().Trim());
+
+                                //--
+                                StringBuilder strDetalleEmail = new StringBuilder();
+                                //--
+                                string _TituloTablaHtml = "LISTA DE ARCHIVOS DEL DAVIBOX PROCESADOS EN SMARTAX";
+                                string _TableHtml = GetTableHtml(dtFiles, _TituloTablaHtml);
+                                strDetalleEmail.Append(_TableHtml.ToString() + "<br/><br/><br/>");
+
+                                //--INSTANCIAMOS VARIABLES DE OBJETO PARA EL ENVIO DE EMAILS
+                                ObjEmails.EmailPara = FixedData.EmailDestinoError;
+                                ObjEmails.EmailCopia = FixedData.EnvioEmailCopia;
+                                ObjEmails.Asunto = "REF.: LISTA DE ARCHIVOS DEL DAVIBOX PROCESADOS SMARTAX";
+                                ObjEmails.Detalle = "Señor usuario a continuación se relacionan los archivos que fueron cargados en la base de datos de smartax. Por favor podría validar la información descargado un reporte de Retención de Ica." + "\n\n" + strDetalleEmail.ToString().Trim();
+                                //--
+                                _MsgError = "";
+                                if (ObjEmails.SendEmailConCopia(ref _MsgError))
+                                {
+                                    strDetalleEmail = new StringBuilder();
+                                    FixedData.LogApi.Info(_MsgError);
+                                }
+                                else
+                                {
+                                    FixedData.LogApi.Error(_MsgError);
+                                }
+                                #endregion
+                            }
+                        }
+                        #endregion
+                        //--
                         #endregion
                     }
                     else
@@ -982,6 +1044,79 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
             }
 
             return _Result;
+        }
+
+        private static bool DeleteTaskSchedulerManual(string _NombreTarea)
+        {
+            bool Result = false;
+            string _MsgError = "";
+            try
+            {
+                using (TaskService ts = new TaskService())
+                {
+                    //string _NombreTarea = "TAREA MANUAL [" + _NombreProveedor + "]";
+                    ts.RootFolder.DeleteTask(_NombreTarea.ToString().Trim());
+
+                    Result = true;
+                    _MsgError = "LA TAREA PROGRAMADA [" + _NombreTarea + "] HA SIDO BORRADA DEL SERVIDOR.";
+                    FixedData.LogApi.Info(_MsgError);
+                }
+            }
+            catch (Exception ex)
+            {
+                Result = false;
+                _MsgError = "ERROR AL BORRAR LA TAREA PROGRAMADA [" + _NombreTarea + "] DEL SERVIDOR. MOTIVO: " + ex.Message;
+                FixedData.LogApi.Error(_MsgError);
+            }
+
+            return Result;
+        }
+
+        public static string GetTableHtml(DataTable DtDatos, string _TituloTablaHtml)
+        {
+            StringBuilder TableHtml = new StringBuilder();
+            try
+            {
+                //Table start.
+                TableHtml.Append("<table border = '1'>");
+                TableHtml.Append("<tr align='center' valign='middle' >");
+                TableHtml.Append("<th colspan=" + DtDatos.Columns.Count + "> " + _TituloTablaHtml + " </th> ");
+                TableHtml.Append("</tr>");
+
+                //Building the Header row.
+                TableHtml.Append("<tr>");
+                foreach (DataColumn column in DtDatos.Columns)
+                {
+                    TableHtml.Append("<th>");
+                    TableHtml.Append(column.ColumnName.ToString().ToUpper());
+                    TableHtml.Append("</th>");
+                }
+                TableHtml.Append("</tr>");
+
+                //Building the Data rows.
+                foreach (DataRow row in DtDatos.Rows)
+                {
+                    TableHtml.Append("<tr>");
+                    foreach (DataColumn column in DtDatos.Columns)
+                    {
+                        TableHtml.Append("<td>");
+                        TableHtml.Append(row[column.ColumnName]);
+                        TableHtml.Append("</td>");
+                    }
+                    TableHtml.Append("</tr>");
+                }
+
+                //Table end.
+                TableHtml.Append("</table>");
+
+            }
+            catch (Exception ex)
+            {
+                TableHtml.Append("");
+                FixedData.LogApi.Error("Error al obtener la Tabla Html. Motivo: " + ex.Message);
+            }
+
+            return TableHtml.ToString();
         }
 
     }

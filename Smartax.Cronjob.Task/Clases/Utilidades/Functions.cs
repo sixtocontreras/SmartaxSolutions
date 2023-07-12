@@ -141,32 +141,63 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
         }
 
         //--METODO ETL PARA EXTRAER DATOS DEL ARCHIVO MEDIANTE LINEA DEL ARCHIVO
-        public DataTable GetEtl_LongCampo(string _ManejaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, char[] _Separador, ref string _MsgError)
+        public DataTable GetEtl_LongCampo(string _ManejaCampoTitulo, string _NombreTabla, int _IniciaCampoDetalle, string strPathFile, ref string _MsgError)
         {
             DataTable dtEtl = new DataTable();
             dtEtl.TableName = "DtDatos";
             int _ContadorFilas = 0;
             try
             {
-                #region PASO 1: AQUI DEFINIMOS EL DATATABLE PARA ALMACENAR LOS DATOS
-                //Creamos el DataTable donde se almacenaran las Facturas a Pagar.
-                dtEtl = new DataTable();
-                dtEtl.Columns.Add("id_registro", typeof(Int32));
-                dtEtl.PrimaryKey = new DataColumn[] { dtEtl.Columns["id_registro"] };
-                dtEtl.Columns.Add("tipo");
-                dtEtl.Columns.Add("impuesto");
-                dtEtl.Columns.Add("cod_ciu");
-                dtEtl.Columns.Add("ciudad");
-                dtEtl.Columns.Add("nit");
-                dtEtl.Columns.Add("tm");
-                dtEtl.Columns.Add("marca");
-                dtEtl.Columns.Add("fecha_inicial");
-                dtEtl.Columns.Add("fecha_final");
-                dtEtl.Columns.Add("valor_venta");
-                dtEtl.Columns.Add("establecimiento");
-                dtEtl.Columns.Add("valor_impuesto");
-                dtEtl.Columns.Add("valor_base");
-                #endregion
+                //--AQUI VALIDAMOS EL TIPO DE TABLA
+                if (_NombreTabla.Trim().Equals("TARJETA_CREDITO"))
+                {
+                    #region PASO 1: AQUI DEFINIMOS LA COLUMNAS DEL DATATABLE TARJETA_CREDITO
+                    //Creamos el DataTable donde se almacenaran las Facturas a Pagar.
+                    dtEtl = new DataTable();
+                    dtEtl.Columns.Add("id_registro", typeof(Int32));
+                    dtEtl.PrimaryKey = new DataColumn[] { dtEtl.Columns["id_registro"] };
+                    dtEtl.Columns.Add("tipo");
+                    dtEtl.Columns.Add("impuesto");
+                    dtEtl.Columns.Add("cod_ciu");
+                    dtEtl.Columns.Add("ciudad");
+                    dtEtl.Columns.Add("nit");
+                    dtEtl.Columns.Add("tm");
+                    dtEtl.Columns.Add("marca");
+                    dtEtl.Columns.Add("fecha_inicial");
+                    dtEtl.Columns.Add("fecha_final");
+                    dtEtl.Columns.Add("valor_venta");
+                    dtEtl.Columns.Add("establecimiento");
+                    dtEtl.Columns.Add("valor_impuesto");
+                    dtEtl.Columns.Add("valor_base");
+                    #endregion
+                }
+                else if (_NombreTabla.Trim().Equals("INFO_CONTABLE"))
+                {
+                    #region PASO 1: AQUI DEFINIMOS LA COLUMNAS DEL DATATABLE INFO_CONTABLE
+                    //Creamos el DataTable donde se almacenaran las Facturas a Pagar.
+                    dtEtl = new DataTable();
+                    dtEtl.Columns.Add("ID_REGISTRO", typeof(Int32));
+                    dtEtl.PrimaryKey = new DataColumn[] { dtEtl.Columns["ID_REGISTRO"] };
+                    dtEtl.Columns.Add("UN");
+                    dtEtl.Columns.Add("G_LIBROS");
+                    dtEtl.Columns.Add("LIBRO");
+                    dtEtl.Columns.Add("CUENTA");
+                    dtEtl.Columns.Add("SUCURSAL");
+                    dtEtl.Columns.Add("DEPENDENCIA");
+                    dtEtl.Columns.Add("ID_DE_ASIENTO");
+                    dtEtl.Columns.Add("FECHA_COMPROBANTE");
+                    dtEtl.Columns.Add("FECHA_PROCESO");
+                    dtEtl.Columns.Add("DESCRIPCION");
+                    dtEtl.Columns.Add("DEBITO");
+                    dtEtl.Columns.Add("CREDITO");
+                    dtEtl.Columns.Add("AUXILIAR");
+                    dtEtl.Columns.Add("REFERENCIA");
+                    dtEtl.Columns.Add("USUARIO");
+                    dtEtl.Columns.Add("ID_COMPROBANTE");
+                    dtEtl.Columns.Add("ESTADO");
+                    dtEtl.Columns.Add("REAL");
+                    #endregion
+                }
 
                 //--AQUI COMENZAMOS A LEER EL ARCHIVO
                 StreamReader sr = new StreamReader(strPathFile);
@@ -177,44 +208,145 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
                     //--AQUI VALIDAMOS QUE LAS 2 PRIMERAS POSICIONES DE LA LINEA SEA 06 QUE INDICA EL DETALLE
                     if (_ManejaCampoTitulo.Trim().Equals("N"))
                     {
-                        #region AQUI OBTENEMOS LOS DATOS DE CADA LINEA DEL ARCHIVO
-                        //--
                         _ContadorFilas++;
-                        string _Tipo = line.ToString().Trim().Substring(0, 3);
-                        string _Impuesto = line.ToString().Trim().Substring(4, 9);
-                        string _CodCiu = line.ToString().Trim().Substring(13, 7);
-                        string _Ciudad = line.ToString().Trim().Substring(20, 14);
-                        string _Nit = line.ToString().Trim().Substring(34, 27);
-                        string _Tm = line.ToString().Trim().Substring(61, 2);
-                        string _Marca = line.ToString().Trim().Substring(63, 19);
-                        string _FechaInicial = line.ToString().Trim().Substring(82, 11);
-                        string _FechaFinal = line.ToString().Trim().Substring(93, 11);
-                        string _ValorVenta = line.ToString().Trim().Substring(104, 15);
-                        string _Establecimiento = line.ToString().Trim().Substring(119, 38);
-                        string _ValorImpuesto = line.ToString().Trim().Substring(157, 15);
-                        string _ValorBase1 = line.ToString().Trim().Substring(172, 14);
-                        string _DecimalesValorBase = line.ToString().Trim().Substring(186, 3);
-                        string _ValorBase = _ValorBase1 + "." + _DecimalesValorBase;
-                        //--
-                        DataRow Fila = null;
-                        Fila = dtEtl.NewRow();
-                        Fila["id_registro"] = dtEtl.Rows.Count + 1;
-                        Fila["tipo"] = _Tipo.ToString().Trim();
-                        Fila["impuesto"] = _Impuesto.ToString().Trim();
-                        Fila["cod_ciu"] = _CodCiu.ToString().Trim();
-                        Fila["ciudad"] = _Ciudad.ToString().Trim();
-                        Fila["nit"] = _Nit.ToString().Trim();
-                        Fila["tm"] = _Tm.ToString().Trim();
-                        Fila["marca"] = _Marca.ToString().Trim();
-                        Fila["fecha_inicial"] = _FechaInicial.ToString().Trim().Substring(0, 4) + "-" + _FechaInicial.ToString().Trim().Substring(4, 2) + "-" + _FechaInicial.ToString().Trim().Substring(6, 2);
-                        Fila["fecha_final"] = _FechaFinal.ToString().Trim().Substring(0, 4) + "-" + _FechaFinal.ToString().Trim().Substring(4, 2) + "-" + _FechaFinal.ToString().Trim().Substring(6, 2);
-                        Fila["valor_venta"] = _ValorVenta.ToString().Trim();
-                        Fila["establecimiento"] = _Establecimiento.ToString().Trim();
-                        Fila["valor_impuesto"] = _ValorImpuesto.ToString().Trim();
-                        Fila["valor_base"] = _ValorBase.ToString().Trim();
-                        dtEtl.Rows.Add(Fila);
-                        line = sr.ReadLine();
-                        #endregion
+                        //--AQUI VALIDAMOS EL TIPO DE TABLA
+                        if (_NombreTabla.Trim().Equals("TARJETA_CREDITO"))
+                        {
+                            int _LogLinea = line.ToString().Trim().Length;
+                            if (_LogLinea == 199)
+                            {
+                                #region AQUI OBTENEMOS LOS DATOS DE CADA LINEA DEL ARCHIVO
+                                //--
+                                string _Tipo = line.ToString().Trim().Substring(0, 3);
+                                string _Impuesto = line.ToString().Trim().Substring(4, 9);
+                                string _CodCiu = line.ToString().Trim().Substring(13, 7);
+                                string _Ciudad = line.ToString().Trim().Substring(20, 14);
+                                string _Nit = line.ToString().Trim().Substring(34, 27);
+                                string _Tm = line.ToString().Trim().Substring(61, 2);
+                                string _Marca = line.ToString().Trim().Substring(63, 19);
+                                string _FechaInicial = line.ToString().Trim().Substring(82, 11);
+                                string _FechaFinal = line.ToString().Trim().Substring(93, 11);
+                                string _ValorVenta = line.ToString().Trim().Substring(104, 15);
+                                string _Establecimiento = line.ToString().Trim().Substring(119, 38);
+                                string _ValorImpuesto = line.ToString().Trim().Substring(157, 15);
+                                string _ValorBase1 = line.ToString().Trim().Substring(172, 14);
+                                string _DecimalesValorBase = line.ToString().Trim().Substring(186, 3);
+                                string _ValorBase = _ValorBase1 + "." + _DecimalesValorBase;
+                                //--
+                                DataRow Fila = null;
+                                Fila = dtEtl.NewRow();
+                                Fila["id_registro"] = dtEtl.Rows.Count + 1;
+                                Fila["tipo"] = _Tipo.ToString().Trim();
+                                Fila["impuesto"] = _Impuesto.ToString().Trim();
+                                Fila["cod_ciu"] = _CodCiu.ToString().Trim();
+                                Fila["ciudad"] = _Ciudad.ToString().Trim();
+                                Fila["nit"] = _Nit.ToString().Trim();
+                                Fila["tm"] = _Tm.ToString().Trim();
+                                Fila["marca"] = _Marca.ToString().Trim();
+                                Fila["fecha_inicial"] = _FechaInicial.ToString().Trim().Substring(0, 4) + "-" + _FechaInicial.ToString().Trim().Substring(4, 2) + "-" + _FechaInicial.ToString().Trim().Substring(6, 2);
+                                Fila["fecha_final"] = _FechaFinal.ToString().Trim().Substring(0, 4) + "-" + _FechaFinal.ToString().Trim().Substring(4, 2) + "-" + _FechaFinal.ToString().Trim().Substring(6, 2);
+                                Fila["valor_venta"] = _ValorVenta.ToString().Trim();
+                                Fila["establecimiento"] = _Establecimiento.ToString().Trim();
+                                Fila["valor_impuesto"] = _ValorImpuesto.ToString().Trim();
+                                Fila["valor_base"] = _ValorBase.ToString().Trim();
+                                dtEtl.Rows.Add(Fila);
+                                line = sr.ReadLine();
+                                #endregion
+                            }
+                            else
+                            {
+                                line = sr.ReadLine();
+                            }
+                        }
+                        else if (_NombreTabla.Trim().Equals("INFO_CONTABLE"))
+                        {
+                            if (_ContadorFilas >= _IniciaCampoDetalle)
+                            {
+                                int _LogLinea = line.ToString().Trim().Length;
+                                if(_LogLinea == 239)
+                                {
+                                    #region AQUI OBTENEMOS LOS DATOS DE CADA LINEA DEL ARCHIVO
+                                    //--
+                                    string _UN = "NA";
+                                    string _GLIBROS = "NA";
+                                    string _LIBRO = "NA";
+                                    string _CUENTA = line.ToString().Trim().Substring(7, 12);
+                                    string _SUCURSAL = line.ToString().Trim().Substring(19, 4);
+                                    string _DEPENDENCIA = line.ToString().Trim().Substring(116, 8);
+                                    //--
+                                    string _TIPO = line.ToString().Trim().Substring(34, 4).ToString().Trim();
+                                    string _DEPCOMP = line.ToString().Trim().Substring(38, 6).ToString().Trim();
+                                    string _NRCOMP = line.ToString().Trim().Substring(44, 6).ToString().Trim();
+                                    string _IDASIENTO = _TIPO + "" + _DEPCOMP + "" + _NRCOMP;
+                                    //--
+                                    string _FechaComprobante1 = line.ToString().Trim().Substring(23, 11);
+                                    DateTime _FechaComprobante2 = _FechaComprobante1.ToString().Trim().Length > 0 ? Convert.ToDateTime(_FechaComprobante1.ToString()) : DateTime.Now;
+                                    string _FECHA_COMPROBANTE = _FechaComprobante2.ToString("yyyy-MM-dd");
+                                    //--FECHA DE PROCESO
+                                    int _MesFechaComp = (_FechaComprobante2.Month);
+                                    DateTime _PrimerDiaDelMes = new DateTime(_FechaComprobante2.Year, _MesFechaComp, 1);
+                                    DateTime _UltimoDiaDelMes = _PrimerDiaDelMes.AddMonths(1).AddDays(-1);
+                                    string _FECHA_PROCESO = _UltimoDiaDelMes.ToString("yyyy-MM-dd");
+                                    //--
+                                    string _DESCRIPCION = "NA";
+                                    //--EL TIPO DE NATURALEZA (1. DEBITO, 2. CREDITO)
+                                    string _TipoNaturaleza = line.ToString().Trim().Substring(124, 16).ToString().Trim();
+                                    string _DEBITO = "", _CREDITO = "", _Valor = "0";
+                                    if (_TipoNaturaleza.Trim().Equals("1"))
+                                    {
+                                        _Valor = line.ToString().Trim().Substring(227, 12).ToString().Trim().Replace(",", "");
+                                        _DEBITO = _Valor.ToString().Trim();
+                                        _CREDITO = "0";
+                                    }
+                                    else
+                                    {
+                                        _Valor = line.ToString().Trim().Substring(227, 12).ToString().Trim().Replace(",", "");
+                                        _DEBITO = "0";
+                                        _CREDITO = _Valor.ToString().Trim();
+                                    }
+                                    //--
+                                    string _AUXILIAR = line.ToString().Trim().Substring(62, 12);
+                                    string _REFERENCIA = line.ToString().Trim().Substring(177, 18);
+                                    string _USUARIO = "NA";
+                                    string _IDCOMPROBANTE = _TIPO + "" + _DEPCOMP + "" + _NRCOMP;
+                                    string _ESTADO = "NA";
+                                    string _REAL = "X";
+                                    //--
+                                    DataRow Fila = null;
+                                    Fila = dtEtl.NewRow();
+                                    Fila["ID_REGISTRO"] = dtEtl.Rows.Count + 1;
+                                    Fila["UN"] = _UN.ToString().Trim();
+                                    Fila["G_LIBROS"] = _GLIBROS.ToString().Trim();
+                                    Fila["LIBRO"] = _LIBRO.ToString().Trim();
+                                    Fila["CUENTA"] = _CUENTA.ToString().Trim();
+                                    Fila["SUCURSAL"] = _SUCURSAL.ToString().Trim();
+                                    Fila["DEPENDENCIA"] = _DEPENDENCIA.ToString().Trim();
+                                    Fila["ID_DE_ASIENTO"] = _IDASIENTO.ToString().Trim();
+                                    Fila["FECHA_COMPROBANTE"] = _FECHA_COMPROBANTE.ToString().Trim();
+                                    Fila["FECHA_PROCESO"] = _FECHA_PROCESO.ToString().Trim();
+                                    Fila["DESCRIPCION"] = _DESCRIPCION.ToString().Trim();
+                                    Fila["DEBITO"] = _DEBITO.ToString().Trim();
+                                    Fila["CREDITO"] = _CREDITO.ToString().Trim();
+                                    Fila["AUXILIAR"] = _AUXILIAR.ToString().Trim();
+                                    Fila["REFERENCIA"] = _REFERENCIA.ToString().Trim();
+                                    Fila["USUARIO"] = _USUARIO.ToString().Trim();
+                                    Fila["ID_COMPROBANTE"] = _IDCOMPROBANTE.ToString().Trim();
+                                    Fila["ESTADO"] = _ESTADO;
+                                    Fila["REAL"] = _REAL;
+                                    dtEtl.Rows.Add(Fila);
+                                    line = sr.ReadLine();
+                                    #endregion
+                                }
+                                else
+                                {
+                                    line = sr.ReadLine();
+                                }
+                            }
+                            else
+                            {
+                                line = sr.ReadLine();
+                            }
+                        }
                     }
                     else
                     {
@@ -227,7 +359,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
             catch (Exception ex)
             {
                 dtEtl = null;
-                _MsgError = "3. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                _MsgError = "3. Error al realizar el proceso ETL en la linea No. " + _ContadorFilas + " del archivo. Motivo: " + ex.Message;
                 FixedData.LogApi.Error(_MsgError);
             }
 

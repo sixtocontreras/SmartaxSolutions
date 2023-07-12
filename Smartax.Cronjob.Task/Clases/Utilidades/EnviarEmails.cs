@@ -94,7 +94,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
                 smtpClient.Credentials = loginInfo;
                 smtpClient.Send(msg);
 
-                _MsgError = "";
+                _MsgError = "El email ha sido enviado de forma exitosa a todos los remitentes.";
                 Enviado = true;
             }
             catch (Exception ex)
