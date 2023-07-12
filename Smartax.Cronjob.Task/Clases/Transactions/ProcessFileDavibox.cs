@@ -46,7 +46,7 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                     {
                         #region AQUI RECORREMOS LOS DATOS DEL DATATABLE
                         //--ESTA VARIABLE ES SOLO PARA EL PROCESO DE CARGUE DE INFO DE TARJETA DE CREDITO
-                        int _ContadorTc = 0;
+                        int _ContadorTc = 0, _ContadorIc = 0;
                         foreach (DataRow rowItemEf in dtFileDavibox.Rows)
                         {
                             string _NombreArchivo = rowItemEf["nombre_archivo"].ToString().Trim();
@@ -78,6 +78,11 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                     _TipoSeparador = new char[] { ' ' };
                                     //--
                                     dtEtl = objFunctions.GetEtl_LongCampo(_ManejaCampoTitulo, _IniciaCampoDetalle, _PathFilesDavibox, _TipoSeparador, ref _MsgError);
+                                }
+                                else if (_SeparadorArchivo.ToString().Trim().Equals("EXCEL"))
+                                {
+                                    //--
+                                    dtEtl = objFunctions.GetEtl_Excel(_NombreTabla, _IniciaCampoTitulo, _IniciaCampoDetalle, _PathFilesDavibox, ref _MsgError);
                                 }
                                 else
                                 {
@@ -241,8 +246,158 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
 
                                             case "LEASING_HABITACIONAL":
                                                 #region CARGAR INFO A LA TABLA LEASING_HABITACIONAL
-                                                #endregion
-                                                break;
+                                                //--AQUI REALIZAMOS EL BORRADO DE LOS DATOS DE LA TABLA
+                                                objProcessDb.TipoProceso = 2;
+                                                objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+
+                                                _CodError = ""; _MsgError = "";
+                                                if (objProcessDb.DlInfoData(ref _CodError, ref _MsgError))
+                                                {
+                                                    //--AQUI RECORREMOS LOS DATOS DEL DATATABLE
+                                                    foreach (DataRow rowItemEtl in dtEtl.Rows)
+                                                    {
+                                                        #region AQUI OBTENEMOS LOS DATOS DEL DATATABLE
+                                                        //--
+                                                        string ICA_CONSECUTIVO = rowItemEtl["ICA_CONSECUTIVO"].ToString().Trim().Replace("\"", "");
+                                                        string FECHA_REGISTRO1 = rowItemEtl["FECHA_REGISTRO"].ToString().Trim().Equals("NA") ? "" : rowItemEtl["FECHA_REGISTRO"].ToString().Trim();
+                                                        string FECHA_REGISTRO = FECHA_REGISTRO1.ToString().Trim().Length > 0 ? Convert.ToDateTime(FECHA_REGISTRO1).ToString("yyyy-MM-dd") : "";
+                                                        //--
+                                                        string EMAIL_ADDRESS = rowItemEtl["EMAIL_ADDRESS"].ToString().Trim();
+                                                        string AREA_A_LA_QUE_CORRESPONDE = objFunctions.GetLimpiarCadena(rowItemEtl["AREA_A_LA_QUE_CORRESPONDE"].ToString().Trim());
+                                                        string NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN1 = rowItemEtl["NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN"].ToString().Trim().Length > 0 ? rowItemEtl["NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN"].ToString().Trim() : "NA";
+                                                        string NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN = objFunctions.GetLimpiarCadena(NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN1);
+                                                        string NIT = rowItemEtl["NIT"].ToString().Trim();
+                                                        string DIGITO_DE_VERIFICACION = rowItemEtl["DIGITO_DE_VERIFICACION"].ToString().Trim();
+                                                        string NUMERO_DE_LA_OBLIGACION = rowItemEtl["NUMERO_DE_LA_OBLIGACION"].ToString().Trim();
+                                                        string SUCURSAL_DE_RADICACION_DE_CREDITO1 = rowItemEtl["SUCURSAL_DE_RADICACION_DE_CREDITO"].ToString().Trim().Length > 0 ? rowItemEtl["SUCURSAL_DE_RADICACION_DE_CREDITO"].ToString().Trim() : "NA";
+                                                        string SUCURSAL_DE_RADICACION_DE_CREDITO = objFunctions.GetLimpiarCadena(SUCURSAL_DE_RADICACION_DE_CREDITO1);
+                                                        string DIRECCION_DEL_DOMICILIO_PRINCIPAL1 = rowItemEtl["DIRECCION_DEL_DOMICILIO_PRINCIPAL_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGA_EL_INMUEBLE"].ToString().Trim().Length > 0 ? rowItemEtl["DIRECCION_DEL_DOMICILIO_PRINCIPAL_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGA_EL_INMUEBLE"].ToString().Trim() : "NA";
+                                                        string DIRECCION_DEL_DOMICILIO_PRINCIPAL = objFunctions.GetLimpiarCadena(DIRECCION_DEL_DOMICILIO_PRINCIPAL1);
+                                                        string CIUDAD_DEL_DOMICILIO_PRINCIPAL1 = rowItemEtl["CIUDAD_DEL_DOMICILIO_PRINCIPAL_DE_VENDEDOR_O_PERSONA_QUE_ENTREGA_EL_INMUEBLE"].ToString().Trim().Length > 0 ? rowItemEtl["CIUDAD_DEL_DOMICILIO_PRINCIPAL_DE_VENDEDOR_O_PERSONA_QUE_ENTREGA_EL_INMUEBLE"].ToString().Trim() : "NA";
+                                                        string CIUDAD_DEL_DOMICILIO_PRINCIPAL = objFunctions.GetLimpiarCadena(CIUDAD_DEL_DOMICILIO_PRINCIPAL1);
+                                                        string NUMERO_TELEFONICO = rowItemEtl["NUMERO_TELEFONICO"].ToString().Trim().Length > 0 ? rowItemEtl["NUMERO_TELEFONICO"].ToString().Trim() : "NA";
+                                                        string CORREO_ELECTRONICO = rowItemEtl["CORREO_ELECTRONICO"].ToString().Trim().Length > 0 ? rowItemEtl["CORREO_ELECTRONICO"].ToString().Trim() : "NA";
+                                                        //--
+                                                        string FECHA_DE_DESEMBOLSO1 = rowItemEtl["FECHA_DE_DESEMBOLSO_O_ESCRITURACION"].ToString().Trim().Equals("NA") ? "" : rowItemEtl["FECHA_DE_DESEMBOLSO_O_ESCRITURACION"].ToString().Trim();
+                                                        string FECHA_DE_DESEMBOLSO = FECHA_DE_DESEMBOLSO1.ToString().Trim().Length > 0 ? Convert.ToDateTime(FECHA_DE_DESEMBOLSO1).ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd");
+                                                        //--
+                                                        string MES_DE_LA_RETENCION = rowItemEtl["MES_DE_LA_RETENCION"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["MES_DE_LA_RETENCION"].ToString().Trim()) : "NA";
+                                                        string ANO_DE_LA_ESCRITURACION = rowItemEtl["ANO_DE_LA_ESCRITURACION"].ToString().Trim().Length > 0 ? rowItemEtl["ANO_DE_LA_ESCRITURACION"].ToString().Trim() : "NA";
+                                                        string NIT_DEL_MUNICIPIO = rowItemEtl["NIT_DEL_MUNICIPIO_DONDE_SE_ENCUENTRA_UBICADO_EL_INMUEBLE"].ToString().Trim().Length > 0 ? rowItemEtl["NIT_DEL_MUNICIPIO_DONDE_SE_ENCUENTRA_UBICADO_EL_INMUEBLE"].ToString().Trim() : "NA";
+                                                        string CALIDAD_TRIBUTARIA = rowItemEtl["CALIDAD_TRIBUTARIA"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["CALIDAD_TRIBUTARIA"].ToString().Trim()) : "NA";
+                                                        string ES_UN_ACTIVO_FIJO = rowItemEtl["ES_UN_ACTIVO_FIJO"].ToString().Trim().Length > 0 ? rowItemEtl["ES_UN_ACTIVO_FIJO"].ToString().Trim() : "NA";
+                                                        string CODIGO_DANE_DEL_MUNICIPIO = rowItemEtl["CODIGO_DANE_DEL_MUNICIPIO_DEL_DOMICILIO_PRINCIPAL_DEL_VENDEDOR"].ToString().Trim().Length > 0 ? rowItemEtl["CODIGO_DANE_DEL_MUNICIPIO_DEL_DOMICILIO_PRINCIPAL_DEL_VENDEDOR"].ToString().Trim() : "NA";
+
+                                                        string VALOR_DE_LA_COMPRA = rowItemEtl["VALOR_DE_LA_COMPRA_O_DACION"].ToString().Trim().Length > 0 ? rowItemEtl["VALOR_DE_LA_COMPRA_O_DACION"].ToString().Trim().Replace("-", "0").Replace(",", ".") : "0";
+                                                        double VALOR_DE_LA_COMPRA_O_DACION = Double.Parse(VALOR_DE_LA_COMPRA);
+                                                        string TARIFA_DE_RETENCION1 = rowItemEtl["TARIFA_DE_RETENCION"].ToString().Trim().Length > 0 ? rowItemEtl["TARIFA_DE_RETENCION"].ToString().Trim().Replace("-", "0").Replace(",", ".") : "0";
+                                                        double TARIFA_DE_RETENCION = Double.Parse(TARIFA_DE_RETENCION1);
+                                                        string DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA1 = rowItemEtl["DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA"].ToString().Trim().Length > 0 ? rowItemEtl["DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA"].ToString().Trim().Replace("-", "0").Replace("$", "").Replace(",", "") : "0";
+                                                        double DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA = Double.Parse(DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA1);
+                                                        string CIUDAD_DE_UBICACION_DEL_INMUEBLE = rowItemEtl["CIUDAD_DE_UBICACION_DEL_INMUEBLE"].ToString().Trim().Length > 0 ? rowItemEtl["CIUDAD_DE_UBICACION_DEL_INMUEBLE"].ToString().Trim() : "NA";
+                                                        string MES_DEL_DESEMBOLSO = rowItemEtl["MES_DEL_DESEMBOLSO"].ToString().Trim().Length > 0 ? rowItemEtl["MES_DEL_DESEMBOLSO"].ToString().Trim() : "NA";
+                                                        string URL_ARCHIVO_GENERADO =  rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim().Length > 0 ? rowItemEtl["URL_ARCHIVO_GENERADO"].ToString().Trim() : "NA";
+                                                        string ESTA_RETENCION_CORRESPONDE = rowItemEtl["ESTA_RETENCION_CORRESPONDE_A_UNA_OPERACION_DEL_ANO_ACTUAL"].ToString().Trim().Length > 0 ? rowItemEtl["ESTA_RETENCION_CORRESPONDE_A_UNA_OPERACION_DEL_ANO_ACTUAL"].ToString().Trim() : "NA";
+                                                        string URL_ARCHIVO_CARGADO = rowItemEtl["URL_ARCHIVO_CARGADO"].ToString().Trim().Length > 0 ? rowItemEtl["URL_ARCHIVO_CARGADO"].ToString().Trim() : "NA";
+
+                                                        //--AQUI CONCATENAMOS LOS VALORES DEL ESTADO FINANCIERO
+                                                        if (_ArrayData.ToString().Trim().Length > 0)
+                                                        {
+                                                            _ArrayData = _ArrayData.ToString().Trim() + "," + quote + "(" + ICA_CONSECUTIVO + "," + FECHA_REGISTRO + "," + EMAIL_ADDRESS + "," + AREA_A_LA_QUE_CORRESPONDE + "," + NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN + "," + NIT + "," + DIGITO_DE_VERIFICACION + "," + NUMERO_DE_LA_OBLIGACION + "," + SUCURSAL_DE_RADICACION_DE_CREDITO + "," + DIRECCION_DEL_DOMICILIO_PRINCIPAL + "," + CIUDAD_DEL_DOMICILIO_PRINCIPAL + "," + NUMERO_TELEFONICO + "," + CORREO_ELECTRONICO + "," + FECHA_DE_DESEMBOLSO + "," + MES_DE_LA_RETENCION + "," + ANO_DE_LA_ESCRITURACION + "," + NIT_DEL_MUNICIPIO + "," + CALIDAD_TRIBUTARIA + "," + ES_UN_ACTIVO_FIJO + "," + CODIGO_DANE_DEL_MUNICIPIO + "," + VALOR_DE_LA_COMPRA_O_DACION + "," + TARIFA_DE_RETENCION + "," + DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA + "," + CIUDAD_DE_UBICACION_DEL_INMUEBLE + "," + MES_DEL_DESEMBOLSO + "," + URL_ARCHIVO_GENERADO + "," + ESTA_RETENCION_CORRESPONDE + "," + URL_ARCHIVO_CARGADO + ")" + quote;
+                                                        }
+                                                        else
+                                                        {
+                                                            _ArrayData = quote + "(" + ICA_CONSECUTIVO + "," + FECHA_REGISTRO + "," + EMAIL_ADDRESS + "," + AREA_A_LA_QUE_CORRESPONDE + "," + NOMBRE_DEL_VENDEDOR_O_PERSONA_QUE_ENTREGO_EL_BIEN + "," + NIT + "," + DIGITO_DE_VERIFICACION + "," + NUMERO_DE_LA_OBLIGACION + "," + SUCURSAL_DE_RADICACION_DE_CREDITO + "," + DIRECCION_DEL_DOMICILIO_PRINCIPAL + "," + CIUDAD_DEL_DOMICILIO_PRINCIPAL + "," + NUMERO_TELEFONICO + "," + CORREO_ELECTRONICO + "," + FECHA_DE_DESEMBOLSO + "," + MES_DE_LA_RETENCION + "," + ANO_DE_LA_ESCRITURACION + "," + NIT_DEL_MUNICIPIO + "," + CALIDAD_TRIBUTARIA + "," + ES_UN_ACTIVO_FIJO + "," + CODIGO_DANE_DEL_MUNICIPIO + "," + VALOR_DE_LA_COMPRA_O_DACION + "," + TARIFA_DE_RETENCION + "," + DIGITE_EL_VALOR_DE_RENTENCION_DE_ICA + "," + CIUDAD_DE_UBICACION_DEL_INMUEBLE + "," + MES_DEL_DESEMBOLSO + "," + URL_ARCHIVO_GENERADO + "," + ESTA_RETENCION_CORRESPONDE + "," + URL_ARCHIVO_CARGADO + ")" + quote;
+                                                        }
+                                                        _CantidadReg++;
+                                                        _CantidadTotalReg++;
+
+                                                        //--AQUI VALIDAMOS LA CANTIDAD DE REGISTROS LEIDOS PARA CARGAR
+                                                        if (FixedData.CantidadRegProcesar == _CantidadReg)
+                                                        {
+                                                            #region AQUI ENVIAMOS A CARGAR LOS DATOS EN LA DB
+                                                            //--
+                                                            objProcessDb.TipoProceso = 2;
+                                                            objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                            objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+                                                            objProcessDb.ArrayDataLf = null;
+                                                            objProcessDb.ArrayDataLh = _ArrayData.ToString().Trim();
+                                                            objProcessDb.ArrayDataPg = null;
+                                                            objProcessDb.ArrayDataTc = null;
+                                                            objProcessDb.ArrayDataIc = null;
+                                                            objProcessDb.NombreArchivo = _NombreFileDavibox.ToString().Trim();
+                                                            objProcessDb.IdEstado = 1;
+                                                            objProcessDb.IdUsuario = 1;
+
+                                                            int _IdRegistro = 0;
+                                                            _CodError = ""; _MsgError = "";
+                                                            if (objProcessDb.AddLoadFileDavibox(ref _IdRegistro, ref _CodError, ref _MsgError))
+                                                            {
+                                                                _ArrayData = "";
+                                                                _CantidadReg = 0;
+                                                                _CantidadLoteProcesado++;
+                                                                _ErrorProcesar = "N";
+                                                            }
+                                                            else
+                                                            {
+                                                                _ErrorProcesar = "S";
+                                                                FixedData.LogApi.Error(_MsgError);
+                                                                break;
+                                                            }
+                                                            #endregion
+                                                        }
+                                                        #endregion
+                                                    }
+
+                                                    #region AQUI SE REALIZA EL CARGUE DEL RESTO DE LOS REGISTROS DEL ULTIMO LOTE
+                                                    if (_ArrayData.ToString().Trim().Length > 0)
+                                                    {
+                                                        if (_ErrorProcesar.Equals("N"))
+                                                        {
+                                                            #region AQUI ENVIAMOS A CARGAR LOS DATOS EN LA DB
+                                                            //--
+                                                            objProcessDb.TipoProceso = 2;
+                                                            objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                            objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+                                                            objProcessDb.ArrayDataLf = null;
+                                                            objProcessDb.ArrayDataLh = _ArrayData.ToString().Trim();
+                                                            objProcessDb.ArrayDataPg = null;
+                                                            objProcessDb.ArrayDataTc = null;
+                                                            objProcessDb.ArrayDataIc = null;
+                                                            objProcessDb.NombreArchivo = _NombreFileDavibox.ToString().Trim();
+                                                            objProcessDb.IdEstado = 1;
+                                                            objProcessDb.IdUsuario = 1;
+
+                                                            int _IdRegistro = 0;
+                                                            _CodError = ""; _MsgError = "";
+                                                            if (objProcessDb.AddLoadFileDavibox(ref _IdRegistro, ref _CodError, ref _MsgError))
+                                                            {
+                                                                _ArrayData = "";
+                                                                _CantidadReg = 0;
+                                                                _CantidadLoteProcesado++;
+                                                                _ErrorProcesar = "N";
+                                                            }
+                                                            else
+                                                            {
+                                                                _ErrorProcesar = "S";
+                                                                FixedData.LogApi.Error(_MsgError);
+                                                                break;
+                                                            }
+                                                            #endregion
+                                                        }
+                                                    }
+                                                    #endregion
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    _ErrorProcesar = "S";
+                                                    FixedData.LogApi.Error(_MsgError);
+                                                    break;
+                                                }
+                                            //--
+                                            #endregion
 
                                             case "PAGADURIA":
                                                 #region CARGAR INFO A LA TABLA PAGADURIA
@@ -528,9 +683,150 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                                             #endregion
 
                                             case "INFO_CONTABLE":
-                                                #region CARGAR INFO A LA TABLA INFO_CONTABLE
-                                                #endregion
-                                                break;
+                                                #region CARGAR INFO A LA TABLA TARJETA_CREDITO
+                                                //--AQUI REALIZAMOS EL BORRADO DE LOS DATOS DE LA TABLA
+                                                objProcessDb.TipoProceso = 5;
+                                                //--AQUI VALIDAMOS SI YA EJECUTO EL 1er PROCESO DE LA T.C.
+                                                if (_ContadorIc == 0)
+                                                {
+                                                    objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                    objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+                                                }
+                                                else
+                                                {
+                                                    objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                    objProcessDb.MesEf = "123";
+                                                }
+
+                                                _CodError = "";
+                                                _MsgError = "";
+                                                if (objProcessDb.DlInfoData(ref _CodError, ref _MsgError))
+                                                {
+                                                    //--AQUI RECORREMOS LOS DATOS DEL DATATABLE
+                                                    foreach (DataRow rowItemEtl in dtEtl.Rows)
+                                                    {
+                                                        #region AQUI OBTENEMOS LOS DATOS DEL DATATABLE
+                                                        //--
+                                                        string _UN = rowItemEtl["UN"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["UN"].ToString().Trim()) : "NA";
+                                                        string _GLIBROS = rowItemEtl["G_LIBROS"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["G_LIBROS"].ToString().Trim()) : "NA";
+                                                        string _LIBRO = rowItemEtl["LIBRO"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["LIBRO"].ToString().Trim()) : "NA";
+                                                        string _CUENTA = rowItemEtl["CUENTA"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["CUENTA"].ToString().Trim()) : "NA";
+                                                        string _SUCURSAL = rowItemEtl["SUCURSAL"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["SUCURSAL"].ToString().Trim()) : "NA";
+                                                        string _DEPENDENCIA = rowItemEtl["DEPENDENCIA"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["DEPENDENCIA"].ToString().Trim()) : "NA";
+                                                        string _IDASIENTO = rowItemEtl["ID_DE_ASIENTO"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["ID_DE_ASIENTO"].ToString().Trim()) : "NA";
+                                                        string _FECHA_COMPROBANTE = Convert.ToDateTime(rowItemEtl["FECHA_COMPROBANTE"].ToString().Trim()).ToString("yyyy-MM-dd");
+                                                        string _FECHA_PROCESO = Convert.ToDateTime(rowItemEtl["FECHA_PROCESO"].ToString().Trim()).ToString("yyyy-MM-dd");
+                                                        string _DESCRIPCION = rowItemEtl["DESCRIPCION"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["DESCRIPCION"].ToString().Trim()) : "NA";
+                                                        //--
+                                                        string _DEBITO1 = rowItemEtl["DEBITO"].ToString().Trim().Length > 0 ? rowItemEtl["DEBITO"].ToString().Trim().Replace("*", "0") : "0";
+                                                        double _DEBITO = Double.Parse(_DEBITO1);
+                                                        //--
+                                                        string _CREDITO1 = rowItemEtl["CREDITO"].ToString().Trim().Length > 0 ? rowItemEtl["CREDITO"].ToString().Trim().Replace("*", "0") : "0";
+                                                        double _CREDITO = Double.Parse(_CREDITO1);
+                                                        string _AUXILIAR = rowItemEtl["AUXILIAR"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["AUXILIAR"].ToString().Trim()) : "NA";
+                                                        string _REFERENCIA = rowItemEtl["REFERENCIA"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["REFERENCIA"].ToString().Trim()) : "NA";
+                                                        string _USUARIO = rowItemEtl["USUARIO"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["USUARIO"].ToString().Trim()) : "NA";
+                                                        string _IDCOMPROBANTE = rowItemEtl["ID_COMPROBANTE"].ToString().Trim().Length > 0 ? rowItemEtl["ID_COMPROBANTE"].ToString().Trim() : "NA";
+                                                        string _ESTADO = rowItemEtl["ESTADO"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["ESTADO"].ToString().Trim()) : "NA";
+                                                        string _REAL = rowItemEtl["REAL"].ToString().Trim().Length > 0 ? objFunctions.GetLimpiarCadena(rowItemEtl["REAL"].ToString().Trim()) : "X";
+
+                                                        //--AQUI CONCATENAMOS LOS VALORES DEL ESTADO FINANCIERO
+                                                        if (_ArrayData.ToString().Trim().Length > 0)
+                                                        {
+                                                            _ArrayData = _ArrayData.ToString().Trim() + "," + quote + "(" + _UN + "," + _GLIBROS + "," + _LIBRO + "," + _CUENTA + "," + _SUCURSAL + "," + _DEPENDENCIA + "," + _IDASIENTO + "," + _FECHA_COMPROBANTE + "," + _FECHA_PROCESO + "," + _DESCRIPCION + "," + _DEBITO + "," + _CREDITO + "," + _AUXILIAR + "," + _REFERENCIA + "," + _USUARIO + "," + _IDCOMPROBANTE + "," + _ESTADO + "," + _REAL + ")" + quote;
+                                                        }
+                                                        else
+                                                        {
+                                                            _ArrayData = quote + "(" + _UN + "," + _GLIBROS + "," + _LIBRO + "," + _CUENTA + "," + _SUCURSAL + "," + _DEPENDENCIA + "," + _IDASIENTO + "," + _FECHA_COMPROBANTE + "," + _FECHA_PROCESO + "," + _DESCRIPCION + "," + _DEBITO + "," + _CREDITO + "," + _AUXILIAR + "," + _REFERENCIA + "," + _USUARIO + "," + _IDCOMPROBANTE + "," + _ESTADO + "," + _REAL + ")" + quote;
+                                                        }
+                                                        _CantidadReg++;
+                                                        _CantidadTotalReg++;
+
+                                                        //--AQUI VALIDAMOS LA CANTIDAD DE REGISTROS LEIDOS PARA CARGAR
+                                                        if (FixedData.CantidadRegProcesar == _CantidadReg)
+                                                        {
+                                                            #region AQUI ENVIAMOS A CARGAR LOS DATOS EN LA DB
+                                                            //--
+                                                            objProcessDb.TipoProceso = 5;
+                                                            objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                            objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+                                                            objProcessDb.ArrayDataLf = null;
+                                                            objProcessDb.ArrayDataLh = null;
+                                                            objProcessDb.ArrayDataPg = null;
+                                                            objProcessDb.ArrayDataTc = null;
+                                                            objProcessDb.ArrayDataIc = _ArrayData.ToString().Trim();
+                                                            objProcessDb.NombreArchivo = _NombreFileDavibox.ToString().Trim();
+                                                            objProcessDb.IdEstado = 1;
+                                                            objProcessDb.IdUsuario = 1;
+
+                                                            int _IdRegistro = 0;
+                                                            _CodError = ""; _MsgError = "";
+                                                            if (objProcessDb.AddLoadFileDavibox(ref _IdRegistro, ref _CodError, ref _MsgError))
+                                                            {
+                                                                _ArrayData = "";
+                                                                _CantidadReg = 0;
+                                                                _CantidadLoteProcesado++;
+                                                                _ErrorProcesar = "N";
+                                                            }
+                                                            else
+                                                            {
+                                                                _ErrorProcesar = "S";
+                                                                FixedData.LogApi.Error(_MsgError);
+                                                                break;
+                                                            }
+                                                            #endregion
+                                                        }
+                                                        #endregion
+                                                    }
+
+                                                    #region AQUI SE REALIZA EL CARGUE DEL RESTO DE LOS REGISTROS DEL ULTIMO LOTE
+                                                    //--
+                                                    _ContadorIc++;
+                                                    if (_ArrayData.ToString().Trim().Length > 0)
+                                                    {
+                                                        if (_ErrorProcesar.Equals("N"))
+                                                        {
+                                                            #region AQUI ENVIAMOS A CARGAR LOS DATOS EN LA DB
+                                                            //--
+                                                            objProcessDb.TipoProceso = 5;
+                                                            objProcessDb.AnioGravable = objFileDavibox.anio_gravable;
+                                                            objProcessDb.MesEf = objFileDavibox.mes_procesar.ToString().Trim();
+                                                            objProcessDb.ArrayDataLf = null;
+                                                            objProcessDb.ArrayDataLh = null;
+                                                            objProcessDb.ArrayDataPg = null;
+                                                            objProcessDb.ArrayDataTc = null;
+                                                            objProcessDb.ArrayDataIc = _ArrayData.ToString().Trim();
+                                                            objProcessDb.NombreArchivo = _NombreFileDavibox.ToString().Trim();
+                                                            objProcessDb.IdEstado = 1;
+                                                            objProcessDb.IdUsuario = 1;
+
+                                                            int _IdRegistro = 0;
+                                                            _CodError = ""; _MsgError = "";
+                                                            if (objProcessDb.AddLoadFileDavibox(ref _IdRegistro, ref _CodError, ref _MsgError))
+                                                            {
+                                                                _ArrayData = "";
+                                                                _CantidadReg = 0;
+                                                                _CantidadLoteProcesado++;
+                                                                _ErrorProcesar = "N";
+                                                            }
+                                                            else
+                                                            {
+                                                                _ErrorProcesar = "S";
+                                                                FixedData.LogApi.Error(_MsgError);
+                                                                break;
+                                                            }
+                                                            #endregion
+                                                        }
+                                                    }
+                                                    #endregion
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    FixedData.LogApi.Error(_MsgError);
+                                                    break;
+                                                }
+                                            #endregion
 
                                             default:
                                                 break;

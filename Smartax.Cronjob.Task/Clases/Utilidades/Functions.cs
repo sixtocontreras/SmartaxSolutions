@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Aspose.Cells;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -58,7 +59,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
             return Arreglo;
         }
 
-        //Metodo para pasar de CSV a Datatable
+        //--METODO ETL PARA EXTRAER DATOS DEL ARCHIVO MEDIANTE UN SEPARADOR
         public DataTable GetEtl(string _ManejaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, char[] _Separador, ref string _MsgError)
         {
             DataTable dtEtl = new DataTable();
@@ -139,7 +140,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
             return dtEtl;
         }
 
-        //Metodo para pasar de CSV a Datatable
+        //--METODO ETL PARA EXTRAER DATOS DEL ARCHIVO MEDIANTE LINEA DEL ARCHIVO
         public DataTable GetEtl_LongCampo(string _ManejaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, char[] _Separador, ref string _MsgError)
         {
             DataTable dtEtl = new DataTable();
@@ -220,67 +221,6 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
                         line = sr.ReadLine();
                     }
                 }
-
-                //StreamReader sr = new StreamReader(strPathFile);
-                //string[] headers = sr.ReadLine().Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
-                //int ContadorRow = 0;
-
-                //if (_ManejaCampoTitulo.Trim().Equals("S"))
-                //{
-                //    //Creamos el encabezado del DataTable
-                //    foreach (string dtColumn in headers)
-                //    {
-                //        //dtEtl.Columns.Add(dtColumn.ToString().Trim().Replace("\"", ""));
-                //        dtEtl.Columns.Add(this.GetLimpiarCadena(dtColumn.ToString().Trim()).Replace(" ", "_").Replace("  ", "_"));
-                //    }
-                //}
-                //else
-                //{
-                //    ContadorRow = _IniciaCampoDetalle;
-                //}
-
-                ////Insertamos los datos al Datatable
-                //string[] csvRows = File.ReadAllLines(strPathFile);
-                //string[] fields = null;
-                //foreach (string csvRow in csvRows)
-                //{
-                //    try
-                //    {
-                //        //fields = csvRow.Split(_Separador, StringSplitOptions.RemoveEmptyEntries);
-                //        fields = csvRow.Split(_Separador);
-                //        if (fields.Length > 0)
-                //        {
-                //            //--AQUI VALIDAMOS QUE CODIGO DE OFICINA Y # DE CUENTA VENGAN LLENOS
-                //            //if (fields[0].ToString().Trim().Length > 0 && fields[1].ToString().Trim().Length > 0)
-                //            //{
-                //            if (ContadorRow != 0)
-                //            {
-                //                try
-                //                {
-                //                    DataRow ItemRow = dtEtl.NewRow();
-                //                    ItemRow.ItemArray = fields;
-                //                    dtEtl.Rows.Add(ItemRow);
-                //                    _ContadorFilas++;
-                //                }
-                //                catch (Exception ex)
-                //                {
-                //                    _MsgError = "1. Error al obtener los datos de la fila [" + _ContadorFilas + "] del archivo en el proceso de ETL. Motivo: " + ex.Message;
-                //                    FixedData.LogApi.Error(_MsgError);
-                //                    return dtEtl;
-                //                }
-                //            }
-                //            //}
-                //            ContadorRow++;
-                //        }
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        _MsgError = "2. Error al realizar el proceso ETL. Motivo: " + ex.Message;
-                //        FixedData.LogApi.Error(_MsgError);
-                //        return dtEtl;
-                //    }
-                //}
-
                 _MsgError = "";
                 sr.Close();
             }
@@ -288,6 +228,125 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
             {
                 dtEtl = null;
                 _MsgError = "3. Error al realizar el proceso ETL. Motivo: " + ex.Message;
+                FixedData.LogApi.Error(_MsgError);
+            }
+
+            return dtEtl;
+        }
+
+        //--METODO ETL PARA EXTRAER DATOS DEL ARCHIVO DE EXCEL
+        public DataTable GetEtl_Excel(string _NombreTabla, int _IniciaCampoTitulo, int _IniciaCampoDetalle, string strPathFile, ref string _MsgError)
+        {
+            DataTable dtEtl = new DataTable();
+            dtEtl.TableName = "DtDatos";
+            try
+            {
+                #region PASO 1: AQUI DEFINIMOS EL DATATABLE PARA ALMACENAR LOS DATOS
+                //--AQUI DEFINIMOS EL DATATABLE
+                //Creamos el DataTable donde se almacenaran las Facturas a Pagar.
+                dtEtl = new DataTable();
+                dtEtl.Columns.Add("ID_REGISTRO", typeof(Int32));
+                dtEtl.PrimaryKey = new DataColumn[] { dtEtl.Columns["ID_REGISTRO"] };
+
+                // Cargar archivo de Excel
+                Workbook wb = new Workbook(strPathFile.Trim());
+                // Obtener todas las hojas de trabajo
+                WorksheetCollection collection = wb.Worksheets;
+
+                // Recorra todas las hojas de trabajo
+                for (int worksheetIndex = 0; worksheetIndex < collection.Count; worksheetIndex++)
+                {
+                    // Obtener hoja de trabajo usando su índice
+                    Worksheet worksheet = collection[worksheetIndex];
+                    // Imprimir el nombre de la hoja de trabajo
+                    Console.WriteLine("Worksheet: " + worksheet.Name);
+
+                    // Obtener el número de filas y columnas
+                    int rows = worksheet.Cells.MaxDataRow + 1;
+                    int cols = worksheet.Cells.MaxDataColumn + 1;
+
+                    // Bucle a través de filas
+                    for (int i = 0; i < rows; i++)
+                    {
+                        DataRow Fila = null;
+                        if (i >= _IniciaCampoDetalle)
+                        {
+                            Fila = dtEtl.NewRow();
+                        }
+
+                        // Recorra cada columna en la fila seleccionada
+                        for (int j = 0; j < cols; j++)
+                        {
+                            if (i == _IniciaCampoTitulo)
+                            {
+                                string _NombreColumna = "";
+                                if (_NombreTabla.Trim().Equals("LEASING_HABITACIONAL"))
+                                {
+                                    if (j == _IniciaCampoTitulo)
+                                    {
+                                        //--AQUI DEFINIMOS ESTE NOMBRE YA QUE EN EL ARCHIVO SE VE UN GUION (-)
+                                        _NombreColumna = "ICA_CONSECUTIVO";
+                                    }
+                                    else
+                                    {
+                                        //--AQUI OBTENEMOS EL NOMBRE DE LA COLUMNA
+                                        _NombreColumna = this.GetLimpiarCadena(worksheet.Cells[i, j].Value.ToString().Trim().Replace(" ", "_"));
+                                    }
+                                }
+                                else
+                                {
+                                    _NombreColumna = this.GetLimpiarCadena(worksheet.Cells[i, j].Value.ToString().Trim().Replace(" ", "_"));
+                                }
+                                dtEtl.Columns.Add(_NombreColumna);
+                                Console.Write(worksheet.Cells[i, j].Value.ToString().Trim() + " | ");
+                            }
+                            else if (i >= _IniciaCampoDetalle)
+                            {
+                                string _NombreColumna = "";
+                                if (_NombreTabla.Trim().Equals("LEASING_HABITACIONAL"))
+                                {
+                                    if (j == _IniciaCampoTitulo)
+                                    {
+                                        //--AQUI DEFINIMOS ESTE NOMBRE YA QUE EN EL ARCHIVO SE VE UN GUION (-)
+                                        _NombreColumna = "ICA_CONSECUTIVO";
+                                    }
+                                    else
+                                    {
+                                        //--AQUI OBTENEMOS EL NOMBRE DE LA COLUMNA
+                                        _NombreColumna = this.GetLimpiarCadena(worksheet.Cells[_IniciaCampoTitulo, j].Value.ToString().Trim().Replace(" ", "_"));
+                                    }
+                                }
+                                else
+                                {
+                                    //--AQUI OBTENEMOS EL NOMBRE DE LA COLUMNA
+                                    _NombreColumna = this.GetLimpiarCadena(worksheet.Cells[_IniciaCampoTitulo, j].Value.ToString().Trim().Replace(" ", "_"));
+                                }
+
+                                //--
+                                Fila["ID_REGISTRO"] = dtEtl.Rows.Count + 1;
+                                string _DataExcel1 = worksheet.Cells[i, j].Value != null ? worksheet.Cells[i, j].Value.ToString().Trim() : "NA";
+                                string _DataExcel = _DataExcel1.ToString().Trim().Length > 0 ? _DataExcel1.ToString().Trim() : "NA";
+                                Fila[_NombreColumna] = _DataExcel;
+                                //dtEtl.Rows.Add(Fila);
+                                Console.Write(_DataExcel + " | ");
+                            }
+                        }
+                        //--
+                        if (Fila != null)
+                        {
+                            dtEtl.Rows.Add(Fila);
+                        }
+                        // Salto de línea de impresión
+                        Console.WriteLine(" ");
+                    }
+                }
+                _MsgError = "";
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                dtEtl = null;
+                _MsgError = "3. Error al realizar el proceso ETL con el archivo de excel. Motivo: " + ex.Message;
                 FixedData.LogApi.Error(_MsgError);
             }
 

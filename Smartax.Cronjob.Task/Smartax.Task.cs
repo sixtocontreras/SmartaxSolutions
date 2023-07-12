@@ -8,6 +8,7 @@ using Smartax.Cronjob.Process.Clases.Models;
 using System.Threading.Tasks;
 using System.Data;
 using Smartax.Cronjob.Task.Clases.Transactions;
+using Aspose.Cells;
 
 namespace Smartax.Cronjob.Process
 {
@@ -247,6 +248,54 @@ namespace Smartax.Cronjob.Process
                     //--
                     ProcessFileDavibox objTransac = new ProcessFileDavibox();
                     objTransac.ProcesarArchivosDavibox(objFileDavibox);
+                    #endregion
+                }
+                else if (_TipoProceso == FixedData.TASK_PROCESAR_FILE_DAVIBOX_2)
+                {
+                    #region REALIZAR EL PROCESO DE LIQUIDACION POR OFICINAS
+                    // Cargar archivo de Excel
+                    Workbook wb = new Workbook("D:\\ARCHIVOS DE PRUEBAS\\File_Davibox\\LH_04_2023.xlsx");
+
+                    // Obtener todas las hojas de trabajo
+                    WorksheetCollection collection = wb.Worksheets;
+
+                    // Recorra todas las hojas de trabajo
+                    for (int worksheetIndex = 0; worksheetIndex < collection.Count; worksheetIndex++)
+                    {
+
+                        // Obtener hoja de trabajo usando su índice
+                        Worksheet worksheet = collection[worksheetIndex];
+
+                        // Imprimir el nombre de la hoja de trabajo
+                        Console.WriteLine("Worksheet: " + worksheet.Name);
+
+                        // Obtener el número de filas y columnas
+                        int rows = worksheet.Cells.MaxDataRow;
+                        int cols = worksheet.Cells.MaxDataColumn;
+
+                        // Bucle a través de filas
+                        for (int i = 0; i < rows; i++)
+                        {
+
+                            // Recorra cada columna en la fila seleccionada
+                            for (int j = 0; j < cols; j++)
+                            {
+                                if (i == 0)
+                                {
+                                    // Valor de la celda de impresión
+                                    Console.Write(worksheet.Cells[i, j].Value + " | ");
+                                }
+                                else if (i >= 1)
+                                {
+                                    // Valor de la celda de impresión
+                                    Console.Write(worksheet.Cells[i, j].Value + " | ");
+                                }
+                            }
+                            // Salto de línea de impresión
+                            Console.WriteLine(" ");
+                        }
+                    }
+                    Console.WriteLine(" ");
                     #endregion
                 }
                 else if (_TipoProceso == FixedData.TASK_ACTIVIDAD_USUARIOS)

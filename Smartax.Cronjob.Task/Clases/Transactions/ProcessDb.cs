@@ -5149,6 +5149,153 @@ namespace Smartax.Cronjob.Process.Clases.Transactions
             return TablaDatos;
         }
 
+        public bool DlInfoData(ref string _CodError, ref string _MsgError)
+        {
+            bool retValor = false;
+            try
+            {
+                #region DEFINICION OBJETO DE CONEXION A LA DB.
+                StringBuilder sSQL = new StringBuilder();
+                //Aqui pasamos el string de conexion al objeto conection de la base de datos con la que se tiene que conectar
+                if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("PostgreSQL")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["PostgreSQL"].ConnectionString;
+                    myConnectionDb = new PgSqlConnection(connString);
+                }
+                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("MySQL")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
+                    myConnectionDb = new MySqlConnection(connString);
+                }
+                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("SQLServer")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString;
+                    myConnectionDb = new SqlConnection(connString);
+                }
+                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("Oracle")))
+                {
+                    connString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
+                    myConnectionDb = new OracleConnection(connString);
+                }
+                else
+                {
+                    _MsgError = "No existe configurado un Motor de Base de Datos a Trabajar !";
+                    FixedData.LogApi.Error(_MsgError);
+                    return retValor;
+                }
+
+                //Aqui hacemos la debidas conexiones a la base de dato que esta configurada para trabajar 
+                //Nota: Solo se permite una configuración de la base de datos en el web.config
+                if (myConnectionDb.State != ConnectionState.Open)
+                {
+                    myConnectionDb.Open();
+                }
+                #endregion
+
+                //Aqui hacemos los llamados de los sp o consultas a utilizar en la respectiva base de datos
+                if (myConnectionDb is PgSqlConnection)
+                {
+                    #region REGISTRAR DATO CON EL SP EN LA DB POSTGRESQL
+                    IDbTransaction Transac = myConnectionDb.BeginTransaction();
+                    TheCommandPostgreSQL = new PgSqlCommand("sp_web_delete_archivos_davibox", (PgSqlConnection)myConnectionDb);
+                    TheCommandPostgreSQL.CommandType = CommandType.StoredProcedure;
+                    //Limpiar parametros
+                    TheCommandPostgreSQL.Parameters.Clear();
+
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_tipo_proceso", TipoProceso);
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_anio_gravable", AnioGravable);
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_mes_procesar", MesEf);
+                    PgSqlParameter _CodRptaRetorno = new PgSqlParameter("@p_out_cod_rpta", SqlDbType.VarChar);
+                    PgSqlParameter _MsgRptaRetorno = new PgSqlParameter("@p_out_msg_rpta", SqlDbType.VarChar);
+
+                    //asignamos los parametros de retornos.
+                    _CodRptaRetorno.Direction = ParameterDirection.Output;
+                    _MsgRptaRetorno.Direction = ParameterDirection.Output;
+                    TheCommandPostgreSQL.Parameters.Add(_CodRptaRetorno);
+                    TheCommandPostgreSQL.Parameters.Add(_MsgRptaRetorno);
+
+                    object ObjResult = new object();
+                    ObjResult = TheCommandPostgreSQL.ExecuteScalar();
+                    if (ObjResult != null)
+                    {
+                        if (ObjResult.ToString().Trim().Equals("00"))
+                        {
+                            Transac.Commit();
+                            _CodError = _CodRptaRetorno.Value.ToString();
+                            _MsgError = _MsgRptaRetorno.Value.ToString();
+                            retValor = true;
+                        }
+                        else
+                        {
+                            _CodError = _CodRptaRetorno.Value.ToString();
+                            _MsgError = _MsgRptaRetorno.Value.ToString();
+                            retValor = false;
+                        }
+                    }
+                    else
+                    {
+                        Transac.Rollback();
+                        Transac.Connection.Close();
+                        retValor = false;
+                    }
+                    #endregion                    
+                }
+                else if (myConnectionDb is SqlConnection)
+                {
+                    //Base de datos SQL Server
+                }
+                else if (myConnectionDb is MySqlConnection)
+                {
+
+                }
+                else if (myConnectionDb is OracleConnection)
+                {
+
+                }
+                else
+                {
+                    _CodError = "99";
+                    _MsgError = "No existe configurado un Motor de Base de Datos a Trabajar !";
+                    FixedData.LogApi.Error(_MsgError);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                retValor = false;
+                _CodError = "99";
+                _MsgError = "Error al realizar el borrado de los datos del archivo de davibox. Motivo: " + ex.Message.ToString().Trim();
+                FixedData.LogApi.Error(_MsgError.ToString().Trim());
+            }
+            finally
+            {
+                #region FINALIZAR OBJETO DE CONEXION A LA DB
+                //Aqui realizamos el cierre de los objetos de conexion abiertos
+                if (myConnectionDb is PgSqlConnection)
+                {
+                    TheCommandPostgreSQL = null;
+                }
+                else if (myConnectionDb is MySqlConnection)
+                {
+                    TheCommandMySQL = null;
+                }
+                else if (myConnectionDb is SqlConnection)
+                {
+                    TheCommandSQLServer = null;
+                }
+                else if (myConnectionDb is OracleConnection)
+                {
+                    TheCommandOracle = null;
+                }
+
+                myConnectionDb.Close();
+                myConnectionDb.Dispose();
+                #endregion
+            }
+
+            return retValor;
+        }
+
         public bool AddLoadFileDavibox(ref int _IdRegistro, ref string _CodError, ref string _MsgError)
         {
             bool retValor = false;
@@ -5279,153 +5426,6 @@ namespace Smartax.Cronjob.Process.Clases.Transactions
                 retValor = false;
                 _CodError = "99";
                 _MsgError = "Error al cargar los datos del archivo de davibox. Motivo: " + ex.Message.ToString().Trim();
-                FixedData.LogApi.Error(_MsgError.ToString().Trim());
-            }
-            finally
-            {
-                #region FINALIZAR OBJETO DE CONEXION A LA DB
-                //Aqui realizamos el cierre de los objetos de conexion abiertos
-                if (myConnectionDb is PgSqlConnection)
-                {
-                    TheCommandPostgreSQL = null;
-                }
-                else if (myConnectionDb is MySqlConnection)
-                {
-                    TheCommandMySQL = null;
-                }
-                else if (myConnectionDb is SqlConnection)
-                {
-                    TheCommandSQLServer = null;
-                }
-                else if (myConnectionDb is OracleConnection)
-                {
-                    TheCommandOracle = null;
-                }
-
-                myConnectionDb.Close();
-                myConnectionDb.Dispose();
-                #endregion
-            }
-
-            return retValor;
-        }
-
-        public bool DlInfoData(ref string _CodError, ref string _MsgError)
-        {
-            bool retValor = false;
-            try
-            {
-                #region DEFINICION OBJETO DE CONEXION A LA DB.
-                StringBuilder sSQL = new StringBuilder();
-                //Aqui pasamos el string de conexion al objeto conection de la base de datos con la que se tiene que conectar
-                if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("PostgreSQL")))
-                {
-                    connString = ConfigurationManager.ConnectionStrings["PostgreSQL"].ConnectionString;
-                    myConnectionDb = new PgSqlConnection(connString);
-                }
-                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("MySQL")))
-                {
-                    connString = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
-                    myConnectionDb = new MySqlConnection(connString);
-                }
-                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("SQLServer")))
-                {
-                    connString = ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString;
-                    myConnectionDb = new SqlConnection(connString);
-                }
-                else if ((FixedData.MotorBaseDatos.ToString().Trim().Equals("Oracle")))
-                {
-                    connString = ConfigurationManager.ConnectionStrings["Oracle"].ConnectionString;
-                    myConnectionDb = new OracleConnection(connString);
-                }
-                else
-                {
-                    _MsgError = "No existe configurado un Motor de Base de Datos a Trabajar !";
-                    FixedData.LogApi.Error(_MsgError);
-                    return retValor;
-                }
-
-                //Aqui hacemos la debidas conexiones a la base de dato que esta configurada para trabajar 
-                //Nota: Solo se permite una configuración de la base de datos en el web.config
-                if (myConnectionDb.State != ConnectionState.Open)
-                {
-                    myConnectionDb.Open();
-                }
-                #endregion
-
-                //Aqui hacemos los llamados de los sp o consultas a utilizar en la respectiva base de datos
-                if (myConnectionDb is PgSqlConnection)
-                {
-                    #region REGISTRAR DATO CON EL SP EN LA DB POSTGRESQL
-                    IDbTransaction Transac = myConnectionDb.BeginTransaction();
-                    TheCommandPostgreSQL = new PgSqlCommand("sp_web_delete_archivos_davibox", (PgSqlConnection)myConnectionDb);
-                    TheCommandPostgreSQL.CommandType = CommandType.StoredProcedure;
-                    //Limpiar parametros
-                    TheCommandPostgreSQL.Parameters.Clear();
-
-                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_tipo_proceso", TipoProceso);
-                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_anio_gravable", AnioGravable);
-                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_mes_procesar", MesEf);
-                    PgSqlParameter _CodRptaRetorno = new PgSqlParameter("@p_out_cod_rpta", SqlDbType.VarChar);
-                    PgSqlParameter _MsgRptaRetorno = new PgSqlParameter("@p_out_msg_rpta", SqlDbType.VarChar);
-
-                    //asignamos los parametros de retornos.
-                    _CodRptaRetorno.Direction = ParameterDirection.Output;
-                    _MsgRptaRetorno.Direction = ParameterDirection.Output;
-                    TheCommandPostgreSQL.Parameters.Add(_CodRptaRetorno);
-                    TheCommandPostgreSQL.Parameters.Add(_MsgRptaRetorno);
-
-                    object ObjResult = new object();
-                    ObjResult = TheCommandPostgreSQL.ExecuteScalar();
-                    if (ObjResult != null)
-                    {
-                        if (ObjResult.ToString().Trim().Equals("00"))
-                        {
-                            Transac.Commit();
-                            _CodError = _CodRptaRetorno.Value.ToString();
-                            _MsgError = _MsgRptaRetorno.Value.ToString();
-                            retValor = true;
-                        }
-                        else
-                        {
-                            _CodError = _CodRptaRetorno.Value.ToString();
-                            _MsgError = _MsgRptaRetorno.Value.ToString();
-                            retValor = false;
-                        }
-                    }
-                    else
-                    {
-                        Transac.Rollback();
-                        Transac.Connection.Close();
-                        retValor = false;
-                    }
-                    #endregion                    
-                }
-                else if (myConnectionDb is SqlConnection)
-                {
-                    //Base de datos SQL Server
-                }
-                else if (myConnectionDb is MySqlConnection)
-                {
-
-                }
-                else if (myConnectionDb is OracleConnection)
-                {
-
-                }
-                else
-                {
-                    _CodError = "99";
-                    _MsgError = "No existe configurado un Motor de Base de Datos a Trabajar !";
-                    FixedData.LogApi.Error(_MsgError);
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                retValor = false;
-                _CodError = "99";
-                _MsgError = "Error al realizar el borrado de los datos del archivo de davibox. Motivo: " + ex.Message.ToString().Trim();
                 FixedData.LogApi.Error(_MsgError.ToString().Trim());
             }
             finally

@@ -59,6 +59,7 @@ namespace Smartax.Cronjob.Process.Clases.Utilidades
         public static readonly int TASK_LIQUIDACION_IMPUESTO_OFICINA = 3;       //--LIQUIDACION POR OFICINAS
         public static readonly int TASK_LIQUIDACION_POR_LOTES = 4;              //--LIQUIDACION IMPUESTO POR OFICINA
         public static readonly int TASK_PROCESAR_FILE_DAVIBOX = 5;              //--PROCESAR LOS ARCHIVOS DESCARGADOS DEL DAVIBOX
+        public static readonly int TASK_PROCESAR_FILE_DAVIBOX_2 = 555;              //--PROCESAR LOS ARCHIVOS DESCARGADOS DEL DAVIBOX
         public static readonly int TASK_ACTIVIDAD_USUARIOS = 6;                 //--VALIDAR LA ACTIVIDAD DEL USUARIO EN EL SISTEMA
 
     }
