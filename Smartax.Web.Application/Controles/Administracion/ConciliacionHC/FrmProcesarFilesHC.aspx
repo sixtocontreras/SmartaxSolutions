@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FrmAddConciliacionHC.aspx.cs" Inherits="Smartax.Web.Application.Controles.Administracion.ConciliacionHC.FrmAddConciliacionHC" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FrmProcesarFilesHC.aspx.cs" Inherits="Smartax.Web.Application.Controles.Administracion.ConciliacionHC.FrmProcesarFilesHC" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
                             <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                                 <tr>
                                     <td align="center" bgcolor="#999999" colspan="4">
-                                        <asp:Label ID="LblTitulo" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="16pt" ForeColor="White">CONCILIACION HERRAMIENTA DE CUADRE</asp:Label>
+                                        <asp:Label ID="LblTitulo" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="16pt" ForeColor="White">PROCESAR ARCHIVOS PARA LA HERRAMIENTA DE CUADRE</asp:Label>
                                     </td>
                                 </tr>
 
@@ -101,7 +101,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <asp:Button ID="BtnEjecProceso" runat="server" Font-Bold="True" Font-Size="14pt" OnClick="BtnEjecProceso_Click" Text="Ejecutar Proceso" ToolTip="Click para ejecutar el proceso de conciliación" Width="250px" />
+                                            <asp:Button ID="BtnEjecProceso" runat="server" Font-Bold="True" Font-Size="14pt" OnClick="BtnEjecProceso_Click" Text="Procesar Archivos" ToolTip="Click para procesar archivos del davibox" Width="250px" />
                                             &nbsp;<asp:Button ID="BtnSalir" runat="server" Font-Bold="True" Font-Size="14pt" OnClientClick="window.close()" Text="Salir" ToolTip="Salir" Width="250px" />
                                         </td>
                                     </tr>

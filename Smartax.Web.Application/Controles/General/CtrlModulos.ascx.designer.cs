@@ -294,13 +294,13 @@ namespace Smartax.Web.Application.Controles.General
         protected global::System.Web.UI.WebControls.ImageButton ImgProcesoContabilizacion;
 
         /// <summary>
-        /// Control ImgConciliacionHC.
+        /// Control ImgHerramientaCuadre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgConciliacionHC;
+        protected global::System.Web.UI.WebControls.ImageButton ImgHerramientaCuadre;
 
         /// <summary>
         /// Control ImgRegresarModLiquidacion.
@@ -508,6 +508,60 @@ namespace Smartax.Web.Application.Controles.General
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label9;
+
+        /// <summary>
+        /// Control PnlHerramientaHc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlHerramientaHc;
+
+        /// <summary>
+        /// Control Label24.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label24;
+
+        /// <summary>
+        /// Control ImgProcesarFilesHc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgProcesarFilesHc;
+
+        /// <summary>
+        /// Control ImgConciliacionHC.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgConciliacionHC;
+
+        /// <summary>
+        /// Control ImgRegresarHc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgRegresarHc;
+
+        /// <summary>
+        /// Control Label25.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label25;
 
         /// <summary>
         /// Control PnlActividades.

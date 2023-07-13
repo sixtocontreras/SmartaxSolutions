@@ -192,6 +192,8 @@
     <Content Include="Controles\Administracion\Clientes\FrmVerMunicipiosPuntos.aspx" />
     <Content Include="Controles\Administracion\ConciliacionHC\CtrlConciliacionHC.ascx" />
     <Content Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx" />
+    <Content Include="Controles\Administracion\ConciliacionHC\FrmConciliacionHC.aspx" />
+    <Content Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesHC.aspx" />
     <Content Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx" />
     <Content Include="Controles\Administracion\FrmAddEstablecimientoHijo.aspx" />
     <Content Include="Controles\Administracion\Clientes\FrmAddFirma.aspx" />
@@ -767,6 +769,7 @@
     <Content Include="Imagenes\Modulos\img_Generar_anexo_rent_imp_predial.png" />
     <Content Include="Imagenes\Modulos\img_Generar_archivo_autoretencion.png" />
     <Content Include="Imagenes\Modulos\img_Gráficas_Estadíticas.png" />
+    <Content Include="Imagenes\Modulos\img_herramienta_cuadre.png" />
     <Content Include="Imagenes\Modulos\img_info_tributaria.png" />
     <Content Include="Imagenes\Modulos\img_liquidacion_obligacion.png" />
     <Content Include="Imagenes\Modulos\img_mis_actividades.png" />
@@ -780,6 +783,7 @@
     <Content Include="Imagenes\Modulos\img_planeacion_fiscal.png" />
     <Content Include="Imagenes\Modulos\img_plano.png" />
     <Content Include="Imagenes\Modulos\img_predial.png" />
+    <Content Include="Imagenes\Modulos\img_procesar_archivos.png" />
     <Content Include="Imagenes\Modulos\img_proceso_contabilizacion.png" />
     <Content Include="Imagenes\Modulos\img_recaudo_movii_fdm.png" />
     <Content Include="Imagenes\Modulos\img_regresar.png" />
@@ -1178,6 +1182,20 @@
     </Compile>
     <Compile Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx.designer.cs">
       <DependentUpon>FrmAddConciliacionHC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmConciliacionHC.aspx.cs">
+      <DependentUpon>FrmConciliacionHC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmConciliacionHC.aspx.designer.cs">
+      <DependentUpon>FrmConciliacionHC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesHC.aspx.cs">
+      <DependentUpon>FrmProcesarFilesHC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesHC.aspx.designer.cs">
+      <DependentUpon>FrmProcesarFilesHC.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx.cs">
       <DependentUpon>FrmConfiguracionCuentas.aspx</DependentUpon>

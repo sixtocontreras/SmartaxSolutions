@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FrmAddConciliacionHC.aspx.cs" Inherits="Smartax.Web.Application.Controles.Administracion.ConciliacionHC.FrmAddConciliacionHC" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FrmConciliacionHC.aspx.cs" Inherits="Smartax.Web.Application.Controles.Administracion.ConciliacionHC.FrmConciliacionHC" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
                             <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                                 <tr>
                                     <td align="center" bgcolor="#999999" colspan="4">
-                                        <asp:Label ID="LblTitulo" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="16pt" ForeColor="White">CONCILIACION HERRAMIENTA DE CUADRE</asp:Label>
+                                        <asp:Label ID="LblTitulo" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="16pt" ForeColor="White">PROCESO DE CONCILIACION HERRAMIENTA DE CUADRE</asp:Label>
                                     </td>
                                 </tr>
 

@@ -1207,7 +1207,6 @@ namespace Smartax.Web.Application.Controles.General
         #endregion
         
         #region DEFINICION METODOS GENERACION FORMATOS SFC
-
         protected void ImgRegresarFormatos_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -1218,6 +1217,7 @@ namespace Smartax.Web.Application.Controles.General
             this.PnlTrxGeneral.Visible = true;
             this.PnlFormatosSFC.Visible = false;
         }
+
         protected void ImgGenerarProceso_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -1278,6 +1278,7 @@ namespace Smartax.Web.Application.Controles.General
             }
             
         }
+
         protected void ImgDescarga321_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -1337,6 +1338,7 @@ namespace Smartax.Web.Application.Controles.General
                 #endregion
             }
         }
+
         protected void ImgDescarga525_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -1544,6 +1546,335 @@ namespace Smartax.Web.Application.Controles.General
         }
         #endregion
 
+        #region DEFINICION DE METODOS SOBRE NORMATIVIDAD
+        protected void ImgControlNormatividad_Click(object sender, ImageClickEventArgs e)
+        {
+            //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
+            this.RadWindowManager1.Enabled = false;
+            this.RadWindowManager1.EnableAjaxSkinRendering = false;
+            this.RadWindowManager1.Visible = false;
+
+            this.PnlTrxGeneral.Visible = false;
+            this.PnlPlanormatividad.Visible = true;
+        }
+
+        protected void ImgRegresarNprmatividad_Click(object sender, ImageClickEventArgs e)
+        {
+            //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
+            this.RadWindowManager1.Enabled = false;
+            this.RadWindowManager1.EnableAjaxSkinRendering = false;
+            this.RadWindowManager1.Visible = false;
+
+            this.PnlTrxGeneral.Visible = true;
+            this.PnlPlanormatividad.Visible = false;
+        }
+
+        protected void ImgVerModuloNormativa_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+
+                #region MOSTRAR MODULO DE NORMATIVIDAD
+                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_normatividad_Cargar_Normativa"].ToString().Trim();
+                Response.Redirect(_UrlNormatividad);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
+        protected void ImgVerModuloNormativa_consulta_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+
+                #region MOSTRAR MODULO DE NORMATIVIDAD
+                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_normatividad_Consultar_Normativa"].ToString().Trim();
+                Response.Redirect(_UrlNormatividad);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
+        protected void ImgVerCargaMasiva_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+
+                #region MOSTRAR MODULO DE NORMATIVIDAD
+                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_CARGA_MASIVA"].ToString().Trim();
+                Response.Redirect(_UrlNormatividad);
+                #endregion
+            }
+            catch (Exception ex)
+            {
+
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+        #endregion
+
+        #region DEFINICION EVENTOS BOTONES PARA HERRAMIENTA DE CUADRE
+        protected void ImgHerramientaCuadre_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
+                this.RadWindowManager1.Enabled = false;
+                this.RadWindowManager1.EnableAjaxSkinRendering = false;
+                this.RadWindowManager1.Visible = false;
+
+                this.PnlHerramientaHc.Visible = true;
+                this.PnlLiquidacion.Visible = false;
+                //#region MOSTRAR DATOS DE CONCILIACION HC
+                //Response.Redirect("/Modulos/Administracion/ConciliacionHC/FrmConciliacionHC.aspx");
+                //#endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario del proceso de conciliacion HC. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
+        protected void ImgProcesarFilesHc_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                #region MOSTRAR FORMULARIO LIQUIDACION DEL IMPUESTO ICA
+                //--AQUI HABILITAMOS EL OBJETO PARA MOSTRAR EL FORMULARIO
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+                Ventana.Modal = true;
+
+                string _PathUrl = HttpContext.Current.Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                Ventana.NavigateUrl = "/Controles/Administracion/ConciliacionHC/FrmProcesarFilesHC.aspx?PathUrl=" + _PathUrl;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(420);
+                Ventana.Width = Unit.Pixel(1050);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Proceso de Archivos para Herramienta de Cuadre";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario de procesar archivos de Hc. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
+        protected void ImgConciliacionHC_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                #region MOSTRAR FORMULARIO LIQUIDACION DEL IMPUESTO ICA
+                //--AQUI HABILITAMOS EL OBJETO PARA MOSTRAR EL FORMULARIO
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+                Ventana.Modal = true;
+
+                string _PathUrl = HttpContext.Current.Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                Ventana.NavigateUrl = "/Controles/Administracion/ConciliacionHC/FrmConciliacionHC.aspx?PathUrl=" + _PathUrl;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(420);
+                Ventana.Width = Unit.Pixel(1050);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Realizar Proceso de Conciliación HC";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario de Conciliación Hc. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
+        protected void ImgRegresarHc_Click(object sender, ImageClickEventArgs e)
+        {
+            //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
+            this.RadWindowManager1.Enabled = false;
+            this.RadWindowManager1.EnableAjaxSkinRendering = false;
+            this.RadWindowManager1.Visible = false;
+
+            this.PnlLiquidacion.Visible = true;
+            this.PnlHerramientaHc.Visible = false;
+        }
+        #endregion
+
         protected void imgIca_Click(object sender, ImageClickEventArgs e)
         {
             this.RadWindowManager1.Enabled = false;
@@ -1691,157 +2022,6 @@ namespace Smartax.Web.Application.Controles.General
             }
         }
 
-
-        #region DEFINICION DE METODOS SOBRE NORMATIVIDAD
-        protected void ImgControlNormatividad_Click(object sender, ImageClickEventArgs e)
-        {
-            //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
-            this.RadWindowManager1.Enabled = false;
-            this.RadWindowManager1.EnableAjaxSkinRendering = false;
-            this.RadWindowManager1.Visible = false;
-
-            this.PnlTrxGeneral.Visible = false;
-            this.PnlPlanormatividad.Visible = true;
-        }
-
-        protected void ImgRegresarNprmatividad_Click(object sender, ImageClickEventArgs e)
-        {
-            //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
-            this.RadWindowManager1.Enabled = false;
-            this.RadWindowManager1.EnableAjaxSkinRendering = false;
-            this.RadWindowManager1.Visible = false;
-
-            this.PnlTrxGeneral.Visible = true;
-            this.PnlPlanormatividad.Visible = false;
-        }
-
-        protected void ImgVerModuloNormativa_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-
-                #region MOSTRAR MODULO DE NORMATIVIDAD
-                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_normatividad_Cargar_Normativa"].ToString().Trim();
-                Response.Redirect(_UrlNormatividad);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-
-                #region MOSTRAR MENSAJE DE USUARIO
-                //Mostramos el mensaje porque se produjo un error con la Trx.
-                this.RadWindowManager1.ReloadOnShow = true;
-                this.RadWindowManager1.DestroyOnClose = true;
-                this.RadWindowManager1.Windows.Clear();
-                this.RadWindowManager1.Enabled = true;
-                this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                this.RadWindowManager1.Visible = true;
-
-                RadWindow Ventana = new RadWindow();
-                Ventana.Modal = true;
-                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
-                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
-                Ventana.ID = "RadWindow" + objUtils.GetRandom();
-                Ventana.VisibleOnPageLoad = true;
-                Ventana.Visible = true;
-                Ventana.Height = Unit.Pixel(300);
-                Ventana.Width = Unit.Pixel(600);
-                Ventana.KeepInScreenBounds = true;
-                Ventana.Title = "Mensaje del Sistema";
-                Ventana.VisibleStatusbar = false;
-                Ventana.Behaviors = WindowBehaviors.Close;
-                this.RadWindowManager1.Windows.Add(Ventana);
-                this.RadWindowManager1 = null;
-                Ventana = null;
-                #endregion
-            }
-        }
-
-        protected void ImgVerModuloNormativa_consulta_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-
-                #region MOSTRAR MODULO DE NORMATIVIDAD
-                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_normatividad_Consultar_Normativa"].ToString().Trim();
-                Response.Redirect(_UrlNormatividad);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-
-                #region MOSTRAR MENSAJE DE USUARIO
-                //Mostramos el mensaje porque se produjo un error con la Trx.
-                this.RadWindowManager1.ReloadOnShow = true;
-                this.RadWindowManager1.DestroyOnClose = true;
-                this.RadWindowManager1.Windows.Clear();
-                this.RadWindowManager1.Enabled = true;
-                this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                this.RadWindowManager1.Visible = true;
-
-                RadWindow Ventana = new RadWindow();
-                Ventana.Modal = true;
-                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
-                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
-                Ventana.ID = "RadWindow" + objUtils.GetRandom();
-                Ventana.VisibleOnPageLoad = true;
-                Ventana.Visible = true;
-                Ventana.Height = Unit.Pixel(300);
-                Ventana.Width = Unit.Pixel(600);
-                Ventana.KeepInScreenBounds = true;
-                Ventana.Title = "Mensaje del Sistema";
-                Ventana.VisibleStatusbar = false;
-                Ventana.Behaviors = WindowBehaviors.Close;
-                this.RadWindowManager1.Windows.Add(Ventana);
-                this.RadWindowManager1 = null;
-                Ventana = null;
-                #endregion
-            }
-        }
-
-        protected void ImgVerCargaMasiva_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-
-                #region MOSTRAR MODULO DE NORMATIVIDAD
-                string _UrlNormatividad = ConfigurationManager.AppSettings["Url_CARGA_MASIVA"].ToString().Trim();
-                Response.Redirect(_UrlNormatividad);
-                #endregion
-            }
-            catch (Exception ex)
-            {
-
-                #region MOSTRAR MENSAJE DE USUARIO
-                //Mostramos el mensaje porque se produjo un error con la Trx.
-                this.RadWindowManager1.ReloadOnShow = true;
-                this.RadWindowManager1.DestroyOnClose = true;
-                this.RadWindowManager1.Windows.Clear();
-                this.RadWindowManager1.Enabled = true;
-                this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                this.RadWindowManager1.Visible = true;
-
-                RadWindow Ventana = new RadWindow();
-                Ventana.Modal = true;
-                string _MsgMensaje = "Error al mostrar el formulario. Motivo: " + ex.ToString();
-                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
-                Ventana.ID = "RadWindow" + objUtils.GetRandom();
-                Ventana.VisibleOnPageLoad = true;
-                Ventana.Visible = true;
-                Ventana.Height = Unit.Pixel(300);
-                Ventana.Width = Unit.Pixel(600);
-                Ventana.KeepInScreenBounds = true;
-                Ventana.Title = "Mensaje del Sistema";
-                Ventana.VisibleStatusbar = false;
-                Ventana.Behaviors = WindowBehaviors.Close;
-                this.RadWindowManager1.Windows.Add(Ventana);
-                this.RadWindowManager1 = null;
-                Ventana = null;
-                #endregion
-            }
-        }
-        #endregion
-
         protected void ImgControlReportes_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -1878,6 +2058,7 @@ namespace Smartax.Web.Application.Controles.General
             this.PnlPlanoReporte.Visible = false;
             this.Panelanexos.Visible = true;
         }
+
         protected void ImgRegresarAnexos_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -1890,7 +2071,6 @@ namespace Smartax.Web.Application.Controles.General
             this.PnlPlanoReporte.Visible = true;
             this.Panelanexos.Visible = false;
         }
-
 
         protected void ImageRenta_Click(object sender, ImageClickEventArgs e)
         {
@@ -1946,6 +2126,7 @@ namespace Smartax.Web.Application.Controles.General
             this.Panelanexos.Visible = false;
             this.Panelautoretencion.Visible = true;
         }
+
         protected void ImgRegresArautoretencion_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -2000,6 +2181,7 @@ namespace Smartax.Web.Application.Controles.General
                 #endregion
             }
         }
+
         protected void ImageGenerAutore_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -2055,6 +2237,7 @@ namespace Smartax.Web.Application.Controles.General
             this.Panelautoretencion.Visible = false;
             this.PanelPredial.Visible = true;
         }
+
         protected void ImgRegresPredial_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -2069,6 +2252,7 @@ namespace Smartax.Web.Application.Controles.General
             this.Panelautoretencion.Visible = false;
             this.PanelPredial.Visible = false;
         }
+
         protected void ImageCarguePredial_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -2341,7 +2525,6 @@ namespace Smartax.Web.Application.Controles.General
             }
         }
 
-
         protected void ImgControlcustodia_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup
@@ -2370,6 +2553,7 @@ namespace Smartax.Web.Application.Controles.General
             this.PnlPlanoImageRequerimiento.Visible = false;
             this.PnlPlanoImagecustodia.Visible = false;
         }
+
         protected void ImageCargue_Manual_Click(object sender, ImageClickEventArgs e)
         {
             try
@@ -2492,45 +2676,5 @@ namespace Smartax.Web.Application.Controles.General
                 #endregion
             }
         }
-
-        protected void ImgConciliacionHC_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                #region MOSTRAR DATOS DE CONCILIACION HC
-                Response.Redirect("/Modulos/Administracion/ConciliacionHC/FrmConciliacionHC.aspx");
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                #region MOSTRAR MENSAJE DE USUARIO
-                //Mostramos el mensaje porque se produjo un error con la Trx.
-                this.RadWindowManager1.ReloadOnShow = true;
-                this.RadWindowManager1.DestroyOnClose = true;
-                this.RadWindowManager1.Windows.Clear();
-                this.RadWindowManager1.Enabled = true;
-                this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                this.RadWindowManager1.Visible = true;
-
-                RadWindow Ventana = new RadWindow();
-                Ventana.Modal = true;
-                string _MsgMensaje = "Error al mostrar el formulario del proceso de conciliacion HC. Motivo: " + ex.ToString();
-                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
-                Ventana.ID = "RadWindow" + objUtils.GetRandom();
-                Ventana.VisibleOnPageLoad = true;
-                Ventana.Visible = true;
-                Ventana.Height = Unit.Pixel(300);
-                Ventana.Width = Unit.Pixel(600);
-                Ventana.KeepInScreenBounds = true;
-                Ventana.Title = "Mensaje del Sistema";
-                Ventana.VisibleStatusbar = false;
-                Ventana.Behaviors = WindowBehaviors.Close;
-                this.RadWindowManager1.Windows.Add(Ventana);
-                this.RadWindowManager1 = null;
-                Ventana = null;
-                #endregion
-            }
-        }
-
     }
 }

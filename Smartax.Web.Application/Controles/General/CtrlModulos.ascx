@@ -10,19 +10,15 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="8" align="center" bgcolor="#999999">
-                                <asp:Label ID="LbTitulo" runat="server" CssClass="SubTitle" Text="MODULOS DEL SISTEMA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="LbTitulo" runat="server" CssClass="SubTitle" Text="MODULOS DEL SISTEMA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgPlaneacionFiscal" runat="server" ImageUrl="~/Imagenes/Modulos/img_planeacion_fiscal.png" OnClick="ImgPlaneacionFiscal_Click" />
-                            </td>
+                                <asp:ImageButton ID="ImgPlaneacionFiscal" runat="server" ImageUrl="~/Imagenes/Modulos/img_planeacion_fiscal.png" OnClick="ImgPlaneacionFiscal_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgInfoTributaria" runat="server" ImageUrl="~/Imagenes/Modulos/img_info_tributaria.png" OnClick="ImgInfoTributaria_Click" />
-                            </td>
+                                <asp:ImageButton ID="ImgInfoTributaria" runat="server" ImageUrl="~/Imagenes/Modulos/img_info_tributaria.png" OnClick="ImgInfoTributaria_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgControlActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_control_actividades.png" OnClick="ImgControlActividades_Click" />
-                            </td>
+                                <asp:ImageButton ID="ImgControlActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_control_actividades.png" OnClick="ImgControlActividades_Click" /></td>
                             <td align="center">
                                 <asp:ImageButton ID="imgFormatosSFC" runat="server" ImageUrl="~/Imagenes/Modulos/img_sfc.png" OnClick="imgFormatosSFC_Click" />
                             </td>
@@ -50,14 +46,14 @@
                                 <asp:ImageButton ID="ImageButton8" runat="server" ImageUrl="~/Imagenes/Modulos/img_info_tributaria.png" Visible="False" />
                             </td>
                             <td align="center">&nbsp;</td>
-                            <td align="center">&nbsp;</td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
@@ -65,16 +61,13 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="4" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label1" runat="server" CssClass="SubTitle" Text="MODULOS PLANEACION FISCAL" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label1" runat="server" CssClass="SubTitle" Text="MODULOS PLANEACION FISCAL" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgCalendarioTributario" runat="server" ImageUrl="~/Imagenes/Modulos/img_calendarios_tributarios.png" OnClick="ImgCalendarioTributario_Click" ToolTip="Ver calendarios tributarios por municipios" />
-                            </td>
+                                <asp:ImageButton ID="ImgCalendarioTributario" runat="server" ImageUrl="~/Imagenes/Modulos/img_calendarios_tributarios.png" OnClick="ImgCalendarioTributario_Click" ToolTip="Ver calendarios tributarios por municipios" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgTarifasExcesivas" runat="server" ImageUrl="~/Imagenes/Modulos/img_tarifas_excesivas.png" OnClick="ImgTarifasExcesivas_Click" ToolTip="Ver tarifas excesivas por municipios" />
-                            </td>
+                                <asp:ImageButton ID="ImgTarifasExcesivas" runat="server" ImageUrl="~/Imagenes/Modulos/img_tarifas_excesivas.png" OnClick="ImgTarifasExcesivas_Click" ToolTip="Ver tarifas excesivas por municipios" /></td>
                             <td align="center">
                                 <asp:ImageButton ID="ImgRegresarPlaneacion" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarPlaneacion_Click" ToolTip="Click para regresar al panel principal" />
                             </td>
@@ -94,19 +87,15 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="6" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label4" runat="server" CssClass="SubTitle" Text="MODULOS INFORMACIÓN TRIBUTARÍA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label4" runat="server" CssClass="SubTitle" Text="MODULOS INFORMACIÓN TRIBUTARÍA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgModLiquidacionIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_modulo_ica.png" OnClick="ImgModLiquidacionIca_Click" ToolTip="Modulo para la liquidación del impuesto de ICA" />
-                            </td>
+                                <asp:ImageButton ID="ImgModLiquidacionIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_modulo_ica.png" OnClick="ImgModLiquidacionIca_Click" ToolTip="Modulo para la liquidación del impuesto de ICA" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgModBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_modulo_autoretencionica.png" OnClick="ImgModBorradorAutoIca_Click" ToolTip="Modulo de Liquidación de Autoretención" />
-                            </td>
+                                <asp:ImageButton ID="ImgModBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_modulo_autoretencionica.png" OnClick="ImgModBorradorAutoIca_Click" ToolTip="Modulo de Liquidación de Autoretención" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/Imagenes/Modulos/img_ReteIca.png" OnClick="imgIca_Click" ToolTip="Módulo para la liquidación de Retención de ICA" />
-                            </td>
+                                <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/Imagenes/Modulos/img_ReteIca.png" OnClick="imgIca_Click" ToolTip="Módulo para la liquidación de Retención de ICA" /></td>
                             <td align="center">
                                 <asp:ImageButton ID="imgAlumbradoPublico" runat="server" ImageUrl="~/Imagenes/Modulos/img_AlumbradoPublico.png" OnClick="imgAlumbradoPublico_Click" ToolTip="Liquidar alumbrado publico" />
                             </td>
@@ -128,21 +117,21 @@
                                 <asp:ImageButton ID="ImgProcesoContabilizacion" runat="server" ImageUrl="~/Imagenes/Modulos/img_proceso_contabilizacion.png" OnClick="ImgProcesoContabilizacion_Click" ToolTip="Ejecutar Proceso Comprobante Contabilización" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgConciliacionHC" runat="server" ImageUrl="~/Imagenes/Modulos/img_conciliacion_hc.png" OnClick="ImgConciliacionHC_Click" ToolTip="Configurar proceso de conciliacion HC" />
+                                <asp:ImageButton ID="ImgHerramientaCuadre" runat="server" ImageUrl="~/Imagenes/Modulos/img_herramienta_cuadre.png" OnClick="ImgHerramientaCuadre_Click" ToolTip="Configurar proceso de conciliacion HC" />
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="ImgRegresarModLiquidacion" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarModLiquidacion_Click" ToolTip="Click para regresar al panel principal" />
                             </td>
-                            <td align="center">&nbsp;</td>
-                            <td align="center">&nbsp;</td>
+                            <td align="center">&#160;</td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
@@ -150,20 +139,16 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label11" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE ALUMBRADO PÚBLICO" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label11" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE ALUMBRADO PÚBLICO" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="imgHojaAlumbrado" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="imgHojaAlumbrado_Click" ToolTip="Hoja de Trabajo Impuesto" />
-                            </td>
+                                <asp:ImageButton ID="imgHojaAlumbrado" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="imgHojaAlumbrado_Click" ToolTip="Hoja de Trabajo Impuesto" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqAlum" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqAlum_Click" ToolTip="Click para regresar al panel principal" />
-                            </td>
+                                <asp:ImageButton ID="ImgRegresarLiqAlum" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqAlum_Click" ToolTip="Click para regresar al panel principal" /></td>
                             <td align="center">
-                                <asp:Label ID="Label12" runat="server" Width="300px"></asp:Label>
-                            </td>
-                            <td align="center">&nbsp;</td>
+                                <asp:Label ID="Label12" runat="server" Width="300px"></asp:Label></td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -174,26 +159,21 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
                 <asp:Panel ID="pnlReteIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label23" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE RETEICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label23" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE RETEICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="imgReteIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="imgReteIca_Click" ToolTip="Hoja de Trabajo Impuesto" />
-                            </td>
+                                <asp:ImageButton ID="imgReteIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="imgReteIca_Click" ToolTip="Hoja de Trabajo Impuesto" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="imgDefinitivaIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_imp.png" OnClick="imgDefinitivaIca_Click" ToolTip="Liquidación definitiva del Ica" />
-                            </td>
+                                <asp:ImageButton ID="imgDefinitivaIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_imp.png" OnClick="imgDefinitivaIca_Click" ToolTip="Liquidación definitiva del Ica" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="imgAtras" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="imgAtras_Click" ToolTip="Click para regresar al panel principal" />
-                            </td>
-                            <td align="center">&nbsp;</td>
-                            <td align="center">&nbsp;</td>
+                                <asp:ImageButton ID="imgAtras" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="imgAtras_Click" ToolTip="Click para regresar al panel principal" /></td>
+                            <td align="center">&#160;</td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -204,36 +184,29 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-
                 <asp:Panel ID="PnlLiquidacionIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label6" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label6" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqBorradorIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="ImgLiqBorradorIca_Click" ToolTip="Liquidación borrador impuesto de ICA" />
-                            </td>
+                                <asp:ImageButton ID="ImgLiqBorradorIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="ImgLiqBorradorIca_Click" ToolTip="Liquidación borrador impuesto de ICA" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqImpuestoDefinitivo" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_imp.png" OnClick="ImgLiqImpuestoDefinitivo_Click" ToolTip="Liquidación definitiva del Ica" />
-                            </td>
+                                <asp:ImageButton ID="ImgLiqImpuestoDefinitivo" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_imp.png" OnClick="ImgLiqImpuestoDefinitivo_Click" ToolTip="Liquidación definitiva del Ica" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqIca_Click" ToolTip="Click para regresar al panel principal" />
-                            </td>
+                                <asp:ImageButton ID="ImgRegresarLiqIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqIca_Click" ToolTip="Click para regresar al panel principal" /></td>
                             <td align="center">
-                                <asp:Label ID="Label7" runat="server" Width="300px"></asp:Label>
-                            </td>
-                            <td align="center">&nbsp;</td>
+                                <asp:Label ID="Label7" runat="server" Width="300px"></asp:Label></td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
@@ -241,30 +214,51 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label8" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS AUTORETENCIÓN DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label8" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS AUTORETENCIÓN DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="ImgLiqBorradorAutoIca_Click" ToolTip="Liquidación borrador impuesto Autoretención de ICA" />
-                            </td>
+                                <asp:ImageButton ID="ImgLiqBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" ToolTip="Liquidación borrador impuesto Autoretención de ICA" OnClick="ImgLiqBorradorAutoIca_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqDefinitivoAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_autoretencionica.png" ToolTip="Liquidación definitiva del Ica" OnClick="ImgLiqDefinitivoAutoIca_Click" />
-                            </td>
+                                <asp:ImageButton ID="ImgLiqDefinitivoAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_autoretencionica.png" ToolTip="Liquidación definitiva del Ica" OnClick="ImgLiqDefinitivoAutoIca_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqAutoIca_Click" ToolTip="Click para regresar al panel principal" />
-                            </td>
+                                <asp:ImageButton ID="ImgRegresarLiqAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" ToolTip="Click para regresar al panel principal" OnClick="ImgRegresarLiqAutoIca_Click" /></td>
                             <td align="center">
-                                <asp:Label ID="Label9" runat="server" Width="300px"></asp:Label>
-                            </td>
-                            <td align="center">&nbsp;</td>
+                                <asp:Label ID="Label9" runat="server" Width="300px"></asp:Label></td>
+                            <td align="center">&#160;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
+                            <td>&#160;</td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                <asp:Panel ID="PnlHerramientaHc" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                    <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
+                        <tr>
+                            <td colspan="5" align="center" bgcolor="#999999">
+                                <asp:Label ID="Label24" runat="server" CssClass="SubTitle" Text="PROCESAR ARCHIVOS Y HERRAMIENTA DE CUADRE" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgProcesarFilesHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_procesar_archivos.png" ToolTip="Permite procesar los archivos descargados del Davibox" OnClick="ImgProcesarFilesHc_Click" /></td>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgConciliacionHC" runat="server" ImageUrl="~/Imagenes/Modulos/img_conciliacion_hc.png" ToolTip="Permite realizar conciliacion Hc" OnClick="ImgConciliacionHC_Click" /></td>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgRegresarHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" ToolTip="Click para regresar al panel principal" OnClick="ImgRegresarHc_Click" /></td>
+                            <td align="center">
+                                <asp:Label ID="Label25" runat="server" Width="300px"></asp:Label></td>
+                            <td align="center">&#160;</td>
+                        </tr>
+                        <tr>
                             <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
@@ -272,41 +266,33 @@
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
                             <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label5" runat="server" CssClass="SubTitle" Text="MODULO DE CONTROL DE ACTIVIDADES" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
-                            </td>
+                                <asp:Label ID="Label5" runat="server" CssClass="SubTitle" Text="MODULO DE CONTROL DE ACTIVIDADES" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgMisActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_mis_actividades.png" OnClick="ImgMisActividades_Click" ToolTip="Ver el Control de mis Actividades" />
-                            </td>
+                                <asp:ImageButton ID="ImgMisActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_mis_actividades.png" ToolTip="Ver el Control de mis Actividades" OnClick="ImgMisActividades_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgMonitoreoAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_monitoreo_actividades.png" OnClick="ImgMonitoreoAct_Click" ToolTip="Liquidación definitiva de impuestos ICA" />
-                            </td>
+                                <asp:ImageButton ID="ImgMonitoreoAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_monitoreo_actividades.png" ToolTip="Liquidación definitiva de impuestos ICA" OnClick="ImgMonitoreoAct_Click" /></td>
+                            </td align="center"><asp:ImageButton ID="ImgEstadisticaAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_actividades.png" OnClick="ImgEstadisticaAct_Click" ToolTip="Ver estadisticas de actividades" />
                             <td align="center">
-                                <asp:ImageButton ID="ImgEstadisticaAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_actividades.png" OnClick="ImgEstadisticaAct_Click" ToolTip="Ver estadisticas de actividades" />
-                            </td>
-                            <td align="center">
-                                <asp:ImageButton ID="ImgEstadisticaLiq" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_liquidaciones.png" OnClick="ImgEstadisticaLiq_Click" ToolTip="Permite ver estadisticas de liquidación de impuestos" />
-                            </td>
-                            <td align="center">
-                                <asp:ImageButton ID="ImgRegresarActiv" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarActiv_Click" ToolTip="Click para regresar al panel principal" />
-                            </td>
+                                <asp:ImageButton ID="ImgEstadisticaLiq" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_liquidaciones.png" ToolTip="Permite ver estadisticas de liquidación de impuestos" OnClick="ImgEstadisticaLiq_Click" /></td>
+                            </td align="center">
+                    <asp:ImageButton ID="ImgRegresarActiv" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarActiv_Click" ToolTip="Click para regresar al panel principal" />
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
-                <%-- Seccion de formatos DANR --%>
-                <asp:Panel ID="PnlFormatosSFC" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlFormatosSFC" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label10" runat="server" CssClass="SubTitle" Text="MODULOS FORMATOS SFC" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label10" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS FORMATOS SFC"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -335,12 +321,11 @@
                         </tr>
                     </table>
                 </asp:Panel>
-                <%--Sección de Normatividad--%>
-                <asp:Panel ID="PnlPlanormatividad" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlPlanormatividad" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Labelnormatividad" runat="server" CssClass="SubTitle" Text="MODULOS NORMATIVA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Labelnormatividad" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS NORMATIVA"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -368,17 +353,16 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="PnlPlanoReporte" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlPlanoReporte" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Labelreportes" runat="server" CssClass="SubTitle" Text="MODULOS REPORTES" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Labelreportes" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS REPORTES"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImageAnexos" runat="server" ImageUrl="~/Imagenes/Modulos/img_Anexos.png" ToolTip="Anexos" OnClick="ImgAnexos_Click" />
+                                <asp:ImageButton ID="ImageAnexos" runat="server" ImageUrl="~/Imagenes/Modulos/img_Anexos.png" OnClick="ImgAnexos_Click" ToolTip="Anexos" />
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="ImgRegresarReporte" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresareporte_Click" ToolTip="Click para regresar al panel principal" />
@@ -393,23 +377,22 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="Panelanexos" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="Panelanexos" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label3" runat="server" CssClass="SubTitle" Text="MODULOS ANEXOS" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label3" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS ANEXOS"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImageRenta" runat="server" ImageUrl="~/Imagenes/Modulos/img_Renta.png" ToolTip="Renta" OnClick="ImageRenta_Click" />
+                                <asp:ImageButton ID="ImageRenta" runat="server" ImageUrl="~/Imagenes/Modulos/img_Renta.png" OnClick="ImageRenta_Click" ToolTip="Renta" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageAutoretenciones" runat="server" ImageUrl="~/Imagenes/Modulos/img_Autoretenciones.png" ToolTip="Autoretenciones" OnClick="ImgAutoretencion_Click" />
+                                <asp:ImageButton ID="ImageAutoretenciones" runat="server" ImageUrl="~/Imagenes/Modulos/img_Autoretenciones.png" OnClick="ImgAutoretencion_Click" ToolTip="Autoretenciones" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="Imagepredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_predial.png" ToolTip="Predial" OnClick="ImgPredial_Click" />
+                                <asp:ImageButton ID="Imagepredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_predial.png" OnClick="ImgPredial_Click" ToolTip="Predial" />
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="ImgRegresarAnexos" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarAnexos_Click" ToolTip="Click para regresar al panel Reportes" />
@@ -426,20 +409,19 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="Panelautoretencion" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="Panelautoretencion" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label15" runat="server" CssClass="SubTitle" Text="MODULOS AUTORETENCION" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label15" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS AUTORETENCION"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImageConsulta_autoretencion" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_autoretencion.png" ToolTip="Consulta información de autoretencion" OnClick="ImageConsulAutore_Click" />
+                                <asp:ImageButton ID="ImageConsulta_autoretencion" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_autoretencion.png" OnClick="ImageConsulAutore_Click" ToolTip="Consulta información de autoretencion" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="Generar_archivo_autoretencion" runat="server" ImageUrl="~/Imagenes/Modulos/img_Generar_archivo_autoretencion.png" ToolTip="Generar del archivo de EXCEL autoretencion" OnClick="ImageGenerAutore_Click" />
+                                <asp:ImageButton ID="Generar_archivo_autoretencion" runat="server" ImageUrl="~/Imagenes/Modulos/img_Generar_archivo_autoretencion.png" OnClick="ImageGenerAutore_Click" ToolTip="Generar del archivo de EXCEL autoretencion" />
                             </td>
                             </td>
                             <td align="center">
@@ -457,24 +439,23 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="PanelPredial" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PanelPredial" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label17" runat="server" CssClass="SubTitle" Text="MODULOS PREDIAL" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label17" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULOS PREDIAL"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImagCarguePredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_anexo_rent_imp_predial.png" ToolTip="Cargue de archivo Anexo Renta Pagos Impuesto Predial" OnClick="ImageCarguePredial_Click" />
+                                <asp:ImageButton ID="ImagCarguePredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_anexo_rent_imp_predial.png" OnClick="ImageCarguePredial_Click" ToolTip="Cargue de archivo Anexo Renta Pagos Impuesto Predial" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImagConsultPredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_anexo_rent_imp_predial.png" ToolTip="Consulta información anexo renta pagos Impuesto predial" OnClick="ImageConsultPredial_Click" />
+                                <asp:ImageButton ID="ImagConsultPredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_anexo_rent_imp_predial.png" OnClick="ImageConsultPredial_Click" ToolTip="Consulta información anexo renta pagos Impuesto predial" />
                             </td>
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImagGeneraPredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Generar_anexo_rent_imp_predial.png" ToolTip="Generar Reporte anexo renta pagos Impuesto predial" OnClick="ImageGenerarPredial_Click" />
+                                <asp:ImageButton ID="ImagGeneraPredial" runat="server" ImageUrl="~/Imagenes/Modulos/img_Generar_anexo_rent_imp_predial.png" OnClick="ImageGenerarPredial_Click" ToolTip="Generar Reporte anexo renta pagos Impuesto predial" />
                             </td>
                             </td>
                             <td align="center">
@@ -492,23 +473,22 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="PnlPlanoImageRequerimiento" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlPlanoImageRequerimiento" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label19" runat="server" CssClass="SubTitle" Text="MODULO CONTROL DE REQUERIMIENTOS" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label19" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULO CONTROL DE REQUERIMIENTOS"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImageRecDocumentos" runat="server" ImageUrl="~/Imagenes/Modulos/img_Administrar_Documentos.png" ToolTip="Administrar Documentos" OnClick="ImageRecDocumentos_Click" />
+                                <asp:ImageButton ID="ImageRecDocumentos" runat="server" ImageUrl="~/Imagenes/Modulos/img_Administrar_Documentos.png" OnClick="ImageRecDocumentos_Click" ToolTip="Administrar Documentos" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageConsulRequeri" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_Requerimientos.png" ToolTip="Consulta Requerimientos" OnClick="ImageConsulRequeri_Click" />
+                                <asp:ImageButton ID="ImageConsulRequeri" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_Requerimientos.png" OnClick="ImageConsulRequeri_Click" ToolTip="Consulta Requerimientos" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageGraficaRequeri" runat="server" ImageUrl="~/Imagenes/Modulos/img_Gráficas_Estadíticas.png" ToolTip="Gráficas y Estadíticas" OnClick="ImageGraficaRequeri_Click" />
+                                <asp:ImageButton ID="ImageGraficaRequeri" runat="server" ImageUrl="~/Imagenes/Modulos/img_Gráficas_Estadíticas.png" OnClick="ImageGraficaRequeri_Click" ToolTip="Gráficas y Estadíticas" />
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="ImageregresoReque" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgregRegresaRequerimiento_Click" ToolTip="Click para regresar al modulo de sistemas" />
@@ -525,23 +505,22 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
-                <asp:Panel ID="PnlPlanoImagecustodia" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlPlanoImagecustodia" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label21" runat="server" CssClass="SubTitle" Text="MODULO CONTROL CUSTODIA DE IMÁGENES" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label21" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULO CONTROL CUSTODIA DE IMÁGENES"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_Manual.png" ToolTip="Cargue Manual" OnClick="ImageCargue_Manual_Click" />
+                                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_Manual.png" OnClick="ImageCargue_Manual_Click" ToolTip="Cargue Manual" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_Masivo.png" ToolTip="Cargue Masivo" OnClick="ImageCargue_Masivo_Click" />
+                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Imagenes/Modulos/img_Cargue_Masivo.png" OnClick="ImageCargue_Masivo_Click" ToolTip="Cargue Masivo" />
                             </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_Declaraciones.png" ToolTip="Consulta Declaraciones" OnClick="ImageConsulta_claraciones_Click" />
+                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Imagenes/Modulos/img_Consulta_Declaraciones.png" OnClick="ImageConsulta_claraciones_Click" ToolTip="Consulta Declaraciones" />
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresaControlcustodia_Click" ToolTip="Click para regresar al modulo de sistemas" />
@@ -558,14 +537,10 @@
                         </tr>
                     </table>
                 </asp:Panel>
-
                 <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
                 </telerik:RadWindowManager>
             </telerik:RadAjaxPanel>
         </div>
-        <script>
-
-</script>
     </form>
 </body>
 </html>
