@@ -56,9 +56,9 @@
                                     <td>
                                         <asp:Label ID="Label1" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="12pt">Año Gravable</asp:Label>
                                     </td>
-                                    <td>
+                                    <%--<td>
                                         <asp:Label ID="Label2" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="12pt">Tipo Aplicación</asp:Label>
-                                    </td>
+                                    </td>--%>
                                     <td>
                                         <asp:Label ID="Label3" runat="server" CssClass="FormLabels" Font-Bold="True" Font-Size="12pt">Tipo Periodicidad</asp:Label>
                                     </td>
@@ -77,13 +77,13 @@
                                         <cc1:ValidatorCalloutExtender ID="Validador1_ValidatorCalloutExtender" runat="server" BehaviorID="RequiredFieldValidator1_ValidatorCalloutExtender" TargetControlID="Validador1">
                                         </cc1:ValidatorCalloutExtender>
                                     </td>
-                                    <td>
+                                    <%--<td>
                                         <asp:DropDownList ID="CmbAplicativo" runat="server" Font-Size="15pt" TabIndex="1" ToolTip="Seleccione el tipo de aplicativo">
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="Validator2" runat="server" ControlToValidate="CmbAplicativo" Display="None" ErrorMessage="Campo requerido !" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                         <cc1:ValidatorCalloutExtender ID="ValidatorCalloutExtender1" runat="server" BehaviorID="RequiredFieldValidator1_ValidatorCalloutExtender" TargetControlID="Validador1">
                                         </cc1:ValidatorCalloutExtender>
-                                    </td>
+                                    </td>--%>
                                     <td>
                                         <asp:DropDownList ID="CmbTipoPeriodicidad" runat="server" Font-Size="15pt" TabIndex="1" ToolTip="Seleccione el el tipo de periodicidad" AutoPostBack="True" OnSelectedIndexChanged="CmbTipoPeriodicidad_SelectedIndexChanged">
                                         </asp:DropDownList>
@@ -101,8 +101,8 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <asp:Button ID="BtnEjecProceso" runat="server" Font-Bold="True" Font-Size="14pt" OnClick="BtnEjecProceso_Click" Text="Ejecutar Proceso" ToolTip="Click para ejecutar el proceso de conciliación" Width="250px" />
-                                            &nbsp;<asp:Button ID="BtnSalir" runat="server" Font-Bold="True" Font-Size="14pt" OnClientClick="window.close()" Text="Salir" ToolTip="Salir" Width="250px" />
+                                            <asp:Button ID="BtnEjecProceso" runat="server" Font-Bold="True" Font-Size="14pt" OnClick="BtnEjecProceso_Click" Text="Realizar Conciliación" ToolTip="Click para ejecutar el proceso de conciliación" Width="320px" />
+                                            &nbsp;<asp:Button ID="BtnSalir" runat="server" Font-Bold="True" Font-Size="14pt" OnClientClick="window.close()" Text="Salir" ToolTip="Salir" Width="320px" />
                                         </td>
                                     </tr>
                             </table>

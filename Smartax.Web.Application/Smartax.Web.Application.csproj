@@ -193,6 +193,7 @@
     <Content Include="Controles\Administracion\ConciliacionHC\CtrlConciliacionHC.ascx" />
     <Content Include="Controles\Administracion\ConciliacionHC\FrmAddConciliacionHC.aspx" />
     <Content Include="Controles\Administracion\ConciliacionHC\FrmConciliacionHC.aspx" />
+    <Content Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesCruces.aspx" />
     <Content Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesHC.aspx" />
     <Content Include="Controles\Administracion\Formatos\FrmConfiguracionCuentas.aspx" />
     <Content Include="Controles\Administracion\FrmAddEstablecimientoHijo.aspx" />
@@ -784,6 +785,7 @@
     <Content Include="Imagenes\Modulos\img_plano.png" />
     <Content Include="Imagenes\Modulos\img_predial.png" />
     <Content Include="Imagenes\Modulos\img_procesar_archivos.png" />
+    <Content Include="Imagenes\Modulos\img_procesar_archivos_ajustes.png" />
     <Content Include="Imagenes\Modulos\img_proceso_contabilizacion.png" />
     <Content Include="Imagenes\Modulos\img_recaudo_movii_fdm.png" />
     <Content Include="Imagenes\Modulos\img_regresar.png" />
@@ -1189,6 +1191,13 @@
     </Compile>
     <Compile Include="Controles\Administracion\ConciliacionHC\FrmConciliacionHC.aspx.designer.cs">
       <DependentUpon>FrmConciliacionHC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesCruces.aspx.cs">
+      <DependentUpon>FrmProcesarFilesCruces.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesCruces.aspx.designer.cs">
+      <DependentUpon>FrmProcesarFilesCruces.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controles\Administracion\ConciliacionHC\FrmProcesarFilesHC.aspx.cs">
       <DependentUpon>FrmProcesarFilesHC.aspx</DependentUpon>

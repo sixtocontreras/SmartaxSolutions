@@ -501,13 +501,13 @@ namespace Smartax.Web.Application.Controles.General
         protected global::System.Web.UI.WebControls.ImageButton ImgRegresarLiqAutoIca;
 
         /// <summary>
-        /// Control Label9.
+        /// Control Label113.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label Label113;
 
         /// <summary>
         /// Control PnlHerramientaHc.
@@ -546,6 +546,15 @@ namespace Smartax.Web.Application.Controles.General
         protected global::System.Web.UI.WebControls.ImageButton ImgConciliacionHC;
 
         /// <summary>
+        /// Control ImgProcesarFilesAjustes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImgProcesarFilesAjustes;
+
+        /// <summary>
         /// Control ImgRegresarHc.
         /// </summary>
         /// <remarks>
@@ -555,13 +564,13 @@ namespace Smartax.Web.Application.Controles.General
         protected global::System.Web.UI.WebControls.ImageButton ImgRegresarHc;
 
         /// <summary>
-        /// Control Label25.
+        /// Control Label112.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label25;
+        protected global::System.Web.UI.WebControls.Label Label112;
 
         /// <summary>
         /// Control PnlActividades.

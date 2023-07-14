@@ -6,6 +6,7 @@
     <form id="form2">
         <div>
             <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlTrxGeneral" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -57,6 +58,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlPlaneacionFiscal" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -83,6 +85,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlLiquidacion" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -135,6 +138,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlLiquidacionAlumbrado" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -143,9 +147,9 @@
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="imgHojaAlumbrado" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="imgHojaAlumbrado_Click" ToolTip="Hoja de Trabajo Impuesto" /></td>
+                                <asp:ImageButton ID="imgHojaAlumbrado" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" ToolTip="Hoja de Trabajo Impuesto" OnClick="imgHojaAlumbrado_Click" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqAlum" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqAlum_Click" ToolTip="Click para regresar al panel principal" /></td>
+                                <asp:ImageButton ID="ImgRegresarLiqAlum" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" ToolTip="Click para regresar al panel principal" OnClick="ImgRegresarLiqAlum_Click" /></td>
                             <td align="center">
                                 <asp:Label ID="Label12" runat="server" Width="300px"></asp:Label></td>
                             <td align="center">&#160;</td>
@@ -155,15 +159,16 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&#160;</td>
                         </tr>
                     </table>
                 </asp:Panel>
-                <asp:Panel ID="pnlReteIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Panel ID="pnlReteIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label23" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE RETEICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label23" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="LIQUIDACIÓN DE RETEICA"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
@@ -184,11 +189,12 @@
                         </tr>
                     </table>
                 </asp:Panel>
-                <asp:Panel ID="PnlLiquidacionIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Panel ID="PnlLiquidacionIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label6" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label6" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="LIQUIDACIÓN DE IMPUESTOS DEL ICA"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
@@ -196,10 +202,43 @@
                             <td align="center">
                                 <asp:ImageButton ID="ImgLiqImpuestoDefinitivo" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_imp.png" OnClick="ImgLiqImpuestoDefinitivo_Click" ToolTip="Liquidación definitiva del Ica" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqIca_Click" ToolTip="Click para regresar al panel principal" /></td>
+                                <asp:ImageButton ID="ImgRegresarLiqIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqIca_Click" ToolTip="Click para regresar al panel principal" />
+                            </td>
                             <td align="center">
-                                <asp:Label ID="Label7" runat="server" Width="300px"></asp:Label></td>
+                                <asp:Label ID="Label7" runat="server" Width="300px"></asp:Label>
+                            </td>
                             <td align="center">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Panel ID="PnlLiquidacionAutoIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
+                    <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
+                        <tr>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label8" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="LIQUIDACIÓN DE IMPUESTOS AUTORETENCIÓN DEL ICA"></asp:Label></td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgLiqBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" OnClick="ImgLiqBorradorAutoIca_Click" ToolTip="Liquidación borrador impuesto Autoretención de ICA" /></td>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgLiqDefinitivoAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_autoretencionica.png" OnClick="ImgLiqDefinitivoAutoIca_Click" ToolTip="Liquidación definitiva del Ica" />
+                            </td>
+                            <td align="center">
+                                <asp:ImageButton ID="ImgRegresarLiqAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarLiqAutoIca_Click" ToolTip="Click para regresar al panel principal" />
+                            </td>
+                            <td align="center">
+                                <asp:Label ID="Label113" runat="server" Width="300px"></asp:Label>
+                            </td>
+                            <td align="center">
+                                &nbsp;</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -210,22 +249,25 @@
                         </tr>
                     </table>
                 </asp:Panel>
-                <asp:Panel ID="PnlLiquidacionAutoIca" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                <asp:Panel ID="PnlHerramientaHc" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label8" runat="server" CssClass="SubTitle" Text="LIQUIDACIÓN DE IMPUESTOS AUTORETENCIÓN DEL ICA" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label24" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="PROCESAR ARCHIVOS Y HERRAMIENTA DE CUADRE"></asp:Label></td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqBorradorAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_liquidacion_obligacion.png" ToolTip="Liquidación borrador impuesto Autoretención de ICA" OnClick="ImgLiqBorradorAutoIca_Click" /></td>
+                                <asp:ImageButton ID="ImgProcesarFilesHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_procesar_archivos.png" OnClick="ImgProcesarFilesHc_Click" ToolTip="Permite procesar los archivos descargados del Davibox" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgLiqDefinitivoAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_definitivo_autoretencionica.png" ToolTip="Liquidación definitiva del Ica" OnClick="ImgLiqDefinitivoAutoIca_Click" /></td>
+                                <asp:ImageButton ID="ImgConciliacionHC" runat="server" ImageUrl="~/Imagenes/Modulos/img_conciliacion_hc.png" OnClick="ImgConciliacionHC_Click" ToolTip="Permite realizar conciliacion Hc" /></td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgRegresarLiqAutoIca" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" ToolTip="Click para regresar al panel principal" OnClick="ImgRegresarLiqAutoIca_Click" /></td>
+                                <asp:ImageButton ID="ImgProcesarFilesAjustes" runat="server" ImageUrl="~/Imagenes/Modulos/img_procesar_archivos_ajustes.png" OnClick="ImgProcesarFilesAjustes_Click" ToolTip="Permite procesar los archivos de ajustes" />
+                            </td>
                             <td align="center">
-                                <asp:Label ID="Label9" runat="server" Width="300px"></asp:Label></td>
-                            <td align="center">&#160;</td>
+                                <asp:ImageButton ID="ImgRegresarHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarHc_Click" ToolTip="Click para regresar al panel principal" />
+                            </td>
+                            <td align="center">
+                                <asp:Label ID="Label112" runat="server" Width="300px"></asp:Label></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -236,58 +278,39 @@
                         </tr>
                     </table>
                 </asp:Panel>
-                <asp:Panel ID="PnlHerramientaHc" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Panel ID="PnlActividades" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label24" runat="server" CssClass="SubTitle" Text="PROCESAR ARCHIVOS Y HERRAMIENTA DE CUADRE" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
+                            <td align="center" bgcolor="#999999" colspan="5">
+                                <asp:Label ID="Label5" runat="server" CssClass="SubTitle" Font-Bold="True" Font-Size="16pt" ForeColor="White" Text="MODULO DE CONTROL DE ACTIVIDADES"></asp:Label>
+                            </td>
                         </tr>
                         <tr>
                             <td align="center">
-                                <asp:ImageButton ID="ImgProcesarFilesHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_procesar_archivos.png" ToolTip="Permite procesar los archivos descargados del Davibox" OnClick="ImgProcesarFilesHc_Click" /></td>
+                                <asp:ImageButton ID="ImgMisActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_mis_actividades.png" OnClick="ImgMisActividades_Click" ToolTip="Ver el Control de mis Actividades" />
+                            </td>
                             <td align="center">
-                                <asp:ImageButton ID="ImgConciliacionHC" runat="server" ImageUrl="~/Imagenes/Modulos/img_conciliacion_hc.png" ToolTip="Permite realizar conciliacion Hc" OnClick="ImgConciliacionHC_Click" /></td>
-                            <td align="center">
-                                <asp:ImageButton ID="ImgRegresarHc" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" ToolTip="Click para regresar al panel principal" OnClick="ImgRegresarHc_Click" /></td>
-                            <td align="center">
-                                <asp:Label ID="Label25" runat="server" Width="300px"></asp:Label></td>
-                            <td align="center">&#160;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&#160;</td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-                <asp:Panel ID="PnlActividades" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Width="100%" Visible="False">
-                    <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
-                        <tr>
-                            <td colspan="5" align="center" bgcolor="#999999">
-                                <asp:Label ID="Label5" runat="server" CssClass="SubTitle" Text="MODULO DE CONTROL DE ACTIVIDADES" Font-Bold="True" Font-Size="16pt" ForeColor="White"></asp:Label></td>
-                        </tr>
-                        <tr>
-                            <td align="center">
-                                <asp:ImageButton ID="ImgMisActividades" runat="server" ImageUrl="~/Imagenes/Modulos/img_mis_actividades.png" ToolTip="Ver el Control de mis Actividades" OnClick="ImgMisActividades_Click" /></td>
-                            <td align="center">
-                                <asp:ImageButton ID="ImgMonitoreoAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_monitoreo_actividades.png" ToolTip="Liquidación definitiva de impuestos ICA" OnClick="ImgMonitoreoAct_Click" /></td>
-                            </td align="center"><asp:ImageButton ID="ImgEstadisticaAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_actividades.png" OnClick="ImgEstadisticaAct_Click" ToolTip="Ver estadisticas de actividades" />
-                            <td align="center">
-                                <asp:ImageButton ID="ImgEstadisticaLiq" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_liquidaciones.png" ToolTip="Permite ver estadisticas de liquidación de impuestos" OnClick="ImgEstadisticaLiq_Click" /></td>
+                                <asp:ImageButton ID="ImgMonitoreoAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_monitoreo_actividades.png" OnClick="ImgMonitoreoAct_Click" ToolTip="Liquidación definitiva de impuestos ICA" />
+                            </td>
                             </td align="center">
-                    <asp:ImageButton ID="ImgRegresarActiv" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarActiv_Click" ToolTip="Click para regresar al panel principal" />
+                            <asp:ImageButton ID="ImgEstadisticaAct" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_actividades.png" OnClick="ImgEstadisticaAct_Click" ToolTip="Ver estadisticas de actividades" />
+                            <td align="center">
+                                <asp:ImageButton ID="ImgEstadisticaLiq" runat="server" ImageUrl="~/Imagenes/Modulos/img_estadistica_liquidaciones.png" OnClick="ImgEstadisticaLiq_Click" ToolTip="Permite ver estadisticas de liquidación de impuestos" />
+                            </td>
+                            </td align="center">
+                            <asp:ImageButton ID="ImgRegresarActiv" runat="server" ImageUrl="~/Imagenes/Modulos/img_regresar.png" OnClick="ImgRegresarActiv_Click" ToolTip="Click para regresar al panel principal" />
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&#160;</td>
+                            <td>&nbsp;</td>
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlFormatosSFC" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -321,6 +344,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlPlanormatividad" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -353,6 +377,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlPlanoReporte" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -377,6 +402,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="Panelanexos" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -409,6 +435,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="Panelautoretencion" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -439,6 +466,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PanelPredial" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -473,6 +501,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlPlanoImageRequerimiento" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -505,6 +534,7 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Panel ID="PnlPlanoImagecustodia" runat="server" Style="border-color: AliceBlue; border-style: solid; padding: 1px 4px; z-index: 1;" Visible="False" Width="100%">
                     <table cellpadding="4" cellspacing="0" class="Tab" style="width: 100%;">
                         <tr>
@@ -537,8 +567,10 @@
                         </tr>
                     </table>
                 </asp:Panel>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
                 </telerik:RadWindowManager>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </telerik:RadAjaxPanel>
         </div>
     </form>

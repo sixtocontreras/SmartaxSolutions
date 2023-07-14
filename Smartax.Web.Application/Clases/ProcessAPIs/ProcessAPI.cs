@@ -5,7 +5,6 @@ using RestSharp;
 using log4net;
 using Smartax.Web.Application.Clases.Seguridad;
 using static Smartax.Web.Application.Clases.ProcessAPIs.ModelApiSmartax;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text;
 
 namespace Smartax.Web.Application.Clases.ProcessAPIs
@@ -13,6 +12,7 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
     public class ProcessAPI
     {
         private static readonly ILog _log = LogManager.GetLogger(FixedData.LOG_AUDITORIA_NAME);
+        const string quote = "\"";
 
         #region DEFINICION DE ATRIBUTOS DE LA CLASE
         public int TipoConsulta { get; set; }
@@ -368,15 +368,15 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                 {
                     var JsonResult = JsSerializer.Deserialize<DownloadFileDavibox_Resp>(response.Content);
                     string JsonResponse = JsSerializer.Serialize(JsonResult);
-                    _log.Warn("RESPONSE PROCESAR LIQUIDACION x LOTE => " + JsonResponse);
+                    _log.Warn("RESPONSE PROCESO DOWNLOAD FILES DAVIBOX => " + JsonResponse);
 
                     //--OK
                     if (JsonResult.transferedfiles.Count > 0)
                     {
                         #region AQUI OBTENEMOS DATOS DE LA VENTA RECARGA
                         //Valores de retornos.
-                        _CodRespuesta = "00"; //--JsonResult.Codigo.ToString().Trim();
-                        _MsgRespuesta = "exitoso";   //--JsonResult.Message.ToString().Trim();
+                        _CodRespuesta = "00";
+                        _MsgRespuesta = "Señor usuario, tenga en cuenta que el proceso de cargar los archivos al sistema de smartax inicia en 2 minutos, le estara llegando un correo con la información procesada en el sistema.";
                         //--
                         _Result = true;
                         _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
@@ -386,33 +386,34 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                     {
                         #region ERROR AL REALIZAR LA TX DE CONSULTA
                         //--VALIDAR SI VIENE LLENO EL OBJETO DEL NOMBRE DE ARCHIVOS SIN ENCONTRAR
-                        StringBuilder _NombreFiles = new StringBuilder();
+                        //StringBuilder _NombreFiles = new StringBuilder();
                         if (JsonResult.failedfiles.Count > 0)
                         {
                             foreach (string _NameFile in JsonResult.failedfiles)
                             {
-                                if (_NombreFiles.ToString().Trim().Length > 0)
+                                //--AQUI CONCATENAMOS LOS VALORES DEL ESTADO FINANCIERO
+                                if (_MsgRespuesta.ToString().Trim().Length > 0)
                                 {
-                                    _NombreFiles.Append(_NameFile);
+                                    _MsgRespuesta = _MsgRespuesta.ToString().Trim() + "," + quote + _NameFile + quote;
                                 }
                                 else
                                 {
-                                    _NombreFiles.Append(_NameFile);
+                                    _MsgRespuesta = "(" + quote + _NameFile + quote;
                                 }
                             }
                             //--
-                            //_MsgRespuesta = "failedfiles => " + _NombreFiles;
+                            _MsgRespuesta = "Señor usuario los siguientes archivos no fueron descargados del Davibox. " + _MsgRespuesta.ToString().Trim() + ")";
                         }
                         else
                         {
-                            _MsgRespuesta = "Erro al obtener los archivos no encontrados en el davibox !";
-                            _NombreFiles.Append(_MsgRespuesta);
+                            _MsgRespuesta = "Erro archivos no encontrados en el davibox !";
+                            //_NombreFiles.Append(_MsgRespuesta);
                         }
                         //Aqui retornamos los datos de la Respuesta.
                         _CodRespuesta = "ER";
                         //--
                         _Result = false;
-                        _MsgError = _CodRespuesta + "|" + _NombreFiles;
+                        _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
                         #endregion
                     }
                 }
@@ -421,11 +422,11 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
                     #region ERROR AL REALIZAR LA TX DE CONSULTA
                     //Aqui retornamos los datos de la Respuesta de MegaRed.
                     var tokenResponse = JsonConvert.DeserializeObject<DownloadFileDavibox_Resp>(response.Content);
-                    //_CodRespuesta = tokenResponse.Codigo != null ? tokenResponse.Codigo.ToString().Trim() : "ER";
-                    //_MsgRespuesta = tokenResponse.Message != null ? tokenResponse.Message.ToString().Trim() : "Error desconocido del proveedor !";
+                    _CodRespuesta = tokenResponse.codigo != null ? tokenResponse.codigo.ToString().Trim() : "ER";
+                    _MsgRespuesta = tokenResponse.msg != null ? tokenResponse.msg.ToString().Trim() : "Error al realizar el proceso de descarga de los archivos del davibox !";
                     ////--
-                    //_Result = false;
-                    //_MsgError = _CodRespuesta + "|" + _MsgRespuesta;
+                    _Result = false;
+                    _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
                     #endregion
                 }
                 #endregion
@@ -434,7 +435,171 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
             {
                 //Error
                 _Result = false;
-                string _Error = "-1|Error con el proceso de Liquidación Impuestos|" + ex.Message;
+                string _Error = "-1|Error con el servicio [sftp_download] para descargar los archivos del Davibox. Motivo: " + ex.Message;
+            }
+            return _Result;
+        }
+
+        public bool GetConciliarFileDavibox(int TipoPeriodicidad, int _Periodo, ref string _UuId, ref string _MsgError)
+        {
+            bool _Result = false;
+            try
+            {
+                #region ENVIAR LA TRANSACCION AL API DE DAVIBOX
+                //Variables de librería para hacer el POST
+                var client = new RestClient(FixedData.BaseUrlDavibox);
+                var request = new RestRequest("reconcile", Method.POST);
+                request.AddHeader("Content-Type", "application/json; charset=utf-8");
+                //request.AddHeader("Authorization", "Bearer " + _TokenAut[1].ToString().Trim() + "");
+                //Variable de respuesta a petición POST
+                var respPOST = new object();
+                //string myuuidAsString = _UuId.ToString();
+                DownloadFileDavibox_Req conReq = null;
+
+                //--AQUI VALIDAMOS EL TIPO DE PERIODICIDAD (1. MENSUAL, 2. BIMESTRAL)
+                if (TipoPeriodicidad == 1)
+                {
+                    //Establecer el DTO para enviar, Setear datos
+                    conReq = new DownloadFileDavibox_Req
+                    {
+                        uuid = UuId.ToString().Trim(),
+                        month = MesProcesar,
+                        year = AnioProcesar,
+                        bimonthly = false
+                    };
+                }
+                else
+                {
+                    #region AQUI OBTENEMOS EL MES ANTERIOR PARA EL BIMESTRE
+                    //--
+                    int _PrevMonth = 0;
+                    switch (_Periodo)
+                    {
+                        case 1:
+                            _PrevMonth = 1;
+                            break;
+                        case 2:
+                            _PrevMonth = 3;
+                            break;
+                        case 3:
+                            _PrevMonth = 5;
+                            break;
+                        case 4:
+                            _PrevMonth = 7;
+                            break;
+                        case 5:
+                            _PrevMonth = 9;
+                            break;
+                        case 6:
+                            _PrevMonth = 11;
+                            break;
+                        default:
+                            _PrevMonth = (MesProcesar - 1);
+                            break;
+                    }
+
+                    //Establecer el DTO para enviar, Setear datos
+                    conReq = new DownloadFileDavibox_Req
+                    {
+                        uuid = UuId.ToString().Trim(),
+                        month = MesProcesar,
+                        year = AnioProcesar,
+                        bimonthly = true,
+                        prevmonth = _PrevMonth
+                    };
+                    #endregion
+                }
+
+                //Agregar al Body de la petición
+                request.AddJsonBody(conReq);
+                //--AQUI MANDAMOS A ESCRIBIR EN LOS LOGS DE AUDITORIA
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string jsonRequest = js.Serialize(conReq);
+                _log.Warn("REQUEST CONCILIAR FILES DAVIBOX => " + jsonRequest);
+
+                //Llamado a Servicio Rest usando RestSharp            
+                //Respuesta como objeto dinámico
+                var response = client.ExecuteDynamic(request);
+                respPOST = JsonConvert.DeserializeObject<ConciliarFileDavibox_Resp>(response.Content);
+
+                //Validar código de respuesta
+                JavaScriptSerializer JsSerializer = new JavaScriptSerializer();
+
+                ///--Validar código de respuesta
+                string _CodRespuesta = "", _MsgRespuesta = "";
+                if (((ConciliarFileDavibox_Resp)respPOST).transferedfiles != null)
+                {
+                    var JsonResult = JsSerializer.Deserialize<ConciliarFileDavibox_Resp>(response.Content);
+                    string JsonResponse = JsSerializer.Serialize(JsonResult);
+                    _log.Warn("RESPONSE PROCESO CONCILIACIÓN FILES DAVIBOX => " + JsonResponse);
+
+                    //--OK
+                    if (JsonResult.transferedfiles.Count > 0)
+                    {
+                        #region AQUI OBTENEMOS DATOS DE LA VENTA RECARGA
+                        //Valores de retornos.
+                        _CodRespuesta = "00";
+                        _UuId = JsonResult.uuid.ToString().Trim();
+                        _MsgRespuesta = "Señor usuario, el proceso de conciliación ha sido realizado de forma exitosa.";
+                        //--
+                        _Result = true;
+                        _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
+                        #endregion
+                    }
+                    else
+                    {
+                        #region ERROR AL REALIZAR LA TX DE CONSULTA
+                        //--VALIDAR SI VIENE LLENO EL OBJETO DEL NOMBRE DE ARCHIVOS SIN ENCONTRAR
+                        //StringBuilder _NombreFiles = new StringBuilder();
+                        if (JsonResult.failedfiles.Count > 0)
+                        {
+                            foreach (string _NameFile in JsonResult.failedfiles)
+                            {
+                                //--AQUI CONCATENAMOS LOS VALORES DEL ESTADO FINANCIERO
+                                if (_MsgRespuesta.ToString().Trim().Length > 0)
+                                {
+                                    _MsgRespuesta = _MsgRespuesta.ToString().Trim() + "," + quote + _NameFile + quote;
+                                }
+                                else
+                                {
+                                    _MsgRespuesta = "(" + quote + _NameFile + quote;
+                                }
+                            }
+                            //--
+                            _MsgRespuesta = "Señor usuario los siguientes archivos no fueron procesados en la conciliación. " + _MsgRespuesta.ToString().Trim() + ")";
+                        }
+                        else
+                        {
+                            _MsgRespuesta = "Erro archivos no encontrados en el davibox !";
+                            //_NombreFiles.Append(_MsgRespuesta);
+                        }
+                        //Aqui retornamos los datos de la Respuesta.
+                        _CodRespuesta = "ER";
+                        //--
+                        _Result = false;
+                        _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
+                        #endregion
+                    }
+                }
+                else
+                {
+                    #region ERROR AL REALIZAR LA TX DE CONSULTA
+                    //Aqui retornamos los datos de la Respuesta de MegaRed.
+                    var tokenResponse = JsonConvert.DeserializeObject<ConciliarFileDavibox_Resp>(response.Content);
+                    _CodRespuesta = tokenResponse.codigo != null ? tokenResponse.codigo.ToString().Trim() : "ER";
+                    _MsgRespuesta = tokenResponse.msg != null ? tokenResponse.msg.ToString().Trim() : "Error al realizar el proceso de conciliación !";
+                    ////--
+                    _Result = false;
+                    _MsgError = _CodRespuesta + "|" + _MsgRespuesta;
+                    #endregion
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                //Error
+                _Result = false;
+                string _Error = "-1|Error con el servicio [sftp_download] para descargar los archivos del Davibox. Motivo: " + ex.Message;
             }
             return _Result;
         }

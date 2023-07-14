@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using log4net;
 using Microsoft.Win32.TaskScheduler;
 using Smartax.Cronjob.Process.Clases.Models;
 using Smartax.Cronjob.Process.Clases.Transactions;
@@ -35,9 +31,10 @@ namespace Smartax.Cronjob.Task.Clases.Transactions
                 //--OBTENEMOS DE LA DB LOS DATOS DE ARCHIVOS DEL DAVIBOX
                 ProcessDb objProcessDb = new ProcessDb();
                 objProcessDb.TipoConsulta = 1;
+                objProcessDb.TipoProceso = "PROCESAR_FILE_DAVIBOX";
                 objProcessDb.IdEstado = 1;
 
-                //--PASO 1: OBTENER DATOS DE ESTADOS FINANCIEROS CARGADOS AL SISTEMA
+                //--PASO 1: OBTENER DATOS DE LOS ARCHIVOS A PROCESAR
                 DataTable dtFileDavibox = new DataTable();
                 string _MsgError = "";
                 dtFileDavibox = objProcessDb.GetArchivosDavibox(ref _MsgError);

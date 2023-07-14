@@ -118,7 +118,7 @@ namespace Smartax.Cronjob.Process.Clases.Transactions
         public string FechaInicial { get; set; }
         public object IdUsuarioUp { get; set; }
         public int TipoConsulta { get; set; }
-        public int TipoProceso { get; set; }
+        public object TipoProceso { get; set; }
 
         //--DEFINICION PARA CARGAR LOS ARCHIVO DE DAVIBOX
         public string ArrayDataLf { get; set; }
@@ -4994,7 +4994,6 @@ namespace Smartax.Cronjob.Process.Clases.Transactions
             return retValor;
         }
 
-
         public DataTable GetArchivosDavibox(ref string _MsgError)
         {
             DataTable TablaDatos = new DataTable();
@@ -5050,6 +5049,7 @@ namespace Smartax.Cronjob.Process.Clases.Transactions
                     TheCommandPostgreSQL.Parameters.Clear();
 
                     TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_tipo_consulta", TipoConsulta);
+                    TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_tipo_proceso", TipoProceso);
                     TheCommandPostgreSQL.Parameters.AddWithValue("@p_in_idestado", IdEstado);
                     TheDataReaderPostgreSQL = TheCommandPostgreSQL.ExecuteReader();
 

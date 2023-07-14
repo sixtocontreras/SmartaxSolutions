@@ -1863,6 +1863,67 @@ namespace Smartax.Web.Application.Controles.General
             }
         }
 
+        protected void ImgProcesarFilesAjustes_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                #region MOSTRAR FORMULARIO LIQUIDACION DEL IMPUESTO ICA
+                //--AQUI HABILITAMOS EL OBJETO PARA MOSTRAR EL FORMULARIO
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+                Ventana.Modal = true;
+
+                string _PathUrl = HttpContext.Current.Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                Ventana.NavigateUrl = "/Controles/Administracion/ConciliacionHC/FrmProcesarFilesCruces.aspx?PathUrl=" + _PathUrl;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(420);
+                Ventana.Width = Unit.Pixel(1050);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Proceso de Archivos de Ajustes";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                #region MOSTRAR MENSAJE DE USUARIO
+                //Mostramos el mensaje porque se produjo un error con la Trx.
+                this.RadWindowManager1.ReloadOnShow = true;
+                this.RadWindowManager1.DestroyOnClose = true;
+                this.RadWindowManager1.Windows.Clear();
+                this.RadWindowManager1.Enabled = true;
+                this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                this.RadWindowManager1.Visible = true;
+
+                RadWindow Ventana = new RadWindow();
+                Ventana.Modal = true;
+                string _MsgMensaje = "Error al mostrar el formulario de procesar archivos de Cruces. Motivo: " + ex.ToString();
+                Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgMensaje;
+                Ventana.ID = "RadWindow" + objUtils.GetRandom();
+                Ventana.VisibleOnPageLoad = true;
+                Ventana.Visible = true;
+                Ventana.Height = Unit.Pixel(300);
+                Ventana.Width = Unit.Pixel(600);
+                Ventana.KeepInScreenBounds = true;
+                Ventana.Title = "Mensaje del Sistema";
+                Ventana.VisibleStatusbar = false;
+                Ventana.Behaviors = WindowBehaviors.Close;
+                this.RadWindowManager1.Windows.Add(Ventana);
+                this.RadWindowManager1 = null;
+                Ventana = null;
+                #endregion
+            }
+        }
+
         protected void ImgRegresarHc_Click(object sender, ImageClickEventArgs e)
         {
             //Aqui deshabilitamos el control RadWindowManager1 para que no vuelva a mostrar la ventana del Popup

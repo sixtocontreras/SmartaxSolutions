@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using log4net;
 using Microsoft.Win32.TaskScheduler;
+using Telerik.Web.UI;
 using Smartax.Web.Application.Clases.Administracion;
 using Smartax.Web.Application.Clases.ProcessAPIs;
 using Smartax.Web.Application.Clases.Seguridad;
-using Telerik.Web.UI;
+using System.Data;
+using System.IO;
 
 namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
 {
@@ -200,11 +196,11 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
         {
             try
             {
-                ObjLista.MostrarSeleccione = "SI";
-                this.CmbAplicativo.DataSource = ObjLista.GetAplicativo();
-                this.CmbAplicativo.DataValueField = "id_aplicativo";
-                this.CmbAplicativo.DataTextField = "aplicativo";
-                this.CmbAplicativo.DataBind();
+                //ObjLista.MostrarSeleccione = "SI";
+                //this.CmbAplicativo.DataSource = ObjLista.GetAplicativo();
+                //this.CmbAplicativo.DataValueField = "id_aplicativo";
+                //this.CmbAplicativo.DataTextField = "aplicativo";
+                //this.CmbAplicativo.DataBind();
             }
             catch (Exception ex)
             {
@@ -261,11 +257,44 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
             if (!(this.Page.IsPostBack))
             {
                 //this.AplicarPermisos();
-
                 //--LISTAR COMBOBOX
                 this.LstAnioGravable();
-                this.LstAplicativo();
+                //this.LstAplicativo();
                 this.LstTipoPeriodicidad();
+
+                //--AQUI OBTENEMOS LOS DATOS PARA REALIZAR EL PROCESO DE CONCILIACION HC
+                ObjConciliacionHC.TipoConsulta = 2;
+                ObjConciliacionHC.TipoArchivo = "PROCESAR_FILE_DAVIBOX";
+                ObjConciliacionHC.IdEstado = 1;
+                ObjConciliacionHC.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                this.ViewState["UuIdFolder"] = "NA";
+
+                //--PASO 1: OBTENER DATOS DE LOS ARCHIVOS A PROCESAR
+                DataTable dtFileDavibox = new DataTable();
+                string _MsgError = "";
+                dtFileDavibox = ObjConciliacionHC.GetArchivosDavibox(ref _MsgError);
+                //--
+                if (dtFileDavibox != null)
+                {
+                    if (dtFileDavibox.Rows.Count > 0)
+                    {
+                        this.CmbAnioGravable.SelectedValue = dtFileDavibox.Rows[0]["anio_gravable"].ToString().Trim();
+                        this.CmbTipoPeriodicidad.SelectedValue = dtFileDavibox.Rows[0]["tipo_periodicidad"].ToString().Trim();
+                        //--AQUI VALIDAMOS EL TIPO DE PERIODICIDAD
+                        if (this.CmbTipoPeriodicidad.SelectedValue.ToString().Trim().Equals("1"))
+                        {
+                            this.LstPeriodicidadMensual();
+                        }
+                        else
+                        {
+                            this.LstPeriodicidadBimestral();
+
+                        }
+                        //--
+                        this.CmbPeriodo.SelectedValue = dtFileDavibox.Rows[0]["periodicidad"].ToString().Trim();
+                        this.ViewState["UuIdFolder"] = dtFileDavibox.Rows[0]["uuid_folder"].ToString().Trim();
+                    }
+                }
             }
         }
 
@@ -298,68 +327,41 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                 int _Periodo = Int32.Parse(this.CmbPeriodo.SelectedValue.ToString().Trim());
                 ObjProcessAPI.AnioProcesar = Int32.Parse(this.CmbAnioGravable.SelectedValue.ToString().Trim());
                 ObjProcessAPI.MesProcesar = Int32.Parse(this.CmbPeriodo.SelectedValue.ToString().Trim());
-                //--GENERAR EL UUID
-                Guid _UuId = Guid.NewGuid();
-                ObjProcessAPI.UuId = _UuId.ToString().Trim();
+                ObjProcessAPI.UuId = this.ViewState["UuIdFolder"].ToString().Trim();
                 string _DataTarea = this.CmbAnioGravable.SelectedItem.Text.ToString().Trim() + "_" + this.CmbTipoPeriodicidad.SelectedItem.Text.ToString().Trim() + "_" + this.CmbPeriodo.SelectedValue.ToString().Trim();
 
-                string _Mensaje = "";
-                if (ObjProcessAPI.GetDownloadFileDavibox(_TipoPeriodicidad, _Periodo, ref _Mensaje))
+                string _Mensaje = "", _UuId = "";
+                if (ObjProcessAPI.GetConciliarFileDavibox(_TipoPeriodicidad, _Periodo, ref _UuId, ref _Mensaje))
                 {
-                    //--PROCESO EXITOSO MANDAMOS A CREAR LA TAREA PROGRAMADA
-                    //--
-                    int _TipoProceso = 5;
-                    string _NombreTarea = "FILE_DAVIBOX_" + _DataTarea;
-                    string _MsgError = "";
-                    DeleteTaskSchedulerManual(_NombreTarea, ref _MsgError);
-                    //--
-                    if (CreateTaskSchedulerManual(_TipoProceso, ObjProcessAPI.UuId, _NombreTarea, ref _MsgError))
+                    _UuId = this.ViewState["UuIdFolder"].ToString().Trim();
+                    #region AQUI OBTENEMOS LOS DATOS DE RESPUESTA DEL SERVICIO
+                    if (_UuId.ToString().Trim().Length > 0)
                     {
-                        #region REGISTRO DE LOGS DE AUDITORIA
-                        //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
-                        ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
-                        ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
-                        ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
-                        ObjAuditoria.IdTipoEvento = 2;  //--INSERT
-                        ObjAuditoria.ModuloApp = "TASK_FILE_DAVIBOX";
-                        ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
-                        ObjAuditoria.DescripcionEvento = _TipoProceso + "|" + 3 + "|" + _NombreTarea;
-                        ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
-                        ObjAuditoria.TipoProceso = 1;
+                        #region AQUI RECORREMOS LA RUTA DE LOS ARCHIVOS
+                        //--
+                        //--ESTA VARIABLE ES SOLO PARA EL PROCESO DE CARGUE DE INFO DE TARJETA DE CREDITO
+                        DataTable dtFiles = new DataTable();
+                        dtFiles.TableName = "DtFiles";
+                        dtFiles = new DataTable();
+                        dtFiles.Columns.Add("ID_REGISTRO", typeof(Int32));
+                        dtFiles.PrimaryKey = new DataColumn[] { dtFiles.Columns["ID_REGISTRO"] };
+                        dtFiles.Columns.Add("NOMBRE_ARCHIVO");
+                        //dtFiles.Columns.Add("CANTIDAD_REGISTROS");
 
-                        //'Agregar Auditoria del sistema
-                        string _MsgErrorLogs = "";
-                        if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                        //--
+                        string _PathFile = FixedData.PathFilesCrucesDavibox + "\\" + _UuId.ToString().Trim();
+                        string[] files = Directory.GetFiles(_PathFile); // Obtener archivos
+                        //--
+                        foreach (string NameFile in files)
                         {
-                            _log.Error(_MsgErrorLogs);
+                            //--AQUI AGREGAMOS LOS DATOS DEL ARCHIVO AL DATATABLE
+                            DataRow Fila = null;
+                            Fila = dtFiles.NewRow();
+                            Fila["ID_REGISTRO"] = dtFiles.Rows.Count + 1;
+                            Fila["NOMBRE_ARCHIVO"] = NameFile.ToString().Trim();
+                            dtFiles.Rows.Add(Fila);
                         }
-                        #endregion
 
-                        #region MOSTRAR MENSAJE DE USUARIO
-                        //Mostramos el mensaje porque se produjo un error con la Trx.
-                        this.RadWindowManager1.ReloadOnShow = true;
-                        this.RadWindowManager1.DestroyOnClose = true;
-                        this.RadWindowManager1.Windows.Clear();
-                        this.RadWindowManager1.Enabled = true;
-                        this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                        this.RadWindowManager1.Visible = true;
-
-                        RadWindow Ventana = new RadWindow();
-                        Ventana.Modal = true;
-                        _Mensaje = "Señor usuario, el proceso de la tarea programada fue creada de forma exitosa dentro algunos minutos le estara llegando un correo con la confirmación de que el proceso ha terminado. !";
-                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _Mensaje;
-                        Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
-                        Ventana.VisibleOnPageLoad = true;
-                        Ventana.Visible = true;
-                        Ventana.Height = Unit.Pixel(300);
-                        Ventana.Width = Unit.Pixel(650);
-                        Ventana.KeepInScreenBounds = true;
-                        Ventana.Title = "Mensaje del Sistema";
-                        Ventana.VisibleStatusbar = false;
-                        Ventana.Behaviors = WindowBehaviors.Close;
-                        this.RadWindowManager1.Windows.Add(Ventana);
-                        this.RadWindowManager1 = null;
-                        Ventana = null;
                         #endregion
                     }
                     else
@@ -376,7 +378,8 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
 
                         RadWindow Ventana = new RadWindow();
                         Ventana.Modal = true;
-                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                        _Mensaje = "Señor usuario, no se encontro una ruta para buscar los archivos de conciliación. Por favor validar !";
+                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _Mensaje;
                         Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
                         Ventana.VisibleOnPageLoad = true;
                         Ventana.Visible = true;
@@ -391,6 +394,7 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                         Ventana = null;
                         #endregion
                     }
+                    #endregion
                 }
                 else
                 {

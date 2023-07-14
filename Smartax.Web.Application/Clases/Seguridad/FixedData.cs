@@ -65,6 +65,7 @@ namespace Smartax.Web.Application.Clases.Seguridad
 
         //--Datos de variables para Conectarse a las API de Smartax Services Davibox
         public static readonly string BaseUrlDavibox = ConfigurationManager.AppSettings["BASE_URL_DAVIBOX"].ToString().Trim();
+        public static readonly string PathFilesCrucesDavibox = ConfigurationManager.AppSettings["PATH_FILES_CRUCES_DAVIBOX"].ToString().Trim();
 
         //--VARIABLES DE CONFIGURACION DE SEPARADOR DE MILES Y DECIMALES
         public static readonly string SeparadorMilesAp = ConfigurationManager.AppSettings["SEPARADOR_MILES_AP"].ToString().Trim();

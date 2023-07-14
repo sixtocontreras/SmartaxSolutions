@@ -87,7 +87,19 @@ namespace Smartax.Web.Application.Clases.ProcessAPIs
 
         public class DownloadFileDavibox_Resp
         {
+            public string codigo { get; set; }
+            public string msg { get; set; }
             public string uuid { get; set; }
+            public List<object> transferedfiles { get; set; }
+            public List<object> failedfiles { get; set; }
+        }
+
+        public class ConciliarFileDavibox_Resp
+        {
+            public string codigo { get; set; }
+            public string msg { get; set; }
+            public string uuid { get; set; }
+            public bool status { get; set; }
             public List<object> transferedfiles { get; set; }
             public List<object> failedfiles { get; set; }
         }

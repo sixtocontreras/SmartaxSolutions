@@ -201,10 +201,10 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
             try
             {
                 ObjLista.MostrarSeleccione = "SI";
-                this.CmbAplicativo.DataSource = ObjLista.GetAplicativo();
-                this.CmbAplicativo.DataValueField = "id_aplicativo";
-                this.CmbAplicativo.DataTextField = "aplicativo";
-                this.CmbAplicativo.DataBind();
+                //this.CmbAplicativo.DataSource = ObjLista.GetAplicativo();
+                //this.CmbAplicativo.DataValueField = "id_aplicativo";
+                //this.CmbAplicativo.DataTextField = "aplicativo";
+                //this.CmbAplicativo.DataBind();
             }
             catch (Exception ex)
             {
@@ -263,7 +263,7 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                 //this.AplicarPermisos();
                 //--LISTAR COMBOBOX
                 this.LstAnioGravable();
-                this.LstAplicativo();
+                //this.LstAplicativo();
                 this.LstTipoPeriodicidad();
             }
         }
@@ -305,61 +305,106 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                 string _Mensaje = "";
                 if (ObjProcessAPI.GetDownloadFileDavibox(_TipoPeriodicidad, _Periodo, ref _Mensaje))
                 {
-                    //--PROCESO EXITOSO MANDAMOS A CREAR LA TAREA PROGRAMADA
-                    //--
-                    int _TipoProceso = 5;
-                    string _NombreTarea = "FILE_DAVIBOX_" + _DataTarea;
+                    //--ACTUALIZAMOS EL UUID EN LA TABLA DE ARCHIVOS A PROCESAR
+                    ObjConciliacionHC.TipoProceso = 2;
+                    ObjConciliacionHC.UuId = _UuId.ToString().Trim();
+                    ObjConciliacionHC.AnioGravable = this.CmbAnioGravable.SelectedValue.ToString().Trim();
+                    ObjConciliacionHC.TipoPeriodicidad = this.CmbTipoPeriodicidad.SelectedValue.ToString().Trim();
+                    ObjConciliacionHC.Periodicidad = this.CmbPeriodo.SelectedValue.ToString().Trim();
+                    ObjConciliacionHC.TipoArchivo = "PROCESAR_FILE_DAVIBOX";
+                    ObjConciliacionHC.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+
+                    int _IdRegistro = 0;
                     string _MsgError = "";
-                    DeleteTaskSchedulerManual(_NombreTarea, ref _MsgError);
-                    //--
-                    if (CreateTaskSchedulerManual(_TipoProceso, ObjProcessAPI.UuId, _NombreTarea, ref _MsgError))
+                    if (ObjConciliacionHC.UpUuidFilesDavibox(ref _IdRegistro, ref _MsgError))
                     {
-                        #region REGISTRO DE LOGS DE AUDITORIA
-                        //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
-                        ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
-                        ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
-                        ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
-                        ObjAuditoria.IdTipoEvento = 2;  //--INSERT
-                        ObjAuditoria.ModuloApp = "TASK_FILE_DAVIBOX";
-                        ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
-                        ObjAuditoria.DescripcionEvento = _TipoProceso + "|" + 3 + "|" + _NombreTarea;
-                        ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
-                        ObjAuditoria.TipoProceso = 1;
+                        //--PROCESO EXITOSO MANDAMOS A CREAR LA TAREA PROGRAMADA
+                        //--
+                        int _TipoProceso = 5;
+                        string _NombreTarea = "FILE_DAVIBOX_" + _DataTarea;
+                        _MsgError = "";
+                        DeleteTaskSchedulerManual(_NombreTarea, ref _MsgError);
 
-                        //'Agregar Auditoria del sistema
-                        string _MsgErrorLogs = "";
-                        if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                        //--
+                        _MsgError = "";
+                        if (CreateTaskSchedulerManual(_TipoProceso, ObjProcessAPI.UuId, _NombreTarea, ref _MsgError))
                         {
-                            _log.Error(_MsgErrorLogs);
+                            #region REGISTRO DE LOGS DE AUDITORIA
+                            //--AQUI REGISTRAMOS EN LOS LOGS DE AUDITORIA
+                            ObjAuditoria.MotorBaseDatos = this.Session["MotorBaseDatos"].ToString().Trim();
+                            ObjAuditoria.IdEmpresa = Convert.ToInt32(this.Session["IdEmpresa"].ToString().Trim());
+                            ObjAuditoria.IdUsuario = Convert.ToInt32(this.Session["IdUsuario"].ToString().Trim());
+                            ObjAuditoria.IdTipoEvento = 2;  //--INSERT
+                            ObjAuditoria.ModuloApp = "TASK_FILE_DAVIBOX";
+                            ObjAuditoria.UrlVisitada = Request.ServerVariables["PATH_INFO"].ToString().Trim();
+                            ObjAuditoria.DescripcionEvento = _TipoProceso + "|" + 3 + "|" + _NombreTarea;
+                            ObjAuditoria.IPCliente = ObjUtils.GetIPAddress().ToString().Trim();
+                            ObjAuditoria.TipoProceso = 1;
+
+                            //'Agregar Auditoria del sistema
+                            string _MsgErrorLogs = "";
+                            if (!ObjAuditoria.AddAuditoria(ref _MsgErrorLogs))
+                            {
+                                _log.Error(_MsgErrorLogs);
+                            }
+                            #endregion
+
+                            #region MOSTRAR MENSAJE DE USUARIO
+                            //Mostramos el mensaje porque se produjo un error con la Trx.
+                            this.RadWindowManager1.ReloadOnShow = true;
+                            this.RadWindowManager1.DestroyOnClose = true;
+                            this.RadWindowManager1.Windows.Clear();
+                            this.RadWindowManager1.Enabled = true;
+                            this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                            this.RadWindowManager1.Visible = true;
+
+                            RadWindow Ventana = new RadWindow();
+                            Ventana.Modal = true;
+                            _Mensaje = "Señor usuario, el proceso de la tarea programada fue creada de forma exitosa dentro algunos minutos le estara llegando un correo con la confirmación de que el proceso ha terminado. !";
+                            Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _Mensaje;
+                            Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
+                            Ventana.VisibleOnPageLoad = true;
+                            Ventana.Visible = true;
+                            Ventana.Height = Unit.Pixel(300);
+                            Ventana.Width = Unit.Pixel(650);
+                            Ventana.KeepInScreenBounds = true;
+                            Ventana.Title = "Mensaje del Sistema";
+                            Ventana.VisibleStatusbar = false;
+                            Ventana.Behaviors = WindowBehaviors.Close;
+                            this.RadWindowManager1.Windows.Add(Ventana);
+                            this.RadWindowManager1 = null;
+                            Ventana = null;
+                            #endregion
                         }
-                        #endregion
+                        else
+                        {
+                            #region MOSTRAR MENSAJE DE USUARIO
+                            this.UpdatePanel1.Update();
+                            //Mostramos el mensaje porque se produjo un error con la Trx.
+                            this.RadWindowManager1.ReloadOnShow = true;
+                            this.RadWindowManager1.DestroyOnClose = true;
+                            this.RadWindowManager1.Windows.Clear();
+                            this.RadWindowManager1.Enabled = true;
+                            this.RadWindowManager1.EnableAjaxSkinRendering = true;
+                            this.RadWindowManager1.Visible = true;
 
-                        #region MOSTRAR MENSAJE DE USUARIO
-                        //Mostramos el mensaje porque se produjo un error con la Trx.
-                        this.RadWindowManager1.ReloadOnShow = true;
-                        this.RadWindowManager1.DestroyOnClose = true;
-                        this.RadWindowManager1.Windows.Clear();
-                        this.RadWindowManager1.Enabled = true;
-                        this.RadWindowManager1.EnableAjaxSkinRendering = true;
-                        this.RadWindowManager1.Visible = true;
-
-                        RadWindow Ventana = new RadWindow();
-                        Ventana.Modal = true;
-                        _Mensaje = "Señor usuario, el proceso de la tarea programada fue creada de forma exitosa dentro algunos minutos le estara llegando un correo con la confirmación de que el proceso ha terminado. !";
-                        Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _Mensaje;
-                        Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
-                        Ventana.VisibleOnPageLoad = true;
-                        Ventana.Visible = true;
-                        Ventana.Height = Unit.Pixel(300);
-                        Ventana.Width = Unit.Pixel(650);
-                        Ventana.KeepInScreenBounds = true;
-                        Ventana.Title = "Mensaje del Sistema";
-                        Ventana.VisibleStatusbar = false;
-                        Ventana.Behaviors = WindowBehaviors.Close;
-                        this.RadWindowManager1.Windows.Add(Ventana);
-                        this.RadWindowManager1 = null;
-                        Ventana = null;
-                        #endregion
+                            RadWindow Ventana = new RadWindow();
+                            Ventana.Modal = true;
+                            Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError;
+                            Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
+                            Ventana.VisibleOnPageLoad = true;
+                            Ventana.Visible = true;
+                            Ventana.Height = Unit.Pixel(300);
+                            Ventana.Width = Unit.Pixel(600);
+                            Ventana.KeepInScreenBounds = true;
+                            Ventana.Title = "Mensaje del Sistema";
+                            Ventana.VisibleStatusbar = false;
+                            Ventana.Behaviors = WindowBehaviors.Close;
+                            this.RadWindowManager1.Windows.Add(Ventana);
+                            this.RadWindowManager1 = null;
+                            Ventana = null;
+                            #endregion
+                        }
                     }
                     else
                     {
@@ -405,7 +450,8 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
 
                     RadWindow Ventana = new RadWindow();
                     Ventana.Modal = true;
-                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _Mensaje;
+                    string[] _MsgError = _Mensaje.ToString().Trim().Split('|');
+                    Ventana.NavigateUrl = "/Controles/General/FrmMensaje.aspx?strMensaje=" + _MsgError[1].ToString().Trim();
                     Ventana.ID = "RadWindow" + ObjUtils.GetRandom();
                     Ventana.VisibleOnPageLoad = true;
                     Ventana.Visible = true;
@@ -540,7 +586,7 @@ namespace Smartax.Web.Application.Controles.Administracion.ConciliacionHC
                     //}
                     #endregion
 
-                    int _IdCliente = Int32.Parse(this.Session["IdCliente"].ToString().Trim());
+                    int _IdCliente = this.Session["IdCliente"] != null ? Int32.Parse(this.Session["IdCliente"].ToString().Trim()) : 4;
                     int _IdTipoPeriodicidad = Int32.Parse(this.CmbTipoPeriodicidad.SelectedValue.ToString().Trim());
                     int _AnioGravable = Int32.Parse(this.CmbAnioGravable.SelectedValue.ToString().Trim());
                     string _MesEf = this.CmbPeriodo.SelectedValue.ToString().Trim();
